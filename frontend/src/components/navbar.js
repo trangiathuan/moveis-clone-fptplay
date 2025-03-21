@@ -5,6 +5,10 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false); // Đảm bảo rằng trạng thái này được sử dụng đúng
     const isLogin = !!localStorage.getItem('token');
+
+    useEffect(() => {
+        // localStorage.removeItem('token')
+    }, [])
     const toggleMenuXemThem = () => {
         setIsOpenXemThem(!isOpenXT);
     };
@@ -98,16 +102,15 @@ const Navbar = () => {
                                     )}
                                 </div>
                             ) : (
-                                <div>Đăng nhập</div>
-
+                                <div className="mt-2">
+                                    <a href="#">Đăng nhập</a>
+                                </div>
                             )}
                         </div>
-
                     </div>
                 </div>
             </nav>
 
-            {/* Mobile Menu - Only visible on small screens */}
             {isMenuOpen && (
                 <div className="xl:hidden bg-black text-white p-5">
                     <a href="#" className="block py-2">Trang chủ</a>
