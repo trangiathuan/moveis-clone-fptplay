@@ -1,58 +1,54 @@
-import { useEffect, useRef, useState } from "react";
-const Navbar = () => {
+import { useEffect, useState } from "react";
 
+const Navbar = () => {
     const [isOpenXT, setIsOpenXemThem] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // Đảm bảo rằng trạng thái này được sử dụng đúng
+    const isLogin = !!localStorage.getItem('token');
     const toggleMenuXemThem = () => {
         setIsOpenXemThem(!isOpenXT);
     };
+
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
-    useEffect(() => {
+    const toggleMobileMenu = () => {
+        setIsMenuOpen(!isMenuOpen); // Đảm bảo rằng trạng thái được thay đổi khi nhấn vào hamburger
+    };
 
-    }, []);
     return (
         <div>
-            <nav className="flex bg-black w-full p-0 fixed justify-between">
-                <div className="flex lg:hidden ps-5">
-                    <button className="">
-                        <img className="w-5 " src={require('../Asset/image-logo/menu.png')} />
+            <nav className="flex bg-black w-full p-0 fixed justify-between z-30">
+                {/* Hamburger Menu Icon for small screens */}
+                <div className="flex xl:hidden ps-5">
+                    <button onClick={toggleMobileMenu}>
+                        <img className="w-5" src={require('../asset/image-logo/menu.png')} />
                     </button>
                 </div>
-                <div className="ps-48 -me-40 pt-3 pb-3">
-                    <img className=" flex w-32" src={require('../Asset/image-logo/logoFPT.png')} />
+
+                {/* Logo */}
+                <div className="ps-44 -me-40 pt-3 pb-0">
+                    <img className="flex w-32" src={require('../asset/image-logo/logoFPT.png')} />
                 </div>
-                <div className="hidden lg:flex pt-7 pb-7">
-                    <a href="#" className="text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600" >
-                        Trang chủ
-                    </a>
-                    <a href="#" className="text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600" >
-                        Truyền hình
-                    </a>
-                    <a href="#" className="text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600" >
-                        Phim bộ
-                    </a>
-                    <a href="#" className="text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600" >
-                        V.League
-                    </a>
-                    <a href="#" className="text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600" >
-                        Anime
-                    </a>
-                    <div className=" relative inline-block text-left -mt-2">
+
+                {/* Main Menu - Only visible on larger screens (xl and above) */}
+                <div className={`hidden xl:flex pt-7 pb-5`}>
+                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Trang chủ</a>
+                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Truyền hình</a>
+                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim bộ</a>
+                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">V.League</a>
+                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Anime</a>
+
+                    {/* Dropdown menu "Xem thêm" */}
+                    <div className="relative inline-block text-left -mt-2">
                         <a
                             href="#"
                             onClick={toggleMenuXemThem}
-                            className="flex text-white px-4 py-2 text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600"
-                            type="button"
+                            className="flex text-stone-400 px-4 py-2 text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600"
                         >
                             Xem thêm
-
-                            <img className="ms-2 mt-2 w-3 h-3" src={require('../Asset/image-logo/down.png')} />
-
+                            <img className="ms-2 mt-2 w-3 h-3" src={require('../asset/image-logo/down.png')} />
                         </a>
 
                         {isOpenXT && (
@@ -67,45 +63,62 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className="flex text-white pe-48 -ms-10">
+                {/* Right Section (Icons and Buttons) */}
+                <div className="flex text-white pe-44 -ms-10">
                     <a>
-                        <img className="w-5 pt-8 me-5 " src={require('../Asset/image-logo/search.png')} />
+                        <img className="w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
                     </a>
                     <a>
-                        <img className="w-5 pt-8 me-5" src={require('../Asset/image-logo/bell.png')} />
+                        <img className="w-5 pt-8 me-5" src={require('../asset/image-logo/bell.png')} />
                     </a>
                     <div className="pt-5">
-                        <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28">
-                            <img className="ms-3 mt-2 w-5 h-5 me-3" src={require('../Asset/image-logo/wallet.png')} />
-                            <span className="mt-2">
-                                Mua gói
-                            </span>
+                        <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28 justify-between">
+                            <img className="w-9 h-8 ps-3 pt-2" src={require('../asset/image-logo/wallet.png')} />
+                            <span className="pt-2 pe-3">Mua gói</span>
                         </button>
                     </div>
+
                     <div className="pt-5">
+                        <div className="flex relative inline-block text-left">
+                            {isLogin ? (
+                                <div>
+                                    <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-9" onClick={toggleMenu}>
+                                        <img className="w-7 m-1" src={require('../asset/image-logo/emoji.png')} />
+                                        <img className="ms-2 mt-3 w-4 h-4" src={require('../asset/image-logo/down.png')} />
+                                    </button>
 
-                        <div className="flex relative inline-block text-left ">
-                            <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-9"
-                                onClick={toggleMenu}>
-                                <img className="w-7 m-1" src={require('../Asset/image-logo/emoji.png')} />
-                                <img className="ms-2 mt-3 w-4 h-4" src={require('../Asset/image-logo/down.png')} />
-                            </button>
-
-                            {isOpen && (
-                                <div className="absolute bg-neutral-800 shadow-md rounded-md mt-11 w-48 -ms-32">
-                                    <ul className="py-2">
-                                        <li><a href="#" className="block px-4 py-2 text-white">Option 1</a></li>
-                                        <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
-                                        <li><a href="#" className="block px-4 py-2 text-white">Option 3</a></li>
-                                    </ul>
+                                    {isOpen && (
+                                        <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
+                                            <ul className="py-2">
+                                                <li><a href="#" className="block px-4 py-2 text-white">Option 1</a></li>
+                                                <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
+                                                <li><a href="#" className="block px-4 py-2 text-white">Option 3</a></li>
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
+                            ) : (
+                                <div>Đăng nhập</div>
+
                             )}
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </nav >
-        </div >
-    )
-}
+            </nav>
+
+            {/* Mobile Menu - Only visible on small screens */}
+            {isMenuOpen && (
+                <div className="xl:hidden bg-black text-white p-5">
+                    <a href="#" className="block py-2">Trang chủ</a>
+                    <a href="#" className="block py-2">Truyền hình</a>
+                    <a href="#" className="block py-2">Phim bộ</a>
+                    <a href="#" className="block py-2">V.League</a>
+                    <a href="#" className="block py-2">Anime</a>
+                </div>
+            )}
+        </div>
+    );
+};
+
 export default Navbar;
