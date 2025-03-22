@@ -5,7 +5,11 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
+
 import Login from './components/login';
+
+import DetailMovie from './pages/detail-movie';
+
 
 
 
@@ -15,7 +19,11 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
+
         <Route path="/login" element={<Login />} />
+
+        <Route path='/detail' element={<DetailMovie />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
