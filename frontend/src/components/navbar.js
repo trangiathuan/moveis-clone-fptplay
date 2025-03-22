@@ -103,7 +103,7 @@ const Navbar = () => {
                                 </div>
                             ) : (
                                 <div className="mt-2">
-                                    <a href="#">Đăng nhập</a>
+                                    <a href="/login">Đăng nhập</a>
                                 </div>
                             )}
                         </div>
