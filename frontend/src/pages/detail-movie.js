@@ -1,9 +1,14 @@
-import Detail from "../components/detail-movie";
-
+import Detail from "../components/deatail_movies/detail-movie";
+import Navbar from "../components/navbar";
 const DetailMovie = () => {
-    return(
+    return (
         <div>
-            <Detail/>
+            <div>
+                <Navbar />
+            </div>
+            <div>
+                <Detail />
+            </div>
         </div>
     )
 }
