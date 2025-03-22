@@ -1,4 +1,4 @@
-import Detail from "../components/detail-movie";
+import Detail from "../components/deatail_movies/detail-movie";
 
 const DetailMovie = () => {
     return(
