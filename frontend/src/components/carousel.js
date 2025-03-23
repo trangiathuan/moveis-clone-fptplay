@@ -32,7 +32,7 @@ const Carousel = () => {
                             <img
                                 src={slide}
                                 alt={`Slide ${index + 1}`}
-                                className="w-full h-[600px] object-cover rounded-lg object-cover"
+                                className="w-full h-[600px] rounded-lg object-cover"
                             />
                             {/* Gradient overlay on each slide */}
                             <div className="absolute bottom-0 left-0 w-full h-[80%] bg-gradient-to-t from-black to-transparent rounded-lg opacity-100"></div>
