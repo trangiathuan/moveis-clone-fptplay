@@ -22,17 +22,13 @@ const Login = () => {
 
   return (
     <div className="w-full min-h-screen bg-black m-0 p-0 flex flex-col">
-      {/* Header */}
       <div className="flex items-center ">
-        {/* Logo */}
         <div className="flex flex-grow justify-center w-16 h-16">
           <img src={require('../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
         </div>
-        {/* Close Button */}
+
         <a href="/" className="flex justify-center items-center w-9 h-9 bg-white text-black text-xl font-bold rounded-full shadow-md">x</a>
       </div>
-
-      {/* Form */}
       <div className="flex items-center justify-center flex-grow">
         <div className="bg-neutral-800 p-8 rounded-xl shadow-lg w-full max-w-lg">
           {step === 1 && (

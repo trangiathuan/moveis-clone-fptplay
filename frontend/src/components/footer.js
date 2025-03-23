@@ -88,30 +88,31 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="text-gray-200 text-sm mt-8">
-                    <p className="mb-2">
-                        Công ty Cổ phần Viễn Thông FPT - Người đại diện: Ông Hoàng Việt Anh.
-                        Trụ sở: Tầng 2, Tòa nhà FPT Cầu Giấy, số 17 Phố Duy Tân, Phường
-                        Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội.
-                    </p>
-                    <p className="mb-2">
-                        Địa chỉ liên hệ: Tầng 9, Block A, tòa nhà FPT Cầu Giấy, số 10 Phạm
-                        Văn Bạch, quận Cầu Giấy, TP. Hà Nội.
-                    </p>
-                    <p className="mb-2">
-                        Số điện thoại liên hệ:
-                        <a href="tel:02473002222" className="active:text-red-500 focus:text-red-500 hover:text-red-500">024 7300 2222</a>.
-                        Thư điện tử:
-                        <a href="mailto:hotrokhachhang@fpt.com" className="active:text-red-500 focus:text-red-500 hover:text-red-500">hotrokhachhang@fpt.com</a>
-                        hoặc
-                        <a href="mailto:hotrofptplay@fpt.com" className="active:text-red-500 focus:text-red-500 hover:text-red-500">hotrofptplay@fpt.com</a>.
-                    </p>
-                    <p>
-                        Giấy chứng nhận đăng ký doanh nghiệp số 0101778163 do Sở Kế hoạch và
-                        Đầu tư Thành phố Hà Nội cấp lần đầu ngày 28/7/2005, cấp đăng ký thay
-                        đổi lần thứ 32 vào ngày 21/12/2023.
-                    </p>
-                </div>
+
+            </div>
+            <div className="text-gray-200 text-sm mt-8  px-40">
+                <p className="mb-2 text-left">
+                    Công ty Cổ phần Viễn Thông FPT - Người đại diện: Ông Hoàng Việt Anh.
+                    Trụ sở: Tầng 2, Tòa nhà FPT Cầu Giấy, số 17 Phố Duy Tân, Phường
+                    Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội.
+                </p>
+                <p className="mb-2">
+                    Địa chỉ liên hệ: Tầng 9, Block A, tòa nhà FPT Cầu Giấy, số 10 Phạm
+                    Văn Bạch, quận Cầu Giấy, TP. Hà Nội.
+                </p>
+                <p className="mb-2">
+                    Số điện thoại liên hệ:
+                    <a href="tel:02473002222" className="active:text-red-500 focus:text-red-500 hover:text-red-500">024 7300 2222</a>.
+                    Thư điện tử:
+                    <a href="mailto:hotrokhachhang@fpt.com" className="active:text-red-500 focus:text-red-500 hover:text-red-500">hotrokhachhang@fpt.com</a>
+                    hoặc
+                    <a href="mailto:hotrofptplay@fpt.com" className="active:text-red-500 focus:text-red-500 hover:text-red-500">hotrofptplay@fpt.com</a>.
+                </p>
+                <p>
+                    Giấy chứng nhận đăng ký doanh nghiệp số 0101778163 do Sở Kế hoạch và
+                    Đầu tư Thành phố Hà Nội cấp lần đầu ngày 28/7/2005, cấp đăng ký thay
+                    đổi lần thứ 32 vào ngày 21/12/2023.
+                </p>
             </div>
         </footer>
     );
