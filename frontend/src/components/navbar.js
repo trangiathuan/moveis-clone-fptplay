@@ -78,7 +78,7 @@ const Navbar = () => {
                     <div className="pt-5">
                         <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28 justify-between">
                             <img className="w-9 h-8 ps-3 pt-2" src={require('../asset/image-logo/wallet.png')} />
-                            <span className="pt-2 pe-3">Mua gói</span>
+                            <a href="/buypackage" className="pt-2 pe-3">Mua gói</a>
                         </button>
                     </div>
 

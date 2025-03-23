@@ -1,4 +1,5 @@
 import Detail from "../components/deatail_movies/detail-movie";
+import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 const DetailMovie = () => {
     return (
@@ -8,6 +9,9 @@ const DetailMovie = () => {
             </div>
             <div>
                 <Detail />
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     )
