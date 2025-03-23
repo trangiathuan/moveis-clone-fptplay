@@ -21,7 +21,7 @@ const Login = () => {
           <img src={require('../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
         </div>
         {/* Close Button */}
-        <a href="#" className="flex justify-center items-center w-9 h-9 bg-white text-black text-xl font-bold rounded-full shadow-md">x</a>
+        <a href="/" className="flex justify-center items-center w-9 h-9 bg-white text-black text-xl font-bold rounded-full shadow-md">x</a>
       </div>
 
       {/* Form đăng nhập */}
