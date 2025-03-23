@@ -122,7 +122,7 @@ const MoviesHot = () => {
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <div className='ps-0'>
+                            <div className='ps-0 '>
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
