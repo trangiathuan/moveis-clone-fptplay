@@ -1,100 +1,81 @@
-import { Play, Heart, Share2, Star } from "lucide-react";
-
+import { useRef, useState } from "react";
+import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles } from "lucide-react";
 const Video_comp = () => {
-
-    return (
-        <div>
-            {/* Video Section */}
-            <div className="w-full max-w-5xl relative pt-20">
-                <video
-                    className="w-full rounded-lg"
-                    src={require('../../asset/video/naruto.mp4')}
-                    controls
-                    poster="/path-to-poster.jpg"
-                    autoplay
-                    preload="auto"
-                />
-            </div>
-        </div>
-const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+    const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const [progress, setProgress] = useState(0);
-  // Xử lý Play/Pause
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [showSettings, setShowSettings] = useState(false);
+
   const togglePlay = () => {
     if (videoRef.current.paused) {
       videoRef.current.play();
+      setPlaying(true);
     } else {
       videoRef.current.pause();
+      setPlaying(false);
     }
-    setIsPlaying(!isPlaying);
   };
 
-  // Xử lý mute/unmute
-  const toggleMute = () => {
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+  const skipTime = (seconds) => {
+    videoRef.current.currentTime += seconds;
   };
 
-  // Xử lý tiến độ video
-  const handleProgress = () => {
-    const progressValue = (videoRef.current.currentTime / videoRef.current.duration) * 100;
-    setProgress(progressValue);
-  };
-
-  // Xử lý toàn màn hình
-  const handleFullscreen = () => {
-    if (videoRef.current.requestFullscreen) {
+  const toggleFullscreen = () => {
+    if (!fullscreen) {
       videoRef.current.requestFullscreen();
+    } else {
+      document.exitFullscreen();
     }
+    setFullscreen(!fullscreen);
   };
+
+  const updateProgress = () => {
+    setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
+  };
+
+  const changePlaybackSpeed = (speed) => {
+    videoRef.current.playbackRate = speed;
+    setPlaybackSpeed(speed);
+  };
+
     return(
-        <div className="relative w-full max-w-4xl mx-auto bg-black text-white">
-      {/* Video */}
-      <video
-        ref={videoRef}
-        src="frontend/src/asset/videos/9convert.com - THẦY BA CHÚC MỪNG SINH NHẬT 2023.mp4"
-        className="w-full h-[400px]"
-        onTimeUpdate={handleProgress}
-      />
-
-      {/* Nút Play */}
-      {!isPlaying && (
-        <button
-          onClick={togglePlay}
-          className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50"
-        >
-          <Play className="text-white w-16 h-16" />
-        </button>
-      )}
-
-      {/* Điều khiển */}
-      <div className="absolute bottom-0 left-0 right-0 p-3 bg-black bg-opacity-60 flex items-center justify-between">
-        {/* Nút Play/Pause */}
-        <button onClick={togglePlay}>
-          {isPlaying ? <Pause className="text-white w-6 h-6" /> : <Play className="text-white w-6 h-6" />}
-        </button>
-
-        {/* Thanh Tiến Độ */}
-        <input
-          type="range"
-          value={progress}
-          onChange={(e) => (videoRef.current.currentTime = (e.target.value / 100) * videoRef.current.duration)}
-          className="w-full mx-4"
-        />
-
-        {/* Nút Âm Lượng */}
-        <button onClick={toggleMute}>
-          {isMuted ? <VolumeX className="text-white w-6 h-6" /> : <Volume2 className="text-white w-6 h-6" />}
-        </button>
-
-        {/* Nút Fullscreen */}
-        <button onClick={handleFullscreen}>
-          <Expand className="text-white w-6 h-6" />
-        </button>
+        <div className="relative w-full max-w-3xl mx-auto">
+      <video 
+        ref={videoRef} 
+        className="w-full rounded-lg" 
+        src="https://res.cloudinary.com/dkp3rw6p8/video/upload/v1742749049/9convert.com_-_TH%E1%BA%A6Y_BA_CH%C3%9AC_M%E1%BB%AANG_SINH_NH%E1%BA%ACT_2023_PH%E1%BA%A6N_2_filcqc.mp4" 
+        controls={false} 
+        onTimeUpdate={updateProgress}
+      ></video>
+      
+      <div className="absolute bottom-10 left-2 right-2 h-1 bg-gray-500 rounded overflow-hidden">
+        <div className="h-full bg-blue-500" style={{ width: `${progress}%` }}></div>
+      </div>
+      
+      <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between p-2 bg-black bg-opacity-50 rounded-lg">
+        <div className="flex space-x-2">
+          <button onClick={togglePlay} className="text-white">{playing ? <Pause /> : <Play />}</button>
+          <button onClick={() => skipTime(-10)} className="text-white"><RotateCcw /></button>
+          <button onClick={() => skipTime(10)} className="text-white"><RotateCw /></button>
+        </div>
+        <div className="flex space-x-2 relative">
+          <button className="text-white"><Flag /></button>
+          <button className="text-white"><SkipForward /></button>
+          <button className="text-white"><Subtitles /></button>
+          <button onClick={() => setShowSettings(!showSettings)} className="text-white relative"><Settings /></button>
+          {showSettings && (
+            <div className="absolute bottom-10 right-0 bg-gray-800 p-2 rounded shadow-lg">
+              {[0.75, 1, 1.25, 2, 3, 5].map((speed) => (
+                <button key={speed} onClick={() => changePlaybackSpeed(speed)} className={`block text-white px-2 py-1 ${playbackSpeed === speed ? 'bg-blue-500' : ''}`}>{speed}x</button>
+              ))}
+            </div>
+          )}
+          <button onClick={toggleFullscreen} className="text-white">{fullscreen ? <Minimize2 /> : <Maximize2 />}</button>
+        </div>
       </div>
     </div>
-
     )
 }
 export default Video_comp;
