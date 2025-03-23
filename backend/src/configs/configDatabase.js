@@ -3,7 +3,7 @@ const sql = require('mssql');
 const config = {
     user: 'giathuan',      // Tên người dùng SQL Server
     password: '123',  // Mật khẩu của người dùng SQL Server
-    server: '192.168.1.7' || 'localhost',    // Địa chỉ IP của file server (máy chủ SQL Server)
+    server: 'localhost',    // Địa chỉ IP của file server (máy chủ SQL Server)
     port: 1433,                 // Cổng SQL Server (mặc định là 1433)
     database: 'moviesDB',         // Tên cơ sở dữ liệu
     options: {
