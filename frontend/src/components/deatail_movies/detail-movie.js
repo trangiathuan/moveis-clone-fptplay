@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {  Star } from "lucide-react";
 import Video_comp from "./video_component";
 import Star_comp from "./star_comp";
+import ActionButtons from "./actions-buttons";
 const Detail = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [rating, setRating] = useState(0);
-    const [hoverRating, setHoverRating] = useState(0);
-    const handleRatingClick = (star) => {
-        setRating((prevRating) => (prevRating === star ? 0 : star));
-      };
     return(
         <div className="flex flex-col items-center bg-black min-h-screen text-white">
         <div>
@@ -21,7 +15,7 @@ const Detail = () => {
         <div className="flex-1">
           <h1 className="text-3xl font-bold">Đại Chúa Tể</h1>
           <p className="text-gray-400 text-sm mt-2">The Great Ruler</p>
-          <Star_comp/>
+          <Star_comp/>{/* Đánh giá sản phẩm */}
           <div className="mt-2 text-sm text-gray-400">
           <span className="text-red-400">MỚI</span>
           <span className="mx-2">•</span>
@@ -46,6 +40,9 @@ const Detail = () => {
 
         {/* Right Section */}
         <div className="flex-1 bg-gray-800 p-4 rounded-lg">
+          <div>{/* nút chia sẽ và theo dõi */}
+            <ActionButtons/>
+          </div>
           <div><p className="text-sm text-gray-300 mt-2">Diễn viên: Sun Liang Liang, Li Shimeng, Yue Jiang, Wenxiao He</p></div>
           <div><p className="text-sm text-gray-300">Đạo diễn: Jiangping Ma</p></div>
           <div><p className="text-sm text-gray-300">Thể loại: Giả tưởng, Phiêu lưu, Hành động, Hoạt hình</p></div>
