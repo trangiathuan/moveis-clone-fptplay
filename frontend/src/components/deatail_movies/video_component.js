@@ -91,7 +91,7 @@ const Video_comp = () => {
                     {/* Thanh Timeline & Thời lượng */}
                 <div className="absolute bottom-[42px] left-0 w-full flex items-center px-2">
                     {/* Thời lượng Video */}
-                    <span className="text-white text-xs">{formatTime(currentTime)} / {formatTime(videoDuration)}</span>
+                    <span className="text-white text-xs">{formatTime(currentTime)}</span>
                     {/* Thanh Timeline (Có thể Click để tua) */}
                     <div 
                         className="flex-1 h-1 bg-gray-500 rounded overflow-hidden mx-2 relative cursor-pointer"

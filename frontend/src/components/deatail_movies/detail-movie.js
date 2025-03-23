@@ -36,12 +36,28 @@ const Detail = () => {
               </div>
 
               {/* Right Section */}
-              <div className="flex-1 bg-gray-800 p-4 rounded-lg">
+              <div className="flex-1  p-4 rounded-lg">
                   <ActionButtons />
-                  <p className="text-sm text-gray-300 mt-2">Diễn viên: Sun Liang Liang, Li Shimeng, Yue Jiang, Wenxiao He</p>
-                  <p className="text-sm text-gray-300">Đạo diễn: Jiangping Ma</p>
-                  <p className="text-sm text-gray-300">Thể loại: Giả tưởng, Phiêu lưu, Hành động, Hoạt hình</p>
-                  <p className="text-sm text-gray-300">Danh mục: Anime <span>&gt;</span> Hành động</p>
+                  <div className="text-white text-sm mt-2 space-y-1">
+                      <div className="flex">
+                          <span className="font-semibold w-24">Diễn viên:</span>
+                          <span className="text-gray-300">Sun Lang Lang, Li Shimeng, Yue Jiang, Wenxiao He</span>
+                      </div>
+                      <div className="flex">
+                          <span className="font-semibold w-24">Đạo diễn:</span>
+                          <span className="text-gray-300">Jianping Ma</span>
+                      </div>
+                      <div className="flex">
+                          <span className="font-semibold w-24">Thể loại:</span>
+                          <span className="text-gray-300">Giả tưởng, Phiêu lưu, Hành động, Hoạt hình</span>
+                      </div>
+                      <div className="flex">
+                          <span className="font-semibold w-24">Danh mục:</span>
+                          <span className="text-gray-300">Anime</span>
+                          <span className="mx-1">&gt;</span>
+                          <span className="text-gray-300">Hành động</span>
+                      </div>
+                  </div>
               </div>
           </div>
       </div>
