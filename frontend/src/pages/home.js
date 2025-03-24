@@ -1,5 +1,6 @@
 import Carousel from "../components/carousel";
 import EventSports from "../components/events-sports";
+import Footer from "../components/footer";
 import MoviesHot from "../components/movies-hot";
 import Navbar from "../components/navbar";
 import NewlyReleased from "../components/newly-released";
@@ -22,6 +23,9 @@ const Home = () => {
             <div>
                 <MoviesHot />
             </div>
+            <div>
+                <Footer />
+            </div>``
         </div>
     )
 }
