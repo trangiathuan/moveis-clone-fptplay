@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -10,15 +11,31 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('')
   const [isChecked, setIsChecked] = useState(false);
   const [step, setStep] = useState(1);
+  const navigate = useNavigate();
 
-  const handleContinue = (e) => {
+
+
+  const handleContinue = async (e) => {
     e.preventDefault();
+    const res = await axios.post('http://localhost:8080/api/send-otp', { email });
     if (isChecked) {
       setStep(2);
     }
   };
+
+  const handleSubmitOtp = async (e) => {
+    e.preventDefault();
+    const res = await axios.post('http://localhost:8080/api/verify-otp', { email, otp });
+    const { token } = res.data.result
+    localStorage.setItem('token', token);
+    setTimeout(() => {
+      navigate('/')
+    }, 500);
+  }
 
   return (
     <div className="w-full min-h-screen bg-black m-0 p-0 flex flex-col">
@@ -43,6 +60,8 @@ const Login = () => {
                     id="sdt"
                     className="w-full p-3 text-neutral-400 border-gray-300 bg-neutral-700 rounded-lg focus:outline-none"
                     placeholder="Nhập gmail của bạn"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -79,13 +98,15 @@ const Login = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Vui lòng kiểm tra email của bạn để nhận mã xác minh.
               </p>
-              <form className="space-y-7">
+              <form className="space-y-7" onSubmit={handleSubmitOtp}>
                 <div className="mb-1">
                   <input
                     type="text"
                     id="code"
                     className="w-full p-3 text-neutral-400 border-gray-300 bg-neutral-700 rounded-lg focus:outline-none"
-                    placeholder="Nhập mã xác minh"
+                    placeholder="Nhập OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
                     required
                   />
                 </div>
