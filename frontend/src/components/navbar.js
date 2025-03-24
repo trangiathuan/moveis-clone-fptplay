@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const [isOpenXT, setIsOpenXemThem] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false); // Đảm bảo rằng trạng thái này được sử dụng đúng
     const isLogin = !!localStorage.getItem('token');
-
+    const navigate = useNavigate();
     useEffect(() => {
-        // localStorage.removeItem('token')
+
     }, [])
+
+    const handleLogout = async () => {
+        localStorage.removeItem('token')
+        navigate('/')
+    }
     const toggleMenuXemThem = () => {
         setIsOpenXemThem(!isOpenXT);
     };
@@ -96,7 +102,9 @@ const Navbar = () => {
                                             <ul className="py-2">
                                                 <li><a href="#" className="block px-4 py-2 text-white">Option 1</a></li>
                                                 <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
-                                                <li><a href="#" className="block px-4 py-2 text-white">Option 3</a></li>
+                                                <li><a onClick={handleLogout} className="block px-4 py-2 text-white">
+                                                    <button>Đăng xuất</button>
+                                                </a></li>
                                             </ul>
                                         </div>
                                     )}
