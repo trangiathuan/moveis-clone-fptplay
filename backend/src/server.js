@@ -6,12 +6,15 @@ const port = process.env.PORT;
 
 const testRoute = require('./routes/testRoute')
 const OTPRoute = require('./routes/OTPRoute')
+const movieRoute = require('./routes/movieRoute')
+
 
 app.use(express())
 app.use(express.urlencoded())
 
 app.use('/api', testRoute);
 app.use('/api', OTPRoute);
+app.use('/api', movieRoute);
 
 const conn = async () => {
     try {

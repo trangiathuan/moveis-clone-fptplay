@@ -1,8 +1,9 @@
-import Carousel from "../components/carousel";
-import EventSports from "../components/events-sports";
-import MoviesHot from "../components/movies-hot";
+import Carousel from "../components/home-components/carousel";
+import EventSports from "../components/home-components/events-sports";
+import Footer from "../components/footer";
+import MoviesHot from "../components/home-components/movies-hot";
 import Navbar from "../components/navbar";
-import NewlyReleased from "../components/newly-released";
+import NewlyReleased from "../components/home-components/newly-released";
 
 const Home = () => {
     return (
@@ -22,6 +23,9 @@ const Home = () => {
             <div>
                 <MoviesHot />
             </div>
+            <div>
+                <Footer />
+            </div>``
         </div>
     )
 }

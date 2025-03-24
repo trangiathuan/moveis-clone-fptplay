@@ -49,14 +49,14 @@ const Carousel = () => {
                                 </div>
                                 <div className='flex'>
                                     <button className='flex bg-orange-600 w-48 h-12 rounded-lg text-white text-lg '>
-                                        <img className='w-5 h-5 mt-3 ms-10 ' src={require('../asset/image-logo/play.png')} />
+                                        <img className='w-5 h-5 mt-3 ms-10 ' src={require('../../asset/image-logo/play.png')} />
                                         <span className='ms-3 mt-2 font-bold'>Xem ngay</span>
                                     </button>
                                     <button className='flex ms-5 mt-0 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
-                                        <img className='w-6 h-5 ms-3 mt-4' src={require('../asset/image-logo/heart.png')} />
+                                        <img className='w-6 h-5 ms-3 mt-4' src={require('../../asset/image-logo/heart.png')} />
                                     </button>
                                     <button className='flex ms-5 mt-0 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
-                                        <img className='w-8 h-8 ms-2 mt-2' src={require('../asset/image-logo/share.png')} />
+                                        <img className='w-8 h-8 ms-2 mt-2' src={require('../../asset/image-logo/share.png')} />
                                     </button>
 
                                 </div>
