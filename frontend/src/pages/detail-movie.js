@@ -1,13 +1,17 @@
-import Detail from "../components/detail_movies_component/detail-movie";
+import Detail from "../components/deatail_movies/detail-movie";
 import Navbar from "../components/navbar";
+
 const DetailMovie = () => {
     return (
-        <div>
+        <div className="bg-black">
             <div>
                 <Navbar />
             </div>
             <div>
                 <Detail />
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     )
