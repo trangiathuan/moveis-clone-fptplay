@@ -10,16 +10,18 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 
-const EventSports = () => {
+const NewlyReleased = () => {
+
+
     return (
-        <div className="text-white pt-6">
+        <div className="text-white">
             <div className="flex flex-col justify-center items-center ">
                 <div className=''>
-                    <p className="text-2xl font-bold -ms-[575px] pt-10 pb-4">Sự kiện thể thao</p>
+                    <p className="text-2xl font-bold -ms-[575px] pt-10 pb-4">Mới ra mắt</p>
                 </div>
                 <div className='w-[1150px]'>
                     <Swiper
-                        slidesPerView={5.2}
+                        slidesPerView={3.2}
                         centeredSlides={false}
                         spaceBetween={10}
                         grabCursor={true}
@@ -28,72 +30,72 @@ const EventSports = () => {
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
-                                    <img className='w-full sm:w-[207px] h-[116px] sm:h-[116px] rounded-lg object-cover' src={require('../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
+                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
+                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
                                 </a>
                             </div>
                         </SwiperSlide>
+
                     </Swiper>
                 </div>
             </div>
         </div>
     )
 }
-
-export default EventSports;
+export default NewlyReleased;

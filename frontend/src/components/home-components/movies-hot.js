@@ -30,7 +30,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -42,7 +42,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -54,7 +54,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -66,7 +66,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -78,7 +78,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -90,7 +90,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -102,7 +102,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -114,7 +114,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
@@ -126,7 +126,7 @@ const MoviesHot = () => {
                                 <a href='#'>
                                     <img
                                         className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
-                                        src={require('../asset/images-banner/narutoBanner.webp')}
+                                        src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
                                     <p className='pt-3 text-base text-left'>Naruto Shippuden - Gia Thuận Developer</p>
