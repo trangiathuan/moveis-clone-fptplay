@@ -23,7 +23,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <nav className="flex bg-black w-full p-0 fixed justify-between z-30">
+            <nav className="flex bg-black w-full fixed justify-between z-30">
                 {/* Hamburger Menu Icon for small screens */}
                 <div className="flex xl:hidden ps-5">
                     <button onClick={toggleMobileMenu}>

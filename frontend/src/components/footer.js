@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className=" pt-6 container mx-auto pb-6 mt-8">
+        <footer className=" pt-6 container mx-auto pb-6 mt-8 ">
             <div className="flex flex-col  justify-center items-center px-40">
                 <div className="grid grid-cols-1 md:grid-cols-5 border-t border-b border-gray-700 pt-6 pb-6 mt-15">
                     <div>
