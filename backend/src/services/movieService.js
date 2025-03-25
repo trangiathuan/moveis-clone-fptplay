@@ -8,7 +8,7 @@ exports.getAllMovieNewService = async () => {
             .input('action', sql.VarChar, 'getAllMoviesNew')
             .execute('SP_Movies')
 
-        return result;
+        return result.recordset;
     } catch (error) {
         console.log(error);
 
@@ -16,30 +16,29 @@ exports.getAllMovieNewService = async () => {
 
 }
 
-exports.getByMovieIDService = async (movieID) => {
-    console.log('Data sent to server:', movieID);
+exports.getByMovieIDService = async (movieID, movieEpisodeID) => {
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getByMovieID')
             .input('MovieID', sql.Int, movieID)
+            .input('MovieEpisodeID', sql.Int, movieEpisodeID)
             .execute('SP_Movies')
-        return result;
+        return result.recordset;
+
     } catch (error) {
         console.log(error);
-
     }
 }
 
 exports.getByCategoryNameService = async (categoryName) => {
-    console.log('Data sent to server:', categoryName);
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getByCategoryName')
             .input('CategoryName', sql.VarChar, categoryName)
             .execute('SP_Movies')
-        return result;
+        return result.recordset;
     } catch (error) {
         console.log(error);
     }
