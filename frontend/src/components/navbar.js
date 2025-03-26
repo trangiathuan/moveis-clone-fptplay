@@ -44,10 +44,9 @@ const Navbar = () => {
 
                 {/* Main Menu - Only visible on larger screens (xl and above) */}
                 <div className={`hidden xl:flex pt-7 pb-5`}>
-                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Trang chủ</a>
-                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Truyền hình</a>
+                    <a href="/" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Trang chủ</a>
+                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim lẻ</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim bộ</a>
-                    <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">V.League</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Anime</a>
 
                     {/* Dropdown menu "Xem thêm" */}
