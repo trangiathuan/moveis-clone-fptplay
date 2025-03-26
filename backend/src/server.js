@@ -1,16 +1,17 @@
 const express = require('express');
 const connection = require('./configs/configDatabase');
 const app = express();
+const cors = require('cors');
 require('dotenv').config()
 const port = process.env.PORT;
 
 const testRoute = require('./routes/testRoute')
 const OTPRoute = require('./routes/OTPRoute')
 const movieRoute = require('./routes/movieRoute')
+app.use(cors());
 
-
-app.use(express())
-app.use(express.urlencoded())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', testRoute);
 app.use('/api', OTPRoute);

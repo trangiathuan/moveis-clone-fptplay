@@ -2,6 +2,8 @@ const OPTService = require('../services/OTPService')
 
 exports.sendOTPController = async (req, res) => {
     const { email } = req.body
+    console.log(req.body);
+
     if (!email) {
         return res.status(200).json({
             EC: -1,

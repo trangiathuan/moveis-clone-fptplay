@@ -15,7 +15,6 @@ const config = {
 const connection = () => {
     const conn = sql.connect(config)
         .then(pool => {
-            console.log('Connected to SQL Server!');
             return pool;
         })
         .catch(err => {
