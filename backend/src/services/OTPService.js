@@ -62,7 +62,7 @@ exports.verifyOTPService = async (email, otp) => {
         return {
             EC: -1,
             Status: 'Failed',
-            Message: 'OTP not requested or expired'
+            Message: 'OTP không được yêu cầu hoặc đã hết hạn'
         };
     }
 
