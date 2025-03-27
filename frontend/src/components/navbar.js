@@ -27,35 +27,25 @@ const Navbar = () => {
         setIsMenuOpen(!isMenuOpen); // Đảm bảo rằng trạng thái được thay đổi khi nhấn vào hamburger
     };
 
-    const handleSubmitLogOut = async (e) => {
-        e.preventDefault();
-        localStorage.removeItem('token'); // Sửa remove thành removeItem
-        window.location.reload(); // Tùy chọn: reload lại trang để cập nhật trạng thái đăng nhập
-    };
-
     return (
         <div>
             <nav className="flex bg-black w-full fixed justify-between z-30">
-                {/* Hamburger Menu Icon for small screens */}
                 <div className="flex xl:hidden ps-5">
                     <button onClick={toggleMobileMenu}>
                         <img className="w-5" src={require('../asset/image-logo/menu.png')} />
                     </button>
                 </div>
 
-                {/* Logo */}
                 <div className="ps-44 -me-40 pt-3 pb-0">
                     <img className="flex w-32" src={require('../asset/image-logo/logoFPT.png')} />
                 </div>
 
-                {/* Main Menu - Only visible on larger screens (xl and above) */}
                 <div className={`hidden xl:flex pt-7 pb-5`}>
                     <a href="/" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Trang chủ</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim lẻ</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim bộ</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Anime</a>
 
-                    {/* Dropdown menu "Xem thêm" */}
                     <div className="relative inline-block text-left -mt-2">
                         <a
                             href="#"
@@ -78,7 +68,6 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* Right Section (Icons and Buttons) */}
                 <div className="flex text-white pe-44 -ms-10">
                     <a>
                         <img className="w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
@@ -97,19 +86,18 @@ const Navbar = () => {
                         <div className="flex relative inline-block text-left">
                             {isLogin ? (
                                 <div>
-                                    <button className="flex me-5 bg-black" onClick={toggleMenu}>
-                                        <img className="w-9 mt-1 rounded-lg" src={require('../asset/image-logo/default-1.png')} />
+                                    <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={toggleMenu}>
+                                        <img className="w-7 m-2" src={require('../asset/image-logo/emoji.png')} />
                                         <img className="ms-2 mt-3 w-4 h-4" src={require('../asset/image-logo/down.png')} />
                                     </button>
-
                                     {isOpen && (
-                                        <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-53 -ms-32">
+                                        <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
                                             <ul className="py-2">
-                                                <li><a href="#" className="block px-4 py-2 text-white flex flex-grow w-full "><img className="w-7 m-1" src={require('../asset/image-logo/default-2.png')} />Người dùng</a></li>
-                                                <li><a href="#" className="block px-4 py-2 text-white flex flex-grow"><img className="w-7 m-1" src={require('../asset/image-logo/default-3.png')} />Trẻ em</a></li>
-                                                <li><a href="#" className="block px-4 py-2 text-white flex flex-grow"><img className="w-7 m-1" src={require('../asset/image-logo/default-4.png')} />Quản lý hồ sơ</a></li>
-                                                <li><a href="#" className="block px-4 py-2 text-white flex flex-grow"><img className="w-7 m-1" src={require('../asset/image-logo/default-5.png')} />Tài khoản và cài đặt</a></li>
-                                                <li><a href="#" className="block px-4 py-2 text-white" onClick={handleSubmitLogOut}>Đăng xuất</a></li>
+                                                <li><a href="#" className="block px-4 py-2 text-white">Option 1</a></li>
+                                                <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
+                                                <li><a onClick={handleLogout} className="block px-4 py-2 text-white">
+                                                    <button>Đăng xuất</button>
+                                                </a></li>
                                             </ul>
                                         </div>
                                     )}
