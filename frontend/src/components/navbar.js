@@ -98,7 +98,7 @@ const Navbar = () => {
                             {isLogin ? (
                                 <div>
                                     <button className="flex me-5 bg-black" onClick={toggleMenu}>
-                                        <img className="w-7 m-1" src={require('../asset/image-logo/default-1.png')} />
+                                        <img className="w-9 mt-1 rounded-lg" src={require('../asset/image-logo/default-1.png')} />
                                         <img className="ms-2 mt-3 w-4 h-4" src={require('../asset/image-logo/down.png')} />
                                     </button>
 
