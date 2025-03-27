@@ -30,7 +30,7 @@ const Video_comp = () => {
         }
     };
 
-    // Tua nhanh hoặc lùi lại
+    // Tua nhanh hoặc lùi lại lùi lại luôn
     const skipTime = (seconds) => {
         videoRef.current.currentTime += seconds;
     };
