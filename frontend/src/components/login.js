@@ -39,12 +39,17 @@ const Login = () => {
   const handleSubmitOtp = async (e) => {
     e.preventDefault();
     const res = await axios.post("http://localhost:8080/api/verify-otp", { email, otp });
-    console.log(res.data);
-    const { token } = res.data.result;
-    localStorage.setItem("token", token);
-    setTimeout(() => {
-      navigate("/");
-    }, 500);
+
+    if (res.data.Data.EC === 0) {
+      const { token } = res.data.Data;
+      localStorage.setItem("token", token);
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    } else {
+      console.log(res.data);
+      alert(res.data.Data.Message)
+    }
   };
 
   const handleResend = async () => {

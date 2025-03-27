@@ -21,6 +21,12 @@ exports.sendOTPController = async (req, res) => {
         })
     }
     else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
         return res.status(200).json({
             EC: -1,
             Status: 'Failed',
@@ -48,16 +54,22 @@ exports.verifyOTPController = async (req, res) => {
         })
     }
 
-    const result = await OPTService.verifyOTPService(email, otp)
+    const Data = await OPTService.verifyOTPService(email, otp)
 
-    if (result) {
+    if (Data.EC === 0) {
         return res.status(200).json({
-            result
+            Data
         })
     }
     else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
         return res.status(200).json({
-            result
+            Data
         })
     }
 }
