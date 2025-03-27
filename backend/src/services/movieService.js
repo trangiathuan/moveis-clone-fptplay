@@ -16,11 +16,25 @@ exports.getAllMovieNewService = async () => {
 
 }
 
-exports.getByMovieIDService = async (movieID, movieEpisodeID) => {
+exports.getByMovieIDService = async (movieID) => {
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getByMovieID')
+            .input('MovieID', sql.Int, movieID)
+            .execute('SP_Movies')
+        return result.recordset;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getByEpisodeMovieIDService = async (movieID, movieEpisodeID) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'getByMovieEpisodeID')
             .input('MovieID', sql.Int, movieID)
             .input('MovieEpisodeID', sql.Int, movieEpisodeID)
             .execute('SP_Movies')
