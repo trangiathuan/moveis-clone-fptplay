@@ -20,7 +20,7 @@ const ActionButtons = ({ movieUrl }) => {
       {/* Nút Theo dõi */}
       <button
         onClick={handleFollow}
-        className="flex items-center  px-4 py-2 rounded-full hover:bg-gray-600 transition"
+        className="flex items-center hover:gray-500 transition"
       >
         <Heart className={`mr-2 ${isFollowing ? "fill-red-500 text-red-500" : ""}`} />
         {isFollowing ? "Đã theo dõi" : "Theo dõi"}
@@ -29,7 +29,7 @@ const ActionButtons = ({ movieUrl }) => {
       {/* Nút Chia sẻ */}
       <button
         onClick={handleShare}
-        className="flex items-center  px-4 py-2 rounded-full hover:bg-gray-600 transition"
+        className="flex items-center  px-4 py-2 rounded-full hover:gray-600 transition"
       >
         <Share2 className="mr-2" />
         Chia sẻ
