@@ -12,9 +12,9 @@ export default function MovieDescription({ description }) {
       <p>
         {isExpanded || description.length <= 40
           ? description
-          : description.slice(0, 20) + "...  "}
+          : description.slice(0, 60) + "...  "}
       
-          {description.length > 20 && (
+          {description.length > 80 && (
             <button
               onClick={toggleExpand}
               className="mt-2 text-blue-300 hover:underline"
