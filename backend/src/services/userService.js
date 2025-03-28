@@ -1,13 +1,13 @@
 const connection = require("../configs/configDatabase");
 const sql = require('mssql');
 
-exports.checkFollowMovieService = async (movieID, userID) => {
+exports.checkFollowMovieService = async (slugMovieName, userID) => {
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'checkFollowingMovie')
             .input('id', sql.Int, userID)
-            .input('movieID', sql.VarChar, movieID)
+            .input('SlugMovieName', sql.VarChar, slugMovieName)
             .execute('SP_Users')
         return result.recordset
     } catch (error) {
@@ -16,13 +16,13 @@ exports.checkFollowMovieService = async (movieID, userID) => {
     }
 }
 
-exports.toggleFollowMovieService = async (movieID, userID) => {
+exports.toggleFollowMovieService = async (slugMovieName, userID) => {
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'toggleFollowMovie')
             .input('id', sql.Int, userID)
-            .input('movieID', sql.VarChar, movieID)
+            .input('SlugMovieName', sql.VarChar, slugMovieName)
             .execute('SP_Users')
         return result.recordset
     } catch (error) {

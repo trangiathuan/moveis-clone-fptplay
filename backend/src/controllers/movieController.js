@@ -26,12 +26,12 @@ exports.getAllMovieNewController = async (req, res) => {
     }
 }
 
-exports.getByMovieEpisodeIDController = async (req, res) => {
-    const movieID = req.params.movieID
-    const movieEpisodeID = req.params.movieEpisodeID
-    console.log('Data sent to server: params movieID:', movieID, '- params movieEpisodeID:', movieEpisodeID);
+exports.getByEpisodeController = async (req, res) => {
+    const slugMovieName = req.params.slugMovieName
+    const slugEpisode = req.params.slugEpisode
+    console.log('Data sent to server: params slugMovieName:', slugMovieName, '- params slugEpisode:', slugEpisode);
 
-    const result = await movieService.getByEpisodeMovieIDService(movieID, movieEpisodeID);
+    const result = await movieService.getByEpisodeService(slugMovieName, slugEpisode);
 
     if (result && result.length > 0) {
         return res.status(200).json({
@@ -57,11 +57,11 @@ exports.getByMovieEpisodeIDController = async (req, res) => {
     }
 }
 
-exports.getByMovieIDController = async (req, res) => {
-    const movieID = req.params.movieID
-    console.log('Data sent to server: params movieID:', movieID);
+exports.getBySlugMovieNameController = async (req, res) => {
+    const slugMovieName = req.params.slugMovieName
+    console.log('Data sent to server: params slugMovieName =', slugMovieName);
 
-    const result = await movieService.getByMovieIDService(movieID);
+    const result = await movieService.getBySlugMovieNameService(slugMovieName);
 
     if (result && result.length > 0) {
         return res.status(200).json({
@@ -88,10 +88,10 @@ exports.getByMovieIDController = async (req, res) => {
 }
 
 exports.getByCategoryController = async (req, res) => {
-    const { categoryName } = req.body
-    console.log('Data sente Server CategoryName:', categoryName);
+    const slugCategoryName = req.params.slugCategoryName
+    console.log('Data sente Server CategoryName:', slugCategoryName);
 
-    const result = await movieService.getByCategoryNameService(categoryName);
+    const result = await movieService.getByCategoryNameService(slugCategoryName);
 
     if (result && result.length > 0) {
         return res.status(200).json({

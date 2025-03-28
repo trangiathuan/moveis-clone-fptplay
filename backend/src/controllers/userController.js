@@ -1,9 +1,9 @@
 const userService = require('../services/userService')
 exports.checkFollowMovieController = async (req, res) => {
-    const movieID = req.params.movieID
+    const slugMovieName = req.params.slugMovieName
     const userID = req.user.id
-    console.log('Data sent to server: movieID =', movieID, ' - ', 'userID =', userID);
-    const result = await userService.checkFollowMovieService(movieID, userID)
+    console.log('Data sent to server: slugMovieName =', slugMovieName, ' - ', 'userID =', userID);
+    const result = await userService.checkFollowMovieService(slugMovieName, userID)
 
     if (result && result.length > 0) {
         return res.status(200).json({
@@ -21,10 +21,10 @@ exports.checkFollowMovieController = async (req, res) => {
 }
 
 exports.toggleFollowMovieController = async (req, res) => {
-    const movieID = req.params.movieID
+    const slugMovieName = req.params.slugMovieName
     const userID = req.user.id
-    console.log('Data sent to server: movieID =', movieID, ' - ', 'userID =', userID);
-    const result = await userService.toggleFollowMovieService(movieID, userID)
+    console.log('Data sent to server: slugMovieName =', slugMovieName, ' - ', 'userID =', userID);
+    const result = await userService.toggleFollowMovieService(slugMovieName, userID)
 
     if (result && result.length > 0) {
         return res.status(200).json({

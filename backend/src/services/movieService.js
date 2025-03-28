@@ -16,12 +16,12 @@ exports.getAllMovieNewService = async () => {
 
 }
 
-exports.getByMovieIDService = async (movieID) => {
+exports.getBySlugMovieNameService = async (slugMovieName) => {
     try {
         const pool = await connection();
         const result = await pool.request()
-            .input('action', sql.VarChar, 'getByMovieID')
-            .input('MovieID', sql.Int, movieID)
+            .input('action', sql.VarChar, 'getBySlugMovieName')
+            .input('SlugMovieName', sql.NVarChar, slugMovieName)
             .execute('SP_Movies')
         return result.recordset;
 
@@ -30,13 +30,13 @@ exports.getByMovieIDService = async (movieID) => {
     }
 }
 
-exports.getByEpisodeMovieIDService = async (movieID, movieEpisodeID) => {
+exports.getByEpisodeService = async (slugMovieName, slugEpisode) => {
     try {
         const pool = await connection();
         const result = await pool.request()
-            .input('action', sql.VarChar, 'getByMovieEpisodeID')
-            .input('MovieID', sql.Int, movieID)
-            .input('MovieEpisodeID', sql.Int, movieEpisodeID)
+            .input('action', sql.VarChar, 'getByEpisode')
+            .input('SlugMovieName', sql.VarChar, slugMovieName)
+            .input('SlugEpisode', sql.VarChar, slugEpisode)
             .execute('SP_Movies')
         return result.recordset;
 
@@ -45,12 +45,12 @@ exports.getByEpisodeMovieIDService = async (movieID, movieEpisodeID) => {
     }
 }
 
-exports.getByCategoryNameService = async (categoryName) => {
+exports.getByCategoryNameService = async (slugCategoryName) => {
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getByCategoryName')
-            .input('CategoryName', sql.VarChar, categoryName)
+            .input('SlugCategoryName', sql.VarChar, slugCategoryName)
             .execute('SP_Movies')
         return result.recordset;
     } catch (error) {
