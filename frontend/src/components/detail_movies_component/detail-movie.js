@@ -18,7 +18,7 @@ const Detail = () => {
   const fetchMovieData = async () => {
     try {
         const result = await axios.get(`http://localhost:8080/api/get-by-movieID/${movieID}`);
-        if (result.data.EC === 0 && result.data.Data.length > 0) {
+        if (result.data.EC === 0 ) {
             console.log(result.data);
             setMovieData(result.data.Data[0]); // Cập nhật dữ liệu phim
             setVideoSrc(result.data.Data[0].MovieFilePath); // Cập nhật URL video

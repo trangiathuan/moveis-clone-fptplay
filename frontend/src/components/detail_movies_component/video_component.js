@@ -15,25 +15,22 @@ const Video_comp = () => {
     const [currentTime, setCurrentTime] = useState(0);
 
     const {movieID}= useParams();// Lấy id từ URL
-   
-    useEffect(() => {
-                fetchMovieData();
-            }, [movieID]);
-
    // Lấy dữ liệu từ API bằng Axios
-   const fetchMovieData = async () => {
-    try {
-        const result = await axios.get(`http://localhost:8080/api/get-by-movieID/${movieID}`);
-        if (result.data.EC === 0 && result.data.Data.length > 0) {
-            console.log(result.data);
-            setVideoSrc(result.data.Data[0].MovieFilePath); // Chỉ lấy URL video
+    const fetchMovieData = async () => {
+        try {
+            const result = await axios.get(`http://localhost:8080/api/get-by-movieID/${movieID}`);
+            if (result.data.EC === 0 && result.data.Data.length > 0) {
+                console.log(result.data);
+                setVideoSrc(result.data.Data[0].MovieFilePath); // Chỉ lấy URL video
+            }
+        } catch (error) {
+            console.error("Lỗi khi gọi API:", error);
         }
-    } catch (error) {
-        console.error("Lỗi khi gọi API:", error);
-    }
     };
+    useEffect(() => {
+            fetchMovieData();
+        }, [movieID]);
 
-    
     // Định dạng thời gian hiển thị
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -95,7 +92,7 @@ const Video_comp = () => {
 
     return (
         <div 
-            className="relative w-full max-w-5xl mx-auto mt-24"
+            className="relative w-full max-w-5xl mx-auto"
             onMouseMove={() => setShowControls(true)}
         >
             {/* Video Player */}
