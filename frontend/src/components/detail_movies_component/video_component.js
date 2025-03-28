@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
+import axios from "axios";
 import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles } from "lucide-react";
-
+import { useParams } from "react-router-dom";
 const Video_comp = () => {
     const videoRef = useRef(null);
     const [videoSrc, setVideoSrc] = useState("");
@@ -13,16 +14,26 @@ const Video_comp = () => {
     const [videoDuration, setVideoDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
 
-    // Lấy dữ liệu từ nơi này
+    const {movieID}= useParams();// Lấy id từ URL
+   
     useEffect(() => {
-        fetch("http://localhost:8080/api/get-by-movieID/1")
-            .then(res => res.json())
-            .then(data => {
-                if (data?.EC === 0 && data?.Data?.length > 0) {
-                    setVideoSrc(data.Data[0].MovieFilePath);
-                }
-            });
-    }, []);
+                fetchMovieData();
+            }, [movieID]);
+
+   // Lấy dữ liệu từ API bằng Axios
+   const fetchMovieData = async () => {
+    try {
+        const result = await axios.get(`http://localhost:8080/api/get-by-movieID/${movieID}`);
+        if (result.data.EC === 0 && result.data.Data.length > 0) {
+            console.log(result.data);
+            setVideoSrc(result.data.Data[0].MovieFilePath); // Chỉ lấy URL video
+        }
+    } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+    }
+    };
+
+    
     // Định dạng thời gian hiển thị
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -84,7 +95,7 @@ const Video_comp = () => {
 
     return (
         <div 
-            className="relative w-full max-w-5xl mx-auto"
+            className="relative w-full max-w-5xl mx-auto mt-24"
             onMouseMove={() => setShowControls(true)}
         >
             {/* Video Player */}
