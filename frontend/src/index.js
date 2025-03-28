@@ -23,7 +23,7 @@ root.render(
 
         <Route path="/login" element={<Login />} />
 
-        <Route path='/detail' element={<DetailMovie />} />
+        <Route path='/detail/:movieID' element={<DetailMovie />} />
 
         <Route path='/buypackage' element={<BuyPackage />} />
 

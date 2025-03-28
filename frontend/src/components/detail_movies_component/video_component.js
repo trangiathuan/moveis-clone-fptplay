@@ -3,6 +3,7 @@ import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize
 
 const Video_comp = () => {
     const videoRef = useRef(null);
+    const [videoSrc, setVideoSrc] = useState("");
     const [playing, setPlaying] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -12,6 +13,16 @@ const Video_comp = () => {
     const [videoDuration, setVideoDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
 
+    // Lấy dữ liệu từ nơi này
+    useEffect(() => {
+        fetch("http://localhost:8080/api/get-by-movieID/1")
+            .then(res => res.json())
+            .then(data => {
+                if (data?.EC === 0 && data?.Data?.length > 0) {
+                    setVideoSrc(data.Data[0].MovieFilePath);
+                }
+            });
+    }, []);
     // Định dạng thời gian hiển thị
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -80,7 +91,7 @@ const Video_comp = () => {
             <video 
                 ref={videoRef} 
                 className="w-full rounded-lg cursor-pointer"
-                src="https://res.cloudinary.com/dkp3rw6p8/video/upload/v1742749049/9convert.com_-_TH%E1%BA%A6Y_BA_CH%C3%9AC_M%E1%BB%AANG_SINH_NH%E1%BA%ACT_2023_PH%E1%BA%A6N_2_filcqc.mp4"
+                src={videoSrc}
                 controls={false} 
                 onTimeUpdate={updateProgress}
                 onLoadedMetadata={handleLoadedMetadata}
