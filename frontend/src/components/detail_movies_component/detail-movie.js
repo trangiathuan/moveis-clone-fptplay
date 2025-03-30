@@ -18,7 +18,7 @@ const Detail = () => {
   const fetchMovieData = async () => {
     try {
         const result = await axios.get(`http://localhost:8080/api/get-by-movieID/${movieID}`);
-        if (result.data.EC === 0 && result.data.Data.length > 0) {
+        if (result.data.EC === 0 ) {
             console.log(result.data);
             setMovieData(result.data.Data[0]); // Cập nhật dữ liệu phim
             setVideoSrc(result.data.Data[0].MovieFilePath); // Cập nhật URL video
@@ -45,7 +45,7 @@ if (!movieData) {
     <p className="text-gray-400 text-sm mt-2">{movieData.MovieNameEnglish}</p>
     <Star_comp /> {/* Đánh giá sản phẩm */}
     
-    <div className="mt-2 text-sm text-gray-400">
+    <div className="mt-2 text-sm text-gray-400 mt-3">
       <span className="text-red-400">{movieData.MovieStatus}</span>
       <span className="mx-2">•</span>
       <span>{movieData.ReleaseYear}</span>
@@ -57,7 +57,7 @@ if (!movieData) {
       <span>{movieData.Country}</span>
     </div>
 
-    <div>{movieData.SummaryTitle}</div>
+    <div className="mt-3">{movieData.SummaryTitle}</div>
 
     <p className="mt-4 text-gray-300 text-sm">
         <MovieDescription description={movieData.SummaryContent}/>
