@@ -14,11 +14,11 @@ const Video_comp = () => {
     const [videoDuration, setVideoDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
 
-    const {movieID}= useParams();// Lấy id từ URL
+    const {slugMovieName}= useParams();// Lấy id từ URL
    // Lấy dữ liệu từ API bằng Axios
     const fetchMovieData = async () => {
         try {
-            const result = await axios.get(`http://localhost:8080/api/get-by-movieID/${movieID}`);
+            const result = await axios.get(`http://localhost:8080/api/get-by-slugMovieName/${slugMovieName}`);
             if (result.data.EC === 0 && result.data.Data.length > 0) {
                 console.log(result.data);
                 setVideoSrc(result.data.Data[0].MovieFilePath); // Chỉ lấy URL video
@@ -29,7 +29,7 @@ const Video_comp = () => {
     };
     useEffect(() => {
             fetchMovieData();
-        }, [movieID]);
+        }, [slugMovieName]);
 
     // Định dạng thời gian hiển thị
     const formatTime = (time) => {
