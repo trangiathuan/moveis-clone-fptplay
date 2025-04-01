@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles } from "lucide-react";
 import { useParams } from "react-router-dom";
+import API from "../../configs/endpoint";
 const Video_comp = () => {
     const videoRef = useRef(null);
     const [videoSrc, setVideoSrc] = useState("");
@@ -14,11 +15,11 @@ const Video_comp = () => {
     const [videoDuration, setVideoDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
 
-    const {slugMovieName}= useParams();// Lấy id từ URL
-   // Lấy dữ liệu từ API bằng Axios
+    const { slugMovieName } = useParams();// Lấy id từ URL
+    // Lấy dữ liệu từ API bằng Axios
     const fetchMovieData = async () => {
         try {
-            const result = await axios.get(`http://localhost:8080/api/get-by-slugMovieName/${slugMovieName}`);
+            const result = await axios.get(`${API}/get-by-slugMovieName/${slugMovieName}`);
             if (result.data.EC === 0 && result.data.Data.length > 0) {
                 console.log(result.data);
                 setVideoSrc(result.data.Data[0].MovieFilePath); // Chỉ lấy URL video
@@ -28,8 +29,8 @@ const Video_comp = () => {
         }
     };
     useEffect(() => {
-            fetchMovieData();
-        }, [slugMovieName]);
+        fetchMovieData();
+    }, [slugMovieName]);
 
     // Định dạng thời gian hiển thị
     const formatTime = (time) => {
@@ -91,28 +92,28 @@ const Video_comp = () => {
     }, [showControls]);
 
     return (
-        <div 
+        <div
             className="relative w-full max-w-5xl mx-auto"
             onMouseMove={() => setShowControls(true)}
         >
             {/* Video Player */}
-            <video 
-                ref={videoRef} 
+            <video
+                ref={videoRef}
                 className="w-full rounded-lg cursor-pointer"
                 src={videoSrc}
-                controls={false} 
+                controls={false}
                 onTimeUpdate={updateProgress}
                 onLoadedMetadata={handleLoadedMetadata}
                 onClick={togglePlay}
             ></video>
             {/* Thanh công cụ (Tự ẩn sau 3s) */}
             <div className={`absolute bottom-2 left-2 right-2 flex items-center justify-between p-2 bg-opacity-50 rounded-lg transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
-                    {/* Thanh Timeline & Thời lượng */}
+                {/* Thanh Timeline & Thời lượng */}
                 <div className="absolute bottom-[42px] left-0 w-full flex items-center px-2">
                     {/* Thời lượng Video */}
                     <span className="text-white text-xs">{formatTime(currentTime)}</span>
                     {/* Thanh Timeline (Có thể Click để tua) */}
-                    <div 
+                    <div
                         className="flex-1 h-1 bg-gray-500 rounded overflow-hidden mx-2 relative cursor-pointer"
                         onClick={(e) => {
                             const rect = e.currentTarget.getBoundingClientRect();
