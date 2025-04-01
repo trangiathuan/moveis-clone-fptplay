@@ -1,16 +1,32 @@
-import React, { useRef, useState } from 'react';
-// Import Swiper React components
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import API from '../../configs/endpoint'
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 
-// import required modules
-import { Pagination } from 'swiper/modules';
+
 
 const NewlyReleased = () => {
+
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        getMoviesCarousel();
+    }, [])
+
+    const getMoviesCarousel = async () => {
+        try {
+            const res = await axios.get(`${API}/get-all-movies-new`);
+            if (res.data.EC === 0) {
+                console.log(res.data);
+                setMovies(res.data.Data)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return (
@@ -27,71 +43,16 @@ const NewlyReleased = () => {
                         grabCursor={true}
                         className="mySwiper"
                     >
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='ps-0'>
-                                <a href='#'>
-                                    <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={require('../../asset/images-banner/narutoBanner.webp')} />
-                                    <p className='pt-3 text-lg text-left'>Naruto Shippuden - Gia Thuận Developer</p>
-                                </a>
-                            </div>
-                        </SwiperSlide>
-
+                        {movies.map((item, index) => (
+                            <SwiperSlide>
+                                <div key={index} className='ps-0'>
+                                    <a href={`/detail/${item.SlugMovieName}`}>
+                                        <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={item.MovieImagePath} />
+                                        <p className='pt-3 text-lg text-left'>{item.MovieNameVietnamese}</p>
+                                    </a>
+                                </div>
+                            </SwiperSlide>
+                        ))}
                     </Swiper>
                 </div>
             </div>
