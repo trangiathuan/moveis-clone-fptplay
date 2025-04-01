@@ -37,7 +37,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="ps-5 xl:ps-44 xl:-me-40 lg:-me-20 lg:ps-24 sm:ps-28 pt-3 pb-0">
-                    <img className="flex w-32" src={require('../asset/image-logo/logoFPT.png')} />
+                    <a href="/">
+                        <img className="flex w-32" src={require('../asset/image-logo/logoFPT.png')} />
+                    </a>
                 </div>
 
                 <div className={`hidden lg:flex pt-7 pb-5`}>

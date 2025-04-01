@@ -7,7 +7,7 @@ import NewlyReleased from "../components/home-components/newly-released";
 
 const Home = () => {
     return (
-        <div className="bg-black">
+        <div className="bg-black w-full">
             <div>
                 <Navbar />
             </div>
