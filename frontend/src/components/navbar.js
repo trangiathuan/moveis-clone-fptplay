@@ -30,17 +30,17 @@ const Navbar = () => {
     return (
         <div>
             <nav className="flex bg-black w-full fixed justify-between z-30">
-                <div className="flex xl:hidden ps-5">
+                <div className="flex lg:hidden ps-5 pt-5">
                     <button onClick={toggleMobileMenu}>
                         <img className="w-5" src={require('../asset/image-logo/menu.png')} />
                     </button>
                 </div>
 
-                <div className="ps-44 -me-40 pt-3 pb-0">
+                <div className="ps-5 xl:ps-44 xl:-me-40 lg:-me-20 lg:ps-24 sm:ps-28 pt-3 pb-0">
                     <img className="flex w-32" src={require('../asset/image-logo/logoFPT.png')} />
                 </div>
 
-                <div className={`hidden xl:flex pt-7 pb-5`}>
+                <div className={`hidden lg:flex pt-7 pb-5`}>
                     <a href="/" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Trang chủ</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim lẻ</a>
                     <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600">Phim bộ</a>
@@ -68,14 +68,14 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className="flex text-white pe-44 -ms-10">
+                <div className="flex text-white pe-5 sm:pe-14  lg:pe-24 xl:pe-44">
                     <a>
-                        <img className="w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
+                        <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
                     </a>
                     <a>
-                        <img className="w-5 pt-8 me-5" src={require('../asset/image-logo/bell.png')} />
+                        <img className=" hidden xl:flex w-5 pt-8 me-5" src={require('../asset/image-logo/bell.png')} />
                     </a>
-                    <div className="pt-5">
+                    <div className="pt-5 hidden sm:block ">
                         <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28 justify-between">
                             <img className="w-9 h-8 ps-3 pt-2" src={require('../asset/image-logo/wallet.png')} />
                             <a href="/buypackage" className="pt-2 pe-3">Mua gói</a>
@@ -93,7 +93,7 @@ const Navbar = () => {
                                     {isOpen && (
                                         <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
                                             <ul className="py-2">
-                                                <li><a href="#" className="block px-4 py-2 text-white">Option 1</a></li>
+                                                <li><a href="/following-movies-list" className="block px-4 py-2 text-white">Phim đang theo dõi</a></li>
                                                 <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
                                                 <li><a onClick={handleLogout} className="block px-4 py-2 text-white">
                                                     <button>Đăng xuất</button>
@@ -113,7 +113,7 @@ const Navbar = () => {
             </nav>
 
             {isMenuOpen && (
-                <div className="xl:hidden bg-black text-white p-5">
+                <div className="sm:hidden bg-black text-white p-5 pt-10 fixed">
                     <a href="#" className="block py-2">Trang chủ</a>
                     <a href="#" className="block py-2">Truyền hình</a>
                     <a href="#" className="block py-2">Phim bộ</a>

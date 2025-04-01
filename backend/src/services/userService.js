@@ -29,3 +29,16 @@ exports.toggleFollowMovieService = async (slugMovieName, userID) => {
         console.log(error);
     }
 }
+
+exports.getFollowingMoviesListService = async (userID) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('id', sql.Int, userID)
+            .input('action', sql.VarChar, 'getFollowingMoviesList')
+            .execute('SP_Users')
+        return result.recordset
+    } catch (error) {
+        console.log(error);
+    }
+}
