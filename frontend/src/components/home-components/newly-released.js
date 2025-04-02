@@ -35,19 +35,30 @@ const NewlyReleased = () => {
                 <div className=''>
                     <p className="text-2xl font-bold -ms-[575px] pt-10 pb-4">Mới ra mắt</p>
                 </div>
-                <div className='w-[1150px]'>
+                <div className='w-full'>
                     <Swiper
                         slidesPerView={3.2}
                         centeredSlides={false}
                         spaceBetween={10}
                         grabCursor={true}
                         className="mySwiper"
+                        breakpoints={{
+                            840: {
+                                slidesPerView: 3.2, // Từ 640px trở lên, hiển thị 3.2 slides
+                            },
+                            640: {
+                                slidesPerView: 2.2, // Từ 640px trở lên, hiển thị 3.2 slides
+                            },
+                            0: {
+                                slidesPerView: 1, // Dưới 640px, hiển thị 1 slide
+                            },
+                        }}
                     >
                         {movies.map((item, index) => (
                             <SwiperSlide>
                                 <div key={index} className='ps-0'>
                                     <a href={`/detail/${item.SlugMovieName}`}>
-                                        <img className='w-full sm:w-[353px] h-auto sm:h-[199px] rounded-lg object-cover' src={item.MovieImagePath} />
+                                        <img className='w-[353px] h-[199px] rounded-lg object-cover' src={item.MovieImagePath} />
                                         <p className='pt-3 text-lg text-left'>{item.MovieNameVietnamese}</p>
                                     </a>
                                 </div>

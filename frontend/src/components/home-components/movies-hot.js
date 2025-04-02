@@ -24,12 +24,26 @@ const MoviesHot = () => {
                         spaceBetween={10}
                         grabCursor={true}
                         className="mySwiper"
+                        breakpoints={{
+                            840: {
+                                slidesPerView: 5.2, // Từ 640px trở lên, hiển thị 3.2 slides
+                            },
+                            740: {
+                                slidesPerView: 4.2,
+                            },
+                            540: {
+                                slidesPerView: 3.2,
+                            },
+                            0: {
+                                slidesPerView: 2.2, // Dưới 640px, hiển thị 1 slide
+                            },
+                        }}
                     >
                         <SwiperSlide>
                             <div className='ps-0'>
                                 <a href='#'>
                                     <img
-                                        className='w-full sm:w-[207px] h-[310px] sm:h-[310px] rounded-lg object-cover'
+                                        className='w-[207px] h-[310px] rounded-lg object-cover'
                                         src={require('../../asset/images-banner/narutoBanner.webp')}
                                         alt="Naruto Shippuden - Gia Thuận Developer"
                                     />
