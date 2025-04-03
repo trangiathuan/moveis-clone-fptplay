@@ -75,7 +75,7 @@ const ActionButtons = () => {
         <Heart
           className={`mr-2 h-4 w-4 sm:h-5 sm:w-5 ${isFollowing ? "fill-pink-500 text-pink-500" : "fill-gray-400 text-gray-400"}`}
         />
-        {isFollowing ? "Đã theo dõi" : "Theo dõi"}
+        {isFollowing ? "Theo dõi" : "Theo dõi"}
       </button>
 
       {/* Nút Chia sẻ */}

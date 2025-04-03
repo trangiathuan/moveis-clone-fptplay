@@ -3,9 +3,8 @@ import axios from "axios";
 import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles, Volume2, VolumeX } from "lucide-react";
 import { useParams } from "react-router-dom";
 import API from "../../configs/endpoint";
-const Video_comp = () => {
+const Video_comp = ({ videoSrc }) => {
     const videoRef = useRef(null);
-    const [videoSrc, setVideoSrc] = useState("");
     const [playing, setPlaying] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -16,22 +15,8 @@ const Video_comp = () => {
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(1);
     const [muted, setMuted] = useState(false);
-    const { slugMovieName } = useParams();// Lấy id từ URL
     // Lấy dữ liệu từ API bằng Axios
-    const fetchMovieData = async () => {
-        try {
-            const result = await axios.get(`${API}/get-by-slugMovieName/${slugMovieName}`);
-            if (result.data.EC === 0 && result.data.Data.length > 0) {
-                console.log(result.data);
-                setVideoSrc(result.data.Data[0].MovieFilePath); // Chỉ lấy URL video
-            }
-        } catch (error) {
-            console.error("Lỗi khi gọi API:", error);
-        }
-    };
-    useEffect(() => {
-        fetchMovieData();
-    }, [slugMovieName]);
+
 
     // Định dạng thời gian hiển thị
     const formatTime = (time) => {

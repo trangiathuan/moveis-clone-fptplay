@@ -29,7 +29,8 @@ exports.getAllMovieNewController = async (req, res) => {
 exports.getBySlugMovieNameController = async (req, res) => {
     const slugMovieName = req.params.slugMovieName
     const slugEpisode = req.params.slugEpisode
-    console.log('Data sent to server: params slugMovieName =', slugMovieName, '- params slugEpisode', slugEpisode);
+
+    console.log('Data sent to server: params slugMovieName =', slugMovieName, '- params slugEpisode =', slugEpisode);
 
     const result = await movieService.getBySlugMovieNameService(slugMovieName, slugEpisode);
 

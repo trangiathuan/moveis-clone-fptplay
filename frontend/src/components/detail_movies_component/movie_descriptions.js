@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function MovieDescription({ description }) {
+const MovieDescription = ({ description }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -12,12 +12,12 @@ export default function MovieDescription({ description }) {
       <p>
         {isExpanded || description.length <= 40
           ? description
-          : description.slice(0, 60) + "...  "}
+          : description.slice(0, 290) + ". . ."}
 
         {description.length > 80 && (
           <button
             onClick={toggleExpand}
-            className="mt-2 text-black-300 hover:underline"
+            className="text-red-600 hover:underline"
           >
             {isExpanded ? " Thu gọn" : " Xem thêm"}
           </button>
@@ -26,3 +26,4 @@ export default function MovieDescription({ description }) {
     </div>
   );
 }
+export default MovieDescription
