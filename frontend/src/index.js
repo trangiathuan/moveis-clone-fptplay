@@ -10,6 +10,8 @@ import DetailMovie from './pages/detail-movie';
 import BuyPackage from './pages/buy-package';
 import FollowingMoviesList from './pages/following-movies-list ';
 
+import SearchTerm from './pages/search-term';
+
 
 
 
@@ -22,6 +24,8 @@ root.render(
         <Route path='/' element={<Home />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/search" element={<SearchTerm />} />
 
         <Route path='/detail/:slugMovieName' element={<DetailMovie />} />
 
