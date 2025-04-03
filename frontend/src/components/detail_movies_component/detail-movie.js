@@ -11,15 +11,25 @@ const Detail = () => {
   const [movieData, setMovieData] = useState(null);
   const [videoSrc, setVideoSrc] = useState("");
   const { slugMovieName } = useParams();// Lấy id từ URL
+  const { slugEpisode } = useParams();// Lấy id từ URL
+
 
   useEffect(() => {
     fetchMovieData();
   }, [slugMovieName]);
 
+  console.log(slugEpisode);
+  console.log(slugMovieName);
+
+
+
   // Lấy dữ liệu từ API bằng Axios
   const fetchMovieData = async () => {
     try {
-      const result = await axios.get(`${API}/get-by-slugMovieName/${slugMovieName}`);
+      if (slugEpisode === null) {
+        slugEpisode = ''
+      }
+      const result = await axios.get(`${API}/get-by-slugMovieName/${slugMovieName}/${slugEpisode}`);
       if (result.data.EC === 0) {
         console.log(result.data);
         setMovieData(result.data.Data[0]); // Cập nhật dữ liệu phim
