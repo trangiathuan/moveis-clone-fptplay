@@ -34,9 +34,9 @@ const Detail = () => {
     return <div className="text-white">Loading...</div>;
   }
   return (
-    <div className="flex flex-col items-center bg-black min-h-screen text-white pt-40 px-4">
+    <div className="flex flex-col items-center bg-black min-h-screen text-white pt-40">
       {/* Container để căn chỉnh video và thông tin phim */}
-      <div className="w-full max-w-6xl">
+      <div className="w-full max-w-7xl px-4 md:px-8 lg:px-12">
         {/* Video Section */}
         <div className="w-full">
           <Video_comp />

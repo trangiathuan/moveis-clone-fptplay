@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles } from "lucide-react";
+import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles, Volume2, VolumeX } from "lucide-react";
 import { useParams } from "react-router-dom";
 import API from "../../configs/endpoint";
 const Video_comp = () => {
@@ -14,7 +14,8 @@ const Video_comp = () => {
     const [showControls, setShowControls] = useState(true);
     const [videoDuration, setVideoDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
-
+    const [volume, setVolume] = useState(1);
+    const [muted, setMuted] = useState(false);
     const { slugMovieName } = useParams();// Lấy id từ URL
     // Lấy dữ liệu từ API bằng Axios
     const fetchMovieData = async () => {
@@ -90,24 +91,35 @@ const Video_comp = () => {
 
         return () => clearTimeout(timeout);
     }, [showControls]);
+    // nút tăng giảm, mute âm thanh
+    const toggleMute = () => {
+        setMuted(!muted);
+        videoRef.current.muted = !muted;
+    };
 
+    const changeVolume = (event) => {
+        const newVolume = parseFloat(event.target.value);
+        setVolume(newVolume);
+        videoRef.current.volume = newVolume;
+        setMuted(newVolume === 0);
+    };
     return (
         <div
-            className="relative w-full max-w-5xl mx-auto"
+            className="relative w-full max-w-7xl mx-auto"
             onMouseMove={() => setShowControls(true)}
         >
             {/* Video Player */}
             <video
                 ref={videoRef}
-                className="w-full max-h-[600px] max-w-[1000px] rounded-lg cursor-pointer"
+                className="w-full max-h-[600px] max-w-[1300px] rounded-lg cursor-pointer"
                 src={videoSrc}
                 controls={false}
                 onTimeUpdate={updateProgress}
                 onLoadedMetadata={handleLoadedMetadata}
                 onClick={togglePlay}
             ></video>
-            {/* Thanh công cụ (Tự ẩn sau 3s) */}
-            <div className={`absolute bottom-2 left-2 right-2 flex items-center justify-between p-2 bg-opacity-50 rounded-lg transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
+            {/* Thanh công cụ (Tự ẩn sau 1s) */}
+            <div className={`absolute bottom-2 left-3 right-2 flex items-center justify-between p-2 bg-opacity-50 rounded-lg transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
                 {/* Thanh Timeline & Thời lượng */}
                 <div className="absolute bottom-[42px] left-0 w-full flex items-center px-2">
                     {/* Thời lượng Video */}
@@ -130,7 +142,23 @@ const Video_comp = () => {
                     <button onClick={togglePlay} className="text-white">{playing ? <Pause /> : <Play />}</button>
                     <button onClick={() => skipTime(-10)} className="text-white"><RotateCcw /></button>
                     <button onClick={() => skipTime(10)} className="text-white"><RotateCw /></button>
+                    {/* Điều khiển âm lượng */}
+                    <div className="flex items-center space-x-2">
+                        <button onClick={toggleMute} className="text-white">
+                            {muted || volume === 0 ? <VolumeX /> : <Volume2 />}
+                        </button>
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={volume}
+                            onChange={changeVolume}
+                            className="w-16 h-1 bg-gray-300 rounded cursor-pointer"
+                        />
+                    </div>
                 </div>
+
                 <div className="flex space-x-2 relative">
                     <button className="text-white"><Flag /></button>
                     <button className="text-white"><SkipForward /></button>

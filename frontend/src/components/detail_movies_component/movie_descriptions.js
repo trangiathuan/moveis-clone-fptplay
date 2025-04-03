@@ -13,15 +13,15 @@ export default function MovieDescription({ description }) {
         {isExpanded || description.length <= 40
           ? description
           : description.slice(0, 60) + "...  "}
-      
-          {description.length > 80 && (
-            <button
-              onClick={toggleExpand}
-              className="mt-2 text-blue-300 hover:underline"
-            >
-              {isExpanded ? " Thu gọn" : " Xem thêm"}
-            </button>
-          )}
+
+        {description.length > 80 && (
+          <button
+            onClick={toggleExpand}
+            className="mt-2 text-black-300 hover:underline"
+          >
+            {isExpanded ? " Thu gọn" : " Xem thêm"}
+          </button>
+        )}
       </p>
     </div>
   );
