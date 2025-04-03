@@ -69,26 +69,24 @@ const Login = () => {
 
   return (
     <div className="relative w-full min-h-screen flex flex-col bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
-
-      <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-lg"></div>
-
+      <div className="absolute inset-0 bg-black bg-opacity-80 backdrop-blur"></div>
       <div className="relative flex items-center">
         <div className="flex flex-grow justify-center">
           <img className="w-56 h-auto mr-4" src={require("../asset/image-logo/logoFPT.png")} alt="Logo FPT" />
         </div>
         <a
           href="/"
-          className="flex justify-center items-center w-9 h-9 text-black  text-2xl bg-neutral-500 font-bold rounded-full shadow-md"
+          className="flex justify-center items-center w-10 h-10 text-white  text-2xl font-bold rounded-full shadow-md"
         >
           x
         </a>
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center flex-grow mb-28">
-        <div className="bg-neutral-800 p-8 rounded-xl shadow-lg w-full max-w-lg">
+        <div className="bg-stone-800 p-8 rounded-xl shadow-lg w-full max-w-lg">
           {step === 1 && (
             <>
-              <h2 className="text-3xl text-white font-bold mb-12 text-left ml-7 mt-5">Đăng nhập hoặc đăng ký</h2>
+              <h2 className="text-3xl text-white font-bold flex items-center justify-center mb-12 text-left ml-7 mt-5">Đăng nhập hoặc đăng ký</h2>
               <form className="space-y-8 mr-8 ml-8" onSubmit={handleContinue}>
                 <input
                   type="email"
@@ -106,12 +104,12 @@ const Login = () => {
                   Tiếp Tục
                 </button>
               </form>
-              <div className="mt-7 mb-8 text-center flex items-center justify-center space-x-2">
+              <div className="mt-7 mb-8 ml-4 text-center flex items-center justify-center space-x-2 ">
                 <input type="checkbox" id="check" className="accent-orange-600" onChange={(e) => setIsChecked(e.target.checked)} />
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 font-bold text-sm ">
                   Tôi đã đọc và đồng ý với{" "}
                   <a href="#" className="text-orange-600">
-                    Điều khoản sử dụng của FPT Play
+                    <u>Điều khoản sử dụng của FPT Play</u>
                   </a>
                 </p>
               </div>
@@ -120,45 +118,49 @@ const Login = () => {
 
           {step === 2 && (
             <>
-              <h2 className="text-3xl text-white font-bold mb-12 text-left mt-5 ml-8">Xác thực mã OTP</h2>
-              <p className="text-gray-400 text-base mb-4 ml-8">
-                Nhấn nút <b className="font-black text-white">Gửi Lại Mã OTP</b> nếu bạn không nhận được mã về{" "}
-                <span className="font-bold text-white">{email ? maskEmail(email) : "Email chưa được nhập"}</span>.
-              </p>
+              <div className="mr-8 mb-8">
+                <h2 className="text-4xl text-white font-bold mb-8 text-left  flex items-center justify-center mt-8 ml-8 ">Xác thực mã OTP</h2>
+                <p className="text-gray-400 text-base mb-4 ml-8 text-center ">
+                  Nhấn nút <b className="font-base text-center text-white">Gửi Lại</b> nếu bạn không nhận được mã về email: {" "}
+                  <span className="font-bold text-white">{email ? maskEmail(email) : "Email chưa được nhập"}</span>.
+                </p>
 
-              <form className="space-y-8 mr-8 ml-8" onSubmit={handleSubmitOtp}>
-                <div className="flex flex-grow justify-center">
-                  <input
-                    type="text"
-                    className="w-full p-3 text-neutral-400 bg-neutral-700 rounded-lg w-3/4"
-                    placeholder="Nhập OTP"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    required
-                  />
-                  <div className="mt-4 text-center">
-                    {isCounting ? (
-                      <span className="text-gray-500">Gửi lại mã sau {countdown}s</span>
-                    ) : (
-                      <a
-                        href="#"
-                        className="text-orange-600 w-full text-white bg-orange-600 py-3 rounded-lg font-medium ml-4"
-                        onClick={handleResend}
-                      >
-                        Gửi lại mã
-                      </a>
-                    )}
+                <form className="space-y-12 ml-8 " onSubmit={handleSubmitOtp}>
+                  <div className="flex flex-grow justify-center">
+                    <input
+                      type="text"
+                      className="w-full py-3 text-neutral-400 bg-neutral-700 rounded-lg  text-base pl-5"
+                      placeholder="Mã OTP"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      required
+                    />
+                    <div className="mt-3 w-1/4 ml-1  text-center ">
+                      {isCounting ? (
+                        <span className="text-base py-3 w-full text-white rounded-lg">
+                          Gửi lại {countdown}s
+                        </span>
+                      ) : (
+                        <a
+                          href="#"
+                          className="text-base py-3 w-full bg-orange-600 text-white rounded-lg"
+                          onClick={handleResend}
+                        >
+                          Gửi lại mã
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <button
-                  type="submit"
-                  className={`w-full py-3 rounded-lg font-medium mt-4  ${otp ? "bg-orange-600 text-white" : "bg-neutral-700 text-neutral-400"}`}
-                  disabled={!otp}  // Disable button if OTP is empty
-                >
-                  Xác nhận
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    className={`w-full py-4 rounded-lg font-medium   ${otp ? "bg-orange-600 text-white" : "bg-neutral-700 text-neutral-400"}`}
+                    disabled={!otp}
+                  >
+                    Xác nhận
+                  </button>
+                </form>
+              </div>
             </>
           )}
         </div>
