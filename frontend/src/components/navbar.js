@@ -35,7 +35,7 @@ const Navbar = () => {
                         </button>
                     </div>
 
-                    <div className="flex pt-3 pb-4 sm:pb-4 xl:pe-36 sm:ps-4 sm:pe-54 ps-7 pe-10">
+                    <div className="flex pt-3 pb-4 sm:pb-4 xl:pe-36 sm:ps-4 sm:pe-72 lg:pe-56 ps-7 pe-10">
                         <a href="/">
                             <img className="w-32 max-w-full" src={require('../asset/image-logo/logoFPT.png')} />
                         </a>

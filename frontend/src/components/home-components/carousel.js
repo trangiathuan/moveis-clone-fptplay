@@ -57,15 +57,15 @@ const Carousel = () => {
                             <img
                                 src={item.MovieImagePath}
                                 alt={`Slide ${index + 1}`}
-                                className="w-full h-[600px] rounded-lg object-cover"
+                                className="w-full xl:h-[600px] lg:h-[500px] sm:h-[450px] h-[350px] rounded-lg object-cover"
                             />
                             {/* Gradient overlay on each slide */}
                             <div className="absolute bottom-0 left-0 w-full h-[80%] bg-gradient-to-t from-black to-transparent rounded-lg opacity-100"></div>
-                            <div className='absolute z-9 ps-10 -mt-52'>
+                            <div className='absolute z-9 sm:ps-10 sm:-mt-52 ps-10 -mt-32'>
                                 <div className='text-white pb-1'>
-                                    <p className='text-3xl font-bold'>{item.MovieNameVietnamese}</p>
+                                    <p className='xl:text-3xl lg:text-2xl sm:text-2xl text-xl font-bold'>{item.MovieNameVietnamese}</p>
                                 </div>
-                                <div className='flex text-white pb-6'>
+                                <div className='flex text-white sm:pb-6 pb-4'>
                                     <span>{item.ReleaseYear}</span>
                                     {item.AgeRestriction && (
                                         <>
@@ -80,16 +80,16 @@ const Carousel = () => {
                                 </div>
                                 <div className='flex'>
                                     <a href={`/detail/${item.SlugMovieName}`}>
-                                        <button className='flex bg-orange-600 w-48 h-12 rounded-lg text-white text-lg '>
-                                            <img className='w-5 h-5 mt-3 ms-10 ' src={require('../../asset/image-logo/play.png')} />
-                                            <span className='ms-3 mt-2 font-bold'>Xem ngay</span>
+                                        <button className='flex bg-orange-600 sm:w-44 sm:h-12 w-36 h-10 rounded-lg text-white text-lg '>
+                                            <img className='sm:w-5 sm:h-5 sm:mt-[13px] sm:ms-8 w-5 h-5 mt-[10px] ms-4' src={require('../../asset/image-logo/play.png')} />
+                                            <span className='sm:ms-3 sm:mt-[10px] font-bold ps-3 mt-[6px]'>Xem ngay</span>
                                         </button>
                                     </a>
-                                    <button className='flex ms-5 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
-                                        <img className='w-6 h-5 ms-3 mt-4' src={require('../../asset/image-logo/heart.png')} />
+                                    <button className='flex ms-5 bg-neutral-800 sm:w-12 sm:h-12 w-10 h-10 rounded-full text-white text-lg '>
+                                        <img className='sm:w-6 sm:h-5 sm:ms-3 sm:mt-4 w-6 h-6 ms-2 mt-[10px]' src={require('../../asset/image-logo/heart.png')} />
                                     </button>
-                                    <button className='flex ms-4 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
-                                        <img className='w-8 h-8 ms-2 mt-2' src={require('../../asset/image-logo/share.png')} />
+                                    <button className='flex ms-4 bg-neutral-800 sm:w-12 sm:h-12 w-10 h-10 rounded-full text-white text-lg '>
+                                        <img className='sm:w-8 sm:h-8 sm:ms-2 sm:mt-2 w-8 h-8 ms-1 mt-[3px]' src={require('../../asset/image-logo/share.png')} />
                                     </button>
                                 </div>
                             </div>
