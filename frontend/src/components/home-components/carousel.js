@@ -85,10 +85,10 @@ const Carousel = () => {
                                             <span className='ms-3 mt-2 font-bold'>Xem ngay</span>
                                         </button>
                                     </a>
-                                    <button className='flex ms-5 mt-0 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
+                                    <button className='flex ms-5 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
                                         <img className='w-6 h-5 ms-3 mt-4' src={require('../../asset/image-logo/heart.png')} />
                                     </button>
-                                    <button className='flex ms-5 mt-0 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
+                                    <button className='flex ms-4 bg-neutral-800 w-12 h-12 rounded-full text-white text-lg '>
                                         <img className='w-8 h-8 ms-2 mt-2' src={require('../../asset/image-logo/share.png')} />
                                     </button>
                                 </div>

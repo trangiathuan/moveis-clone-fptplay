@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../configs/endpoint";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ const Login = () => {
 
   const handleContinue = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:8080/api/send-otp", { email });
+    const res = await axios.post(`${API}/send-otp`, { email });
     console.log(res.data);
 
     if (isChecked) {
@@ -38,7 +39,7 @@ const Login = () => {
 
   const handleSubmitOtp = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:8080/api/verify-otp", { email, otp });
+    const res = await axios.post(`${API}/verify-otp`, { email, otp });
 
     if (res.data.Data.EC === 0) {
       const { token } = res.data.Data;
@@ -53,7 +54,7 @@ const Login = () => {
   };
 
   const handleResend = async () => {
-    const res = await axios.post("http://localhost:8080/api/send-otp", { email });
+    const res = await axios.post(`${API}/send-otp`, { email });
     console.log(res.data);
     setCountdown(30);
     setIsCounting(true);

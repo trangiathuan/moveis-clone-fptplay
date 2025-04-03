@@ -40,7 +40,7 @@ const FollowingMoviesList = () => {
 
 
     return (
-        <div className="bg-black ">
+        <div className="bg-black overflow-x-hidden">
             <div>
                 <Navbar />
             </div>

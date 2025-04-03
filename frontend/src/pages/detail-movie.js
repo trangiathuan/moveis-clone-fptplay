@@ -3,7 +3,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 const DetailMovie = () => {
     return (
-        <div className="bg-black">
+        <div className="bg-black overflow-x-hidden">
             <div>
                 <Navbar />
             </div>

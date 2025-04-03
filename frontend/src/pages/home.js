@@ -7,11 +7,11 @@ import NewlyReleased from "../components/home-components/newly-released";
 
 const Home = () => {
     return (
-        <div className="bg-black w-full">
+        <div className="bg-black overflow-x-hidden">
             <div>
                 <Navbar />
             </div>
-            <div className="pt-14">
+            <div className="pt-14 ">
                 <Carousel />
             </div>
             <div>
@@ -23,9 +23,9 @@ const Home = () => {
             <div>
                 <MoviesHot />
             </div>
-            <div>
+            {/* <div>
                 <Footer />
-            </div>
+            </div> */}
         </div>
     )
 }

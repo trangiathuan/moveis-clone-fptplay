@@ -31,11 +31,11 @@ const NewlyReleased = () => {
 
     return (
         <div className="text-white">
-            <div className="flex flex-col justify-center items-center ">
+            <div className="flex flex-col">
                 <div className=''>
-                    <p className="text-2xl font-bold -ms-[575px] pt-10 pb-4">Mới ra mắt</p>
+                    <p className="text-2xl font-bold pt-10 pb-4 container mx-auto px-5 sm:px-5 lg:px-4 xl:px-16 ">Mới ra mắt</p>
                 </div>
-                <div className='w-full'>
+                <div className='w-full container mx-auto px-5 sm:px-5 lg:px-4 xl:px-16'>
                     <Swiper
                         slidesPerView={3.2}
                         centeredSlides={false}
@@ -43,14 +43,26 @@ const NewlyReleased = () => {
                         grabCursor={true}
                         className="mySwiper"
                         breakpoints={{
-                            840: {
-                                slidesPerView: 3.2, // Từ 640px trở lên, hiển thị 3.2 slides
+                            1050: {
+                                slidesPerView: 3.2,
                             },
-                            640: {
-                                slidesPerView: 2.2, // Từ 640px trở lên, hiển thị 3.2 slides
+                            900: {
+                                slidesPerView: 2.5,
+                            },
+                            800: {
+                                slidesPerView: 2,
+                            },
+                            700: {
+                                slidesPerView: 1.8,
+                            },
+                            600: {
+                                slidesPerView: 1.5,
+                            },
+                            500: {
+                                slidesPerView: 1.5,
                             },
                             0: {
-                                slidesPerView: 1, // Dưới 640px, hiển thị 1 slide
+                                slidesPerView: 1,
                             },
                         }}
                     >

@@ -13,27 +13,33 @@ import { Pagination } from 'swiper/modules';
 const EventSports = () => {
     return (
         <div className="text-white pt-6">
-            <div className="flex flex-col justify-center items-center ">
+            <div className="flex flex-col">
                 <div className=''>
-                    <p className="text-2xl font-bold -ms-[575px] pt-10 pb-4">Sự kiện thể thao</p>
+                    <p className="text-2xl font-bold pt-10 pb-4 container mx-auto px-5 sm:px-5 lg:px-5 xl:px-16">Sự kiện thể thao</p>
                 </div>
-                <div className='w-full'>
+                <div className='w-full container mx-auto px-5 sm:px-5 lg:px-4 xl:px-16'>
                     <Swiper
                         spaceBetween={10}
                         grabCursor={true}
                         className="mySwiper"
                         breakpoints={{
-                            840: {
-                                slidesPerView: 5.2, // Từ 640px trở lên, hiển thị 3.2 slides
+                            1050: {
+                                slidesPerView: 5.2,
                             },
-                            740: {
+                            850: {
                                 slidesPerView: 4.2,
                             },
-                            540: {
-                                slidesPerView: 3.2,
+                            740: {
+                                slidesPerView: 3.5,
                             },
-                            0: {
-                                slidesPerView: 2.2, // Dưới 640px, hiển thị 1 slide
+                            540: {
+                                slidesPerView: 2.5,
+                            },
+                            320: {
+                                slidesPerView: 1.8,
+                            },
+                            200: {
+                                slidesPerView: 1,
                             },
                         }}
                     >
