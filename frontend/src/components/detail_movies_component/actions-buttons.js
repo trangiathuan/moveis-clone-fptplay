@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Heart, Share2 } from "lucide-react";
 import axios from "axios";
-
+import API from "../../configs/endpoint";
 const ActionButtons = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const { slugMovieName } = useParams(); // Lấy id phim từ URL
@@ -16,7 +16,7 @@ const ActionButtons = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:8080/api/check-follow/${slugMovieName}`, // API đúng
+        `${API}/api/check-follow/${slugMovieName}`, // API đúng
         {
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const ActionButtons = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:8080/api/toggleFollowMovie/${slugMovieName}`,
+        `${API}/api/toggleFollowMovie/${slugMovieName}`,
         {
           headers: {
             "Content-Type": "application/json",
