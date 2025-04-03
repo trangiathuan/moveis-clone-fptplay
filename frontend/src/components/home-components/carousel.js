@@ -81,8 +81,8 @@ const Carousel = () => {
                                 <div className='flex'>
                                     <a href={`/detail/${item.SlugMovieName}`}>
                                         <button className='flex bg-orange-600 sm:w-44 sm:h-12 w-36 h-10 rounded-lg text-white text-lg '>
-                                            <img className='sm:w-5 sm:h-5 sm:mt-[13px] sm:ms-8 w-5 h-5 mt-[10px] ms-4' src={require('../../asset/image-logo/play.png')} />
-                                            <span className='sm:ms-3 sm:mt-[10px] font-bold ps-3 mt-[6px]'>Xem ngay</span>
+                                            <img className='sm:w-5 sm:h-5 sm:mt-[14px] sm:ms-8 w-5 h-5 mt-[10px] ms-4' src={require('../../asset/image-logo/play.png')} />
+                                            <span className='sm:ms-3 sm:mt-[10px] font-bold sm:ps-0 ps-3 mt-[6px]'>Xem ngay</span>
                                         </button>
                                     </a>
                                     <button className='flex ms-5 bg-neutral-800 sm:w-12 sm:h-12 w-10 h-10 rounded-full text-white text-lg '>
