@@ -16,7 +16,8 @@ const ActionButtons = () => {
   const fetchFollowStatus = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`${API}/check-follow/${slugMovieName}`, // API đúng
+      const response = await axios.get(
+        `${API}/check-follow/${slugMovieName}`, // API đúng
         {
           headers: {
             "Content-Type": "application/json",
@@ -37,7 +38,8 @@ const ActionButtons = () => {
   const handleFollow = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`${API}/toggleFollowMovie/${slugMovieName}`,
+      const response = await axios.get(
+        `${API}/toggleFollowMovie/${slugMovieName}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -64,14 +66,14 @@ const ActionButtons = () => {
 
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex flex-nowrap items-center gap-3">
       {/* Nút Theo dõi */}
       <button
         onClick={handleFollow}
-        className="flex items-center px-4 py-2 rounded-full hover:bg-gray-200 transition"
+        className="flex items-center px-3 sm:px-4 py-1 sm:py-2 rounded-full transition text-white text-xs sm:text-sm md:text-base whitespace-nowrap"
       >
         <Heart
-          className={`mr-2 ${isFollowing ? "fill-pink-500 text-pink-500" : "fill-grey text-grey"}`}
+          className={`mr-2 h-4 w-4 sm:h-5 sm:w-5 ${isFollowing ? "fill-pink-500 text-pink-500" : "fill-gray-400 text-gray-400"}`}
         />
         {isFollowing ? "Đã theo dõi" : "Theo dõi"}
       </button>
@@ -79,9 +81,9 @@ const ActionButtons = () => {
       {/* Nút Chia sẻ */}
       <button
         onClick={handleShare}
-        className="flex items-center px-4 py-2 rounded-full hover:bg-gray-200 transition"
+        className="flex items-center px-3 sm:px-4 py-1 sm:py-2 rounded-full transition text-white text-xs sm:text-sm md:text-base whitespace-nowrap"
       >
-        <Share2 className="mr-2" />
+        <Share2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
         Chia sẻ
       </button>
     </div>

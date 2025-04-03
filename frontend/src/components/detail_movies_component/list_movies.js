@@ -1,45 +1,73 @@
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import API from '../../configs/endpoint';
 
-const episodes = [
-    { id: 1, image: "https://anhnail.com/wp-content/uploads/2024/11/Hinh-gai-xinh-2k7-toc-ngan.jpg", duration: "23 phút" },
-    { id: 2, image: "https://anhnail.com/wp-content/uploads/2024/11/Hinh-gai-xinh-2k7-toc-ngan.jpg", duration: "23 phút" },
-    { id: 3, image: "https://anhnail.com/wp-content/uploads/2024/11/Hinh-gai-xinh-2k7-toc-ngan.jpg", duration: "23 phút" },
-    { id: 4, image: "https://anhnail.com/wp-content/uploads/2024/11/Hinh-gai-xinh-2k7-toc-ngan.jpg", duration: "23 phút" },
-    { id: 5, image: "https://anhnail.com/wp-content/uploads/2024/11/Hinh-gai-xinh-2k7-toc-ngan.jpg", duration: "23 phút" },
-    { id: 6, image: "https://anhnail.com/wp-content/uploads/2024/11/Hinh-gai-xinh-2k7-toc-ngan.jpg", duration: "23 phút" },
-  ];
-  
 const List_movies = () => {
-    return(
-        <div className="bg-black text-white p-6">
-      <h2 className="text-xl font-bold mb-4">Danh sách</h2>
-      <div className="grid grid-cols-3 gap-4">
-        {episodes.map((episodes) => (
-          <div key={episodes.id} className="relative">
-            <img
-              src={episodes.image}
-              alt={`Tập ${episodes.id}`}
-              className="w-full rounded-lg"
-            />
-            <div className="absolute bottom-2 left-2 bg-black bg-opacity-75 text-white px-2 py-1 text-sm rounded">
-              {episodes.duration}
-            </div>
-            <p className="text-center mt-2">Tập {episodes.id}</p>
-          </div>
-        ))}
-      </div>
-      <div className="mt-6 flex gap-4">
-        <button className="bg-gray-700 px-4 py-2 rounded">1-15</button>
-        <button className="bg-gray-700 px-4 py-2 rounded">16-30</button>
-        <button className="bg-gray-700 px-4 py-2 rounded">31-45</button>
-        <button className="bg-gray-700 px-4 py-2 rounded">Xem tất cả</button>
+  const { slugMovieName } = useParams();
+
+  useEffect(() => {
+    fetchEpisodesData();
+  }, [slugMovieName]);
+
+  // Lấy slug từ URL
+
+  const [episodes, setEpisodes] = useState([]);
+
+  const fetchEpisodesData = async () => {
+    try {
+      const result = await axios.get(`${API}/get-list-movies/${slugMovieName}`);
+      if (result.data.EC === 0) {
+        console.log(result.data);
+        setEpisodes(result.data.Data); // Chỉ lấy URL image
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error);
+    }
+  };
+
+
+  return (
+    <div className="bg-black text-white py-4 w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+      <h2 className="text-xl font-bold mb-2">Danh sách tập phim</h2>
+      <div className="text-white pt-3 relative">
+        <Swiper
+          spaceBetween={12}
+          grabCursor={true}
+          className="mySwiper"
+          breakpoints={{
+            1050: { slidesPerView: 5.2 },
+            850: { slidesPerView: 4.2 },
+            740: { slidesPerView: 3.5 },
+            540: { slidesPerView: 2.5 },
+            320: { slidesPerView: 1.8 },
+            200: { slidesPerView: 1 },
+          }}
+        >
+          {episodes.map((episode) => (
+            <SwiperSlide key={episode.slugEpisode}>
+              <div className="relative">
+                <a href={`/detail/${slugMovieName}/${episode.SlugEpisode}`}>
+                  <img
+                    className="w-[207px] h-[116px] rounded-lg object-cover"
+                    src={episode.MovieImagePath}
+                    alt={episode.EpisodeNumber}
+                  />
+                  {/* Hiển thị thời gian tập phim */}
+                  <span className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
+                    {episode.duration}
+                  </span>
+                  <p className="pt-3 text-base text-left">{episode.EpisodeNumber}</p>
+                </a>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
-    )
+  )
 }
 export default List_movies;

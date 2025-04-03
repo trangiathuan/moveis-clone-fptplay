@@ -27,7 +27,7 @@ root.render(
 
         <Route path="/search" element={<SearchTerm />} />
 
-        <Route path='/detail/:slugMovieName' element={<DetailMovie />} />
+        <Route path='/detail/:slugMovieName/:slugEpisode?' element={<DetailMovie />} />
 
         <Route path='/buypackage' element={<BuyPackage />} />
 
