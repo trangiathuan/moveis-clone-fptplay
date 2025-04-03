@@ -106,7 +106,7 @@ const Login = () => {
               </form>
               <div className="mt-7 mb-8 ml-4 text-center flex items-center justify-center space-x-2 ">
                 <input type="checkbox" id="check" className="accent-orange-600" onChange={(e) => setIsChecked(e.target.checked)} />
-                <p className="text-gray-600 font-bold text-sm ">
+                <p className="text-gray-400 font-bold text-sm ">
                   Tôi đã đọc và đồng ý với{" "}
                   <a href="#" className="text-orange-600">
                     <u>Điều khoản sử dụng của FPT Play</u>

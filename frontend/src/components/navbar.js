@@ -70,7 +70,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex text-white xl:ps-36 sm:ps-0 sm:pe-0">
-                        <a>
+                        <a href="/search">
                             <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
                         </a>
                         <a>
