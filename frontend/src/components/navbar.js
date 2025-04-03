@@ -35,30 +35,30 @@ const Navbar = () => {
                         </button>
                     </div>
 
-                    <div className="flex pt-3 pb-4 sm:pb-4 xl:pe-36 sm:ps-4 sm:pe-72 ps-7 pe-10">
+                    <div className="flex pt-3 pb-4 sm:pb-4 xl:pe-36 sm:ps-4 sm:pe-54 ps-7 pe-10">
                         <a href="/">
                             <img className="w-32 max-w-full" src={require('../asset/image-logo/logoFPT.png')} />
                         </a>
                     </div>
 
-                    <div className="hidden lg:flex pt-7 pb-5">
-                        <a href="/" className="text-stone-400 text-base font-sans font-semibold ps-3 pe-3 focus:text-white hover:text-orange-600">Trang chủ</a>
-                        <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-3 pe-3 focus:text-white hover:text-orange-600">Phim lẻ</a>
-                        <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-3 pe-3 focus:text-white hover:text-orange-600">Phim bộ</a>
-                        <a href="#" className="text-stone-400 text-base font-sans font-semibold ps-3 pe-3 focus:text-white hover:text-orange-600">Anime</a>
+                    <div className="hidden lg:flex pt-7 pb-5 space-x-5">
+                        <a href="/" className="text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600">Trang chủ</a>
+                        <a href="#" className="text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600">Phim lẻ</a>
+                        <a href="#" className="text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600">Phim bộ</a>
+                        <a href="#" className="text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600">Anime</a>
 
-                        <div className="relative inline-block text-left -mt-2">
-                            <a
-                                href="#"
-                                onClick={toggleMenuXemThem}
-                                className="flex text-stone-400 px-4 py-2 text-gray-300 text-base font-sans font-semibold ps-7 focus:text-white hover:text-orange-600"
-                            >
-                                Xem thêm
-                                <img className="ms-2 mt-2 w-3 h-3" src={require('../asset/image-logo/down.png')} />
-                            </a>
+                        <a
+                            href="#"
+                            onClick={toggleMenuXemThem}
+                            className="flex text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600"
+                        >
+                            Xem thêm
+                            <img className="ms-2 mt-2 w-3 h-3" src={require('../asset/image-logo/down.png')} />
+                        </a>
+                        <div className="relative inline-block mt-7">
 
                             {isOpenXT && (
-                                <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48">
+                                <div className="absolute bg-neutral-800 shadow-md rounded-md -ms-16 w-32">
                                     <ul className="py-2">
                                         <li><a href="#" className="block px-4 py-2 text-white">Option 1</a></li>
                                         <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
