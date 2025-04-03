@@ -72,11 +72,11 @@ const Login = () => {
       <div className="absolute inset-0 bg-black bg-opacity-80 backdrop-blur"></div>
       <div className="relative flex items-center">
         <div className="flex flex-grow justify-center">
-          <img className="w-56 h-auto mr-4" src={require("../asset/image-logo/logoFPT.png")} alt="Logo FPT" />
+          <img className="w-56 h-auto -me-10 mt-5" src={require("../asset/image-logo/logoFPT.png")} alt="Logo FPT" />
         </div>
         <a
           href="/"
-          className="flex justify-center items-center w-10 h-10 text-white  text-2xl font-bold rounded-full shadow-md"
+          className="flex justify-center items-center text-white me-10 text-4xl font-bold rounded-full shadow-md"
         >
           x
         </a>
