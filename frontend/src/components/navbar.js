@@ -29,13 +29,13 @@ const Navbar = () => {
         <div>
             <nav className="flex bg-black w-full sm:w-full fixed z-30 items-center">
                 <div className="flex mx-auto ">
-                    <div className="flex lg:hidden pt-5 pb-4 ps-0 ">
+                    <div className="flex sm:flex lg:hidden pt-5 pb-4 ps-0 pe-5 ">
                         <button onClick={toggleMobileMenu}>
-                            <img className="w-5" src={require('../asset/image-logo/menu.png')} />
+                            <img className="w-7" src={require('../asset/image-logo/menu.png')} />
                         </button>
                     </div>
 
-                    <div className="flex pt-3 pb-4 sm:pb-0 xl:pe-36 ps-12 pe-10">
+                    <div className="flex pt-3 pb-4 sm:pb-4 xl:pe-36 sm:ps-4 sm:pe-72 ps-7 pe-10">
                         <a href="/">
                             <img className="w-32 max-w-full" src={require('../asset/image-logo/logoFPT.png')} />
                         </a>
@@ -69,7 +69,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className="flex text-white xl:ps-36">
+                    <div className="flex text-white xl:ps-36 sm:ps-0 sm:pe-0">
                         <a>
                             <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
                         </a>
@@ -116,7 +116,7 @@ const Navbar = () => {
             </nav>
 
             {isMenuOpen && (
-                <div className="sm:hidden bg-black text-white p-5 mt-16 fixed w-full top-0 left-0 z-30">
+                <div className="lg:hidden bg-black text-white p-5 mt-16 fixed w-full top-0 left-0 z-30">
                     <a href="#" className="block py-2">Trang chủ</a>
                     <a href="#" className="block py-2">Truyền hình</a>
                     <a href="#" className="block py-2">Phim bộ</a>
