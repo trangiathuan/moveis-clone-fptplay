@@ -17,13 +17,15 @@ const ActionButtons = () => {
       const token = localStorage.getItem("token");
       const response = await axios.get(
         `${API}/api/check-follow/${slugMovieName}`, // API đúng
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+
+      const response = await axios.get(`${API}/check-follow/${slugMovieName}`, // API đúng
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
       console.log(response.data);
       if (response.data.Status === 1) {
         setIsFollowing(true); // Cập nhật trạng thái
@@ -37,15 +39,19 @@ const ActionButtons = () => {
   const handleFollow = async () => {
     try {
       const token = localStorage.getItem("token");
+
       const response = await axios.get(
         `${API}/api/toggleFollowMovie/${slugMovieName}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+
+      const response = await axios.get(`${API}/toggleFollowMovie/${slugMovieName}`,
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           },
-        },
-      );
+        );
 
       setIsFollowing(!isFollowing); // Cập nhật trạng thái theo dõi
       console.log(response.data);
