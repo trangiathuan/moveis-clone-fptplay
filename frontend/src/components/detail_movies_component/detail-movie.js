@@ -34,20 +34,23 @@ const Detail = () => {
     return <div className="text-white">Loading...</div>;
   }
   return (
-    <div className="flex flex-col items-center bg-black min-h-screen text-white">
+    <div className="flex flex-col items-center bg-black min-h-screen text-white pt-40 px-4">
       {/* Container để căn chỉnh video và thông tin phim */}
-      <div className="w-full max-w-5xl px-2">
+      <div className="w-full max-w-6xl">
         {/* Video Section */}
-        <Video_comp />
+        <div className="w-full">
+          <Video_comp />
+        </div>
 
-        <div className="grid grid-cols-3 gap-6 mt-6 px-8">
+        {/* Thông tin phim */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 px-4 md:px-8">
           {/* Left Section */}
-          <div className="col-span-2">
-            <h1 className="text-3xl font-bold">{movieData.MovieNameVietnamese}</h1>
+          <div className="md:col-span-2">
+            <h1 className="text-2xl md:text-3xl font-bold">{movieData.MovieNameVietnamese}</h1>
             <p className="text-gray-400 text-sm mt-2">{movieData.MovieNameEnglish}</p>
             <Star_comp /> {/* Đánh giá sản phẩm */}
 
-            <div className="mt-2 text-sm text-gray-400 mt-3">
+            <div className="mt-3 text-sm text-gray-400">
               <span className="text-red-400">{movieData.MovieStatus}</span>
               <span className="mx-2">•</span>
               <span>{movieData.ReleaseYear}</span>
@@ -58,34 +61,34 @@ const Detail = () => {
               <span className="mx-2">•</span>
               <span>{movieData.Country}</span>
             </div>
-            <div className="mt-3">{movieData.SummaryTitle}</div>
+            <div className="mt-3 font-semibold">{movieData.SummaryTitle}</div>
             <p className="mt-4 text-gray-300 text-sm">
               <MovieDescription description={movieData.SummaryContent} />
             </p>
           </div>
 
           {/* Right Section */}
-          <div className="p-8 rounded-lg">
+          <div className="p-6 rounded-lg">
             {/* Action Buttons */}
-            <div className="flex items-center gap-6 text-white text-sm">
+            <div className="flex flex-wrap items-center gap-4 text-white text-sm">
               <ActionButtons />
             </div>
 
             {/* Thông tin chi tiết */}
-            <div className="text-white text-sm mt-4 space-y-1">
-              <div className="flex">
+            <div className="text-white text-sm mt-4 space-y-2">
+              <div className="flex flex-wrap">
                 <span className="font-semibold w-24">Diễn viên:</span>
                 <span className="text-gray-300 flex-1">{movieData.Actor}</span>
               </div>
-              <div className="flex">
+              <div className="flex flex-wrap">
                 <span className="font-semibold w-24">Đạo diễn:</span>
                 <span className="text-gray-300 flex-1">{movieData.Director}</span>
               </div>
-              <div className="flex">
+              <div className="flex flex-wrap">
                 <span className="font-semibold w-24">Thể loại:</span>
                 <span className="text-gray-300 flex-1">{movieData.MovieGenre}</span>
               </div>
-              <div className="flex">
+              <div className="flex flex-wrap">
                 <span className="font-semibold w-24">Danh mục:</span>
                 <span className="text-gray-300">{movieData.CategoryName}</span>
               </div>
@@ -93,7 +96,9 @@ const Detail = () => {
           </div>
         </div>
       </div>
-      <div> {/* code danh sách movie */}
+
+      {/* Danh sách phim */}
+      <div className="w-full max-w-6xl mt-6">
         <List_movies />
       </div>
     </div>

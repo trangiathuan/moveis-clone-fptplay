@@ -99,7 +99,7 @@ const Video_comp = () => {
             {/* Video Player */}
             <video
                 ref={videoRef}
-                className="w-full rounded-lg cursor-pointer"
+                className="w-full max-h-[600px] max-w-[1000px] rounded-lg cursor-pointer"
                 src={videoSrc}
                 controls={false}
                 onTimeUpdate={updateProgress}
