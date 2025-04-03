@@ -16,27 +16,13 @@ exports.getAllMovieNewService = async () => {
 
 }
 
-exports.getBySlugMovieNameService = async (slugMovieName) => {
+exports.getBySlugMovieNameService = async (slugMovieName, slugEpisode) => {
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getBySlugMovieName')
             .input('SlugMovieName', sql.NVarChar, slugMovieName)
-            .execute('SP_Movies')
-        return result.recordset;
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-exports.getByEpisodeService = async (slugMovieName, slugEpisode) => {
-    try {
-        const pool = await connection();
-        const result = await pool.request()
-            .input('action', sql.VarChar, 'getByEpisode')
-            .input('SlugMovieName', sql.VarChar, slugMovieName)
-            .input('SlugEpisode', sql.VarChar, slugEpisode)
+            .input('SlugEpisode', sql.NVarChar, slugEpisode)
             .execute('SP_Movies')
         return result.recordset;
 
@@ -51,6 +37,19 @@ exports.getByCategoryNameService = async (slugCategoryName) => {
         const result = await pool.request()
             .input('action', sql.VarChar, 'getByCategoryName')
             .input('SlugCategoryName', sql.VarChar, slugCategoryName)
+            .execute('SP_Movies')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getListMoviesService = async (slugMovieName) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'getListMovies')
+            .input('SlugMovieName', sql.VarChar, slugMovieName)
             .execute('SP_Movies')
         return result.recordset;
     } catch (error) {
