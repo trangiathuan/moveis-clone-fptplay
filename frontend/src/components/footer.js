@@ -2,29 +2,29 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className=" pt-6 container mx-auto pb-6 mt-8 ">
-            <div className="flex flex-col  justify-center items-center px-40">
-                <div className="grid grid-cols-1 md:grid-cols-5 border-t border-b border-gray-700 pt-6 pb-6 mt-15">
-                    <div>
-                        <ul className="space-y-2">
-                            <li className="w-1/3">
+        <footer className=" pt-6 container mx-auto pb-6 mt-8 xl:px-16 lg:px-10 px-5 ">
+            <div className="flex flex-col justify-center items-center">
+                <div className="grid grid-cols-3 sm:grid-cols-5 xl:grid-cols-5 lg:grid-cols-6 border-t border-b border-gray-700 pt-6 pb-6 mt-15">
+                    <div className="hidden xl:flex lg:hidden">
+                        <ul className="space-y-3">
+                            <li className="w-1/2">
                                 <a href="/">
                                     <img src={require('../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
                                 </a>
                             </li>
-                            <li className="w-1/3">
+                            <li className="w-1/2">
                                 <a href="/">
                                     <img src={require('../asset/image-logo/footer.png')} alt="Footer Logo" />
                                 </a>
                             </li>
-                            <li className="w-1/3">
+                            <li className="w-1/2 pt-3">
                                 <a href="/">
                                     <img src={require('../asset/image-logo/footer2.png')} alt="Footer Logo 2" />
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="w-40">
                         <h2 className="text-xs font-semibold mb-4 text-gray-400">Về FPT Play</h2>
                         <ul className="space-y-2 text-sm">
                             <li><a href="/" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">Giới thiệu</a></li>
@@ -34,7 +34,7 @@ const Footer = () => {
                             <li><a href="/" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">Thông tin</a></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="w-40">
                         <h2 className="text-xs font-semibold mb-4 text-gray-400">Dịch vụ</h2>
                         <ul className="space-y-2 text-sm">
                             <li><a href="/" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">Gói DATA</a></li>
@@ -43,7 +43,7 @@ const Footer = () => {
                             <li><a href="/" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">Bảo hành</a></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="w-40">
                         <h2 className="text-xs font-semibold mb-4 text-gray-400">Quy định</h2>
                         <ul className="space-y-2 text-sm">
                             <li><a href="/" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">Điều khoản sử dụng</a></li>
@@ -51,7 +51,7 @@ const Footer = () => {
                             <li><a href="/" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">Chính sách bảo mật thông tin dữ liệu</a></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="w-40 pt-5 sm:ms-14 sm:pt-0 lg:ms-0">
                         <h2 className="text-xs font-semibold mb-4 text-gray-400">Liên hệ</h2>
                         <ul className="space-y-2 text-sm">
                             <li className="text-white">Số điện thoại: <a href="tel:19006600" className="text-white active:text-red-500 focus:text-red-500 hover:text-red-500">19006600</a></li>
@@ -90,7 +90,7 @@ const Footer = () => {
 
 
             </div>
-            <div className="text-gray-200 text-sm mt-8  px-40">
+            <div className="text-gray-200 text-sm mt-8 px-0">
                 <p className="mb-2 text-left">
                     Công ty Cổ phần Viễn Thông FPT - Người đại diện: Ông Hoàng Việt Anh.
                     Trụ sở: Tầng 2, Tòa nhà FPT Cầu Giấy, số 17 Phố Duy Tân, Phường

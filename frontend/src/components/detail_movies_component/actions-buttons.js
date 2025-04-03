@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Heart, Share2 } from "lucide-react";
 import axios from "axios";
+import API from "../../configs/endpoint";
 
 const ActionButtons = () => {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -15,8 +16,7 @@ const ActionButtons = () => {
   const fetchFollowStatus = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:8080/api/check-follow/${slugMovieName}`, // API đúng
+      const response = await axios.get(`${API}/check-follow/${slugMovieName}`, // API đúng
         {
           headers: {
             "Content-Type": "application/json",
@@ -37,8 +37,7 @@ const ActionButtons = () => {
   const handleFollow = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:8080/api/toggleFollowMovie/${slugMovieName}`,
+      const response = await axios.get(`${API}/toggleFollowMovie/${slugMovieName}`,
         {
           headers: {
             "Content-Type": "application/json",

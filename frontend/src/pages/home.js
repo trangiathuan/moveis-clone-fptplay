@@ -23,9 +23,9 @@ const Home = () => {
             <div>
                 <MoviesHot />
             </div>
-            {/* <div>
+            <div>
                 <Footer />
-            </div> */}
+            </div>
         </div>
     )
 }
