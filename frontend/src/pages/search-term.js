@@ -10,7 +10,7 @@ const SearchTerm = () => {
             <div>
                 <Navbar />
             </div>
-            <div>
+            <div className="pt-20">
                 <Search />
             </div>
             <div>

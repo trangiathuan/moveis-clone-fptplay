@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className=" pt-6 container mx-auto pb-6 mt-8 xl:px-16 lg:px-10 px-5 ">
+        <footer className=" pt-6 container max-w-7xl mx-auto pb-6 mt-8 xl:px-16 lg:px-10 px-5  ">
             <div className="flex flex-col justify-center items-center">
                 <div className="grid grid-cols-3 sm:grid-cols-5 xl:grid-cols-5 lg:grid-cols-6 border-t border-b border-gray-700 pt-6 pb-6 mt-15">
                     <div className="hidden xl:flex lg:hidden">
