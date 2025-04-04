@@ -9,17 +9,17 @@ const Footer = () => {
                         <ul className="space-y-3">
                             <li className="w-1/2">
                                 <a href="/">
-                                    <img src={require('../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
+                                    <img src={require('../../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
                                 </a>
                             </li>
                             <li className="w-1/2">
                                 <a href="/">
-                                    <img src={require('../asset/image-logo/footer.png')} alt="Footer Logo" />
+                                    <img src={require('../../asset/image-logo/footer.png')} alt="Footer Logo" />
                                 </a>
                             </li>
                             <li className="w-1/2 pt-3">
                                 <a href="/">
-                                    <img src={require('../asset/image-logo/footer2.png')} alt="Footer Logo 2" />
+                                    <img src={require('../../asset/image-logo/footer2.png')} alt="Footer Logo 2" />
                                 </a>
                             </li>
                         </ul>

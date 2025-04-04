@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/footer";
-import Navbar from "../components/navbar"
+import Footer from "../components/public-component/footer";
+import Navbar from "../components/public-component/navbar"
 import axios from 'axios'
 import API from "../configs/endpoint";
 
@@ -37,7 +37,6 @@ const FollowingMoviesList = () => {
             console.log('Bỏ theo dõi thất bại');
         }
     }
-
 
     return (
         <div className="bg-black overflow-x-hidden">

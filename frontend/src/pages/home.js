@@ -1,8 +1,8 @@
 import Carousel from "../components/home-components/carousel";
 import EventSports from "../components/home-components/events-sports";
-import Footer from "../components/footer";
+import Footer from "../components/public-component/footer";
 import MoviesHot from "../components/home-components/movies-hot";
-import Navbar from "../components/navbar";
+import Navbar from "../components/public-component/navbar";
 import NewlyReleased from "../components/home-components/newly-released";
 
 const Home = () => {

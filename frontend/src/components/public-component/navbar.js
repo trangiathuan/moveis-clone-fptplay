@@ -31,13 +31,13 @@ const Navbar = () => {
                 <div className="flex mx-auto ">
                     <div className="flex sm:flex lg:hidden pt-5 pb-4 ps-0 pe-5 ">
                         <button onClick={toggleMobileMenu}>
-                            <img className="w-7" src={require('../asset/image-logo/menu.png')} />
+                            <img className="w-7" src={require('../../asset/image-logo/menu.png')} />
                         </button>
                     </div>
 
                     <div className="flex pt-3 pb-4 sm:pb-4 xl:pe-36 sm:ps-4 sm:pe-72 lg:pe-56 ps-7 pe-10">
                         <a href="/">
-                            <img className="w-32 max-w-full" src={require('../asset/image-logo/logoFPT.png')} />
+                            <img className="w-32 max-w-full" src={require('../../asset/image-logo/logoFPT.png')} />
                         </a>
                     </div>
 
@@ -53,7 +53,7 @@ const Navbar = () => {
                             className="flex text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600"
                         >
                             Xem thêm
-                            <img className="ms-2 mt-2 w-3 h-3" src={require('../asset/image-logo/down.png')} />
+                            <img className="ms-2 mt-2 w-3 h-3" src={require('../../asset/image-logo/down.png')} />
                         </a>
                         <div className="relative inline-block mt-7">
 
@@ -71,14 +71,14 @@ const Navbar = () => {
 
                     <div className="flex text-white xl:ps-36 sm:ps-0 sm:pe-0">
                         <a href="/search">
-                            <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../asset/image-logo/search.png')} />
+                            <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../../asset/image-logo/search.png')} />
                         </a>
                         <a>
-                            <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../asset/image-logo/bell.png')} />
+                            <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../../asset/image-logo/bell.png')} />
                         </a>
                         <div className="pt-5 hidden sm:block">
                             <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28 justify-between">
-                                <img className="w-9 h-8 ps-3 pt-2" src={require('../asset/image-logo/wallet.png')} />
+                                <img className="w-9 h-8 ps-3 pt-2" src={require('../../asset/image-logo/wallet.png')} />
                                 <a href="/buypackage" className="pt-2 pe-3">Mua gói</a>
                             </button>
                         </div>
@@ -88,8 +88,8 @@ const Navbar = () => {
                                 {isLogin ? (
                                     <div>
                                         <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={toggleMenu}>
-                                            <img className="w-7 m-2" src={require('../asset/image-logo/emoji.png')} />
-                                            <img className="ms-2 mt-3 w-4 h-4" src={require('../asset/image-logo/down.png')} />
+                                            <img className="w-7 m-2" src={require('../../asset/image-logo/emoji.png')} />
+                                            <img className="ms-2 mt-3 w-4 h-4" src={require('../../asset/image-logo/down.png')} />
                                         </button>
                                         {isOpen && (
                                             <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
