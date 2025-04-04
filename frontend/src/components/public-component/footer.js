@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollToTopButton from "./scroll_To_Top_Button/ScrollToTopButton";
 
 const Footer = () => {
     return (
@@ -114,7 +115,11 @@ const Footer = () => {
                     đổi lần thứ 32 vào ngày 21/12/2023.
                 </p>
             </div>
+            <div>
+                <ScrollToTopButton />
+            </div>
         </footer>
+
     );
 };
 
