@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import API from "../configs/endpoint";
-import bgImage from "../asset/image-logo/login-tablet.jpg";
+import API from "../../configs/endpoint";
+import bgImage from "../../asset/image-logo/login-tablet.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -72,7 +72,7 @@ const Login = () => {
       <div className="absolute inset-0 bg-black bg-opacity-80 backdrop-blur"></div>
       <div className="relative flex items-center">
         <div className="flex flex-grow justify-center">
-          <img className="w-56 h-auto -me-10 mt-5" src={require("../asset/image-logo/logoFPT.png")} alt="Logo FPT" />
+          <img className="w-56 h-auto -me-10 mt-5" src={require("../../asset/image-logo/logoFPT.png")} alt="Logo FPT" />
         </div>
         <a
           href="/"

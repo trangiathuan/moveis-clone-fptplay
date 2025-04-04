@@ -2,24 +2,24 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className=" pt-6 container mx-auto pb-6 mt-8 xl:px-16 lg:px-10 px-5 ">
+        <footer className=" pt-6 container max-w-7xl mx-auto pb-6 mt-8 xl:px-16 lg:px-10 px-5  ">
             <div className="flex flex-col justify-center items-center">
                 <div className="grid grid-cols-3 sm:grid-cols-5 xl:grid-cols-5 lg:grid-cols-6 border-t border-b border-gray-700 pt-6 pb-6 mt-15">
                     <div className="hidden xl:flex lg:hidden">
                         <ul className="space-y-3">
                             <li className="w-1/2">
                                 <a href="/">
-                                    <img src={require('../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
+                                    <img src={require('../../asset/image-logo/logoFPT.png')} alt="Logo FPT" />
                                 </a>
                             </li>
                             <li className="w-1/2">
                                 <a href="/">
-                                    <img src={require('../asset/image-logo/footer.png')} alt="Footer Logo" />
+                                    <img src={require('../../asset/image-logo/footer.png')} alt="Footer Logo" />
                                 </a>
                             </li>
                             <li className="w-1/2 pt-3">
                                 <a href="/">
-                                    <img src={require('../asset/image-logo/footer2.png')} alt="Footer Logo 2" />
+                                    <img src={require('../../asset/image-logo/footer2.png')} alt="Footer Logo 2" />
                                 </a>
                             </li>
                         </ul>
