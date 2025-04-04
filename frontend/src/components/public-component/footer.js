@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollToTopButton from "./scroll_To_Top_Button/ScrollToTopButton";
+import ScrollToTopButton from "../scroll_To_Top_Button/ScrollToTopButton";
 
 const Footer = () => {
     return (

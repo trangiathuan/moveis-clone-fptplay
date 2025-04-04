@@ -8,6 +8,8 @@ import MovieDescription from "./movie_descriptions";
 import List_movies from "./list_movies";
 import API from "../../configs/endpoint";
 import Video from "../public-component/video";
+import Comment_movies from "./comment_movies";
+
 const Detail = () => {
   const [movieData, setMovieData] = useState(null);
   const [videoSrc, setVideoSrc] = useState("");
