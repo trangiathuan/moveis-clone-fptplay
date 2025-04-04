@@ -7,6 +7,7 @@ import ActionButtons from "./actions-buttons";
 import MovieDescription from "./movie_descriptions";
 import List_movies from "./list_movies";
 import API from "../../configs/endpoint";
+import Comment_movies from "./comment_movies";
 
 const Detail = () => {
   const [movieData, setMovieData] = useState(null);
@@ -108,6 +109,9 @@ const Detail = () => {
       <div className="w-full max-w-7xl px-2 sm:px-7 mt-5">
         <List_movies />
       </div>
+      {/* phần bình luận của phim  */}
+      <div className="w-full max-w-7xl px-2 sm:px-7 mt-5"><Comment_movies /></div>
+
     </div>
   )
 }
