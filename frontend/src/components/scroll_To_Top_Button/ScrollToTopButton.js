@@ -48,14 +48,14 @@ const ScrollToTopButton = () => {
 
     return (
         // Container để định vị nút (fixed bottom right)
-        <div className="fixed bottom-20 right-10 z-50"> {/* z-50 để đảm bảo nút nổi lên trên */}
+        <div className="fixed bottom-20 right-5 z-50"> {/* z-50 để đảm bảo nút nổi lên trên */}
             {/* Chỉ render nút khi isVisible là true */}
             {isVisible && (
                 <button
                     type="button"
                     onClick={handleScrollToTop}
                     // Styling bằng Tailwind CSS
-                    className="bg-orange-500 hover:bg-orange-600 text-white rounded-full p-5 shadow-lg transition-opacity duration-300 ease-in-out opacity-75 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2" // Thêm opacity
+                    className="bg-orange-500 hover:bg-orange-600 text-white rounded-full p-2 shadow-lg transition-opacity duration-300 ease-in-out opacity-75 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2" // Thêm opacity
                     aria-label="Cuộn lên đầu trang" // Hỗ trợ accessibility
                 >
                     <ArrowUpIcon className="h-6 w-6" /> {/* Icon mũi tên lên */}
