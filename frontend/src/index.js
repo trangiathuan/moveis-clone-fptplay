@@ -5,12 +5,13 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
-import Login from './components/login';
+import Login from './components/public-component/login';
 import DetailMovie from './pages/detail-movie';
 import BuyPackage from './pages/buy-package';
 import FollowingMoviesList from './pages/following-movies-list ';
 
 import SearchTerm from './pages/search-term';
+import StreamingRoom from './pages/streaming-room';
 
 
 
@@ -32,6 +33,9 @@ root.render(
         <Route path='/buypackage' element={<BuyPackage />} />
 
         <Route path='/following-movies-list' element={<FollowingMoviesList />} />
+
+        <Route path='/streaming' element={<StreamingRoom />} />
+
 
       </Routes>
     </BrowserRouter>

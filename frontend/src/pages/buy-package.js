@@ -1,8 +1,8 @@
 
-import DetailPackage from "../components/detail_package";
+import DetailPackage from "../components/public-component/detail_package";
 
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+import Footer from "../components/public-component/footer";
+import Navbar from "../components/public-component/navbar";
 
 
 const BuyPackage = () => {

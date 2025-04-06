@@ -14,19 +14,19 @@ const DetailPackage = () => {
               <tr className="bg-black">
                 <th className="px-4 py-4 w-2/6 text-white text-3xl text-left">Mua gói</th>
                 <th className="w-auto">
-                  <img src={require("../asset/images-package/smax+.png")} alt="Smax+" />
+                  <img src={require("../../asset/images-package/smax+.png")} alt="Smax+" />
                 </th>
                 <th className="w-auto">
-                  <img src={require("../asset/images-package/k+.png")} alt="K+" />
+                  <img src={require("../../asset/images-package/k+.png")} alt="K+" />
                 </th>
                 <th className="w-auto">
-                  <img src={require("../asset/images-package/smaxk+.png")} alt="SmaxK+" />
+                  <img src={require("../../asset/images-package/smaxk+.png")} alt="SmaxK+" />
                 </th>
                 <th className="w-auto">
-                  <img src={require("../asset/images-package/zplay.png")} alt="ZPlay" />
+                  <img src={require("../../asset/images-package/zplay.png")} alt="ZPlay" />
                 </th>
                 <th className="w-auto">
-                  <img src={require("../asset/images-package/noAds.png")} alt="No Ads" />
+                  <img src={require("../../asset/images-package/noAds.png")} alt="No Ads" />
                 </th>
               </tr>
             </thead>
@@ -140,13 +140,13 @@ const DetailPackage = () => {
             </ul>
             <tr className='flex flex-grow gap-3  '>
               <th><h2 class="font-bold text-lg">Các nền tảng hỗ trợ</h2></th>
-              <th> <img src={require("../asset/images-package/icon-tv.jpg")} alt="" /></th>
-              <th><img src={require("../asset/images-package/icon-desktop.jpg")} alt="" /></th>
-              <th><img src={require("../asset/images-package/icon-web.jpg")} alt="" /></th>
-              <th><img src={require("../asset/images-package/icon-ios.jpg")} alt="" /></th>
-              <th><img src={require("../asset/images-package/icon-android.jpg")} alt="" /></th>
+              <th> <img src={require("../../asset/images-package/icon-tv.jpg")} alt="" /></th>
+              <th><img src={require("../../asset/images-package/icon-desktop.jpg")} alt="" /></th>
+              <th><img src={require("../../asset/images-package/icon-web.jpg")} alt="" /></th>
+              <th><img src={require("../../asset/images-package/icon-ios.jpg")} alt="" /></th>
+              <th><img src={require("../../asset/images-package/icon-android.jpg")} alt="" /></th>
             </tr>
-            <th className='py-5'> <a href="/"> <img src={require("../asset/images-package/banner.jpg")} alt="" /></a></th>
+            <th className='py-5'> <a href="/"> <img src={require("../../asset/images-package/banner.jpg")} alt="" /></a></th>
           </div>
         </div>
 
