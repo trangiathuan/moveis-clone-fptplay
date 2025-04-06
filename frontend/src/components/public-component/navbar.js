@@ -6,6 +6,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const isLogin = !!localStorage.getItem('token');
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -70,14 +71,83 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex text-white xl:ps-36 sm:ps-0 sm:pe-0">
-                        <a href="/search">
-                            <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../../asset/image-logo/search.png')} />
+                        <a href="/search" className="group relative inline-block w-5 h-5 xl:flex hidden pt-8 me-5 mt-8">
+                            {/* Ảnh mặc định */}
+                            <img
+                                src={require('../../asset/image-logo/search-hover.png')}
+                                className="absolute inset-0 transition-opacity duration-300 opacity-100 group-hover:opacity-0"
+                                alt="Search"
+                            />
+
+                            {/* Ảnh khi hover */}
+                            <img
+                                src={require('../../asset/image-logo/search-hover (1).png')}
+                                className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                                alt="Search Hover"
+                            />
                         </a>
-                        <a>
-                            <img className="hidden xl:flex w-5 pt-8 me-5" src={require('../../asset/image-logo/bell.png')} />
-                        </a>
+
+                        <button
+                            onClick={() => setOpen(!open)}
+                            className="group relative inline-block w-5 h-5 xl:flex hidden pt-8 me-5 mt-8"
+                        >
+
+                            {/* Ảnh mặc định */}
+                            <img
+                                src={require('../../asset/image-logo/icon-alarm-active-fill.png')}
+                                className="absolute inset-0 transition-opacity duration-300 opacity-100 group-hover:opacity-0"
+                                alt="Search"
+                            />
+
+                            {/* Ảnh khi hover */}
+                            <img
+                                src={require('../../asset/image-logo/icon-alarm-active-hover.png')}
+                                className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                                alt="Search Hover"
+                            />
+                            {open && (
+                                <div className="absolute max-w-6xl right-0 top-12 w-[600px] bg-[#181818] rounded-lg shadow-lg z-50">
+                                    <div className="py-3 text-2xl font-bold text-white border-b border-gray-700">
+                                        Thông báo
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-left ml-5" >Hôm nay</p>
+                                    </div>
+                                    <div className="max-h-[500px] overflow-hidden rounded-lg bg-zinc-800 m-4  divide-y divide-gray-700">
+                                        {/* Ví dụ một thông báo */}
+                                        <div className="flex items-start px-6 py-6 gap-5 hover:bg-gray-800 transition">
+                                            <img
+                                                src={require('../../asset/images-banner/narutoBanner.webp')}
+                                                className="w-30 h-20 rounded"
+                                                alt="Thumb"
+                                            />
+                                            <div className="text-sm text-white text-left">
+                                                {/* Sử dụng truncate và giới hạn chiều rộng */}
+                                                <p className="text-xl text-orange-400 truncate w-full max-w-[350px]">
+                                                    🔴 BẠN ĐANG CÓ SỰ KIỆN CON CU NHO NHỎ
+                                                </p>
+                                                <p className="text-gray-400 text-xs mt-1 truncate w-full max-w-[500px]">
+                                                    ⚽ HẸN BẠN VÀO 3H SÁNG MAI
+                                                </p>
+                                                <p className="text-gray-500 text-xs mt-1 truncate w-full max-w-[250px]">
+                                                    52 phút trước
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* Lặp thêm nhiều thông báo tại đây */}
+                                    </div>
+                                </div>
+
+
+
+
+                            )}
+
+                        </button>
+
                         <div className="pt-5 hidden sm:block">
-                            <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28 justify-between">
+                            <button className="flex me-5 bg-orange-600 rounded-lg h-10 w-28 justify-between hover:bg-orange-500">
                                 <img className="w-9 h-8 ps-3 pt-2" src={require('../../asset/image-logo/wallet.png')} />
                                 <a href="/buypackage" className="pt-2 pe-3">Mua gói</a>
                             </button>
