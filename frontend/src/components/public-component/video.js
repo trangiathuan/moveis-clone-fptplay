@@ -98,15 +98,15 @@ const Video = ({ videoSrc }) => {
 
     return (
         <div className="relative w-full max-w-7xl mx-auto">
-            <div className="flex px-2 sm:px-8 md:px-8 mx-auto space-x-4 max-w-[1500px]">
+            <div className="flex mx-auto space-x-4">
                 <div
-                    className="relative mx-auto w-full max-h-[600px] max-w-[980px] rounded-lg overflow-hidden"
+                    className="relative mx-auto w-full max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
                     onMouseMove={() => setShowControls(true)}
                 >
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className="w-full h-auto max-h-[600px] cursor-pointer rounded-lg"
+                        className="w-full h-auto max-h-[700px] cursor-pointer rounded-lg"
                         controls={false}
                         onTimeUpdate={updateProgress}
                         onLoadedMetadata={handleLoadedMetadata}
@@ -135,12 +135,12 @@ const Video = ({ videoSrc }) => {
 
                     <div className={`absolute bottom-3 left-0 right-0 px-4 flex items-center justify-between transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
                         <div className="flex items-center space-x-4 text-white">
-                            <button onClick={togglePlay}>
+                            <button onClick={togglePlay} className="hover:text-orange-500">
                                 {playing ? <Pause /> : <Play />}
                             </button>
-                            <button onClick={() => skipTime(-10)}><RotateCcw /></button>
-                            <button onClick={() => skipTime(10)}><RotateCw /></button>
-                            <button onClick={toggleMute}>
+                            <button onClick={() => skipTime(-10)} className="hover:text-orange-500"><RotateCcw /></button>
+                            <button onClick={() => skipTime(10)} className="hover:text-orange-500"><RotateCw /></button>
+                            <button onClick={toggleMute} className="hover:text-orange-500">
                                 {muted || volume === 0 ? <VolumeX /> : <Volume2 />}
                             </button>
                             <input
@@ -155,9 +155,9 @@ const Video = ({ videoSrc }) => {
                         </div>
 
                         <div className="flex items-center space-x-4 text-white relative">
-                            <button><Subtitles /></button>
-                            <button><SkipForward /></button>
-                            <button onClick={() => setShowSettings(!showSettings)}><Settings /></button>
+                            <button className="hover:text-orange-500"><Subtitles /></button>
+                            <button className="hover:text-orange-500"><SkipForward /></button>
+                            <button onClick={() => setShowSettings(!showSettings)} className="hover:text-orange-500"><Settings /></button>
                             {showSettings && (
                                 <div className="absolute bottom-10 right-0 bg-gray-800 p-2 rounded shadow-lg space-y-1 z-10">
                                     {[0.75, 1, 1.25, 2, 3, 5].map((speed) => (
@@ -171,7 +171,7 @@ const Video = ({ videoSrc }) => {
                                     ))}
                                 </div>
                             )}
-                            <button onClick={toggleFullscreen}>
+                            <button onClick={toggleFullscreen} className="hover:text-orange-500">
                                 {fullscreen ? <Minimize2 /> : <Maximize2 />}
                             </button>
                         </div>

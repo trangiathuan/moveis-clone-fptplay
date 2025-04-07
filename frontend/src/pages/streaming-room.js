@@ -13,12 +13,12 @@ const StreamingRoom = () => {
                 <Navbar />
             </div>
             <div className="pt-24">
-                <div className="block xl:flex max-w-7xl mx-auto px-0 md:px-24 xl:px-0">
+                <div className="block xl:flex max-w-7xl mx-auto md:px-24 sm:px-8 px-2 xl:px-10 xl:space-x-2 space-x-0">
                     <Video videoSrc={videoSrc} />
                     <ChatsStreaming />
                 </div>
             </div>
-            <div className="sm:flex block justify-between xl:max-w-[1200px] lg:max-w-[800px] md:max-w-[600px] sm:max-w-[550px] sm:mx-auto ms-10">
+            <div className="lg:flex block justify-between xl:max-w-[1200px] lg:max-w-[1000px] md:max-w-[600px] xl:mx-auto md:mx-28 sm:mx-8 mx-2 sm:max-w-[550px]">
                 <div className="">
                     <InfMovie />
                 </div>
