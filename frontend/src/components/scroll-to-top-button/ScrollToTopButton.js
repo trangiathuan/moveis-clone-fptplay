@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 // Import hàm cuộn mượt từ file utils
-import { smoothScrollTo } from '../scroll_To_Top_Button/scroll'; // Điều chỉnh đường dẫn nếu cần
+import { smoothScrollTo } from '../scroll-to-top-button/scroll'; // Điều chỉnh đường dẫn nếu cần
 
 // Icon mũi tên lên (Bạn có thể dùng icon khác)
 const ArrowUpIcon = (props) => (

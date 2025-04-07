@@ -1,4 +1,4 @@
-import Detail from "../components/detail_movies_component/detail-movie";
+import Detail from "../components/detail-movies-component/detail-movie";
 import Navbar from "../components/public-component/navbar";
 import Footer from "../components/public-component/footer";
 const DetailMovie = () => {

@@ -1,5 +1,5 @@
-import ActionButtons from "../detail_movies_component/actions-buttons";
-import Star_comp from "../detail_movies_component/star_comp";
+import ActionButtons from "../detail-movies-component/actions-buttons";
+import Star_comp from "../detail-movies-component/star_comp";
 
 const InfMovie = () => {
     return (
