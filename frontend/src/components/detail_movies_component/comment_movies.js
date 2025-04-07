@@ -52,7 +52,7 @@ const Comment_movies = () => {
     const isShowingAll = visibleCommentCount === totalCommentCount;
 
     return (
-        <div className="max-w-6xl mx-auto bg-neutral text-white min-h-screen">
+        <div className="max-w-6xl mx-auto bg-neutral text-white">
             {/* Phần tiêu đề */}
             <div className="px-4 pt-4 sm:pt-6">
                 <h2 className="text-base sm:text-lg font-bold mb-2">Bình luận ({totalCommentCount})</h2>
@@ -99,7 +99,7 @@ const Comment_movies = () => {
                         ) : (
                             <button
                                 onClick={handleLoadMore}
-                                className="text-blue-400 hover:text-blue-300 font-semibold px-4 py-2 text-sm sm:text-base"
+                                className="text-orange-400 hover:text-orange-300 font-semibold px-4 py-2 text-sm sm:text-base"
                             >
                                 Xem thêm bình luận
                             </button>
