@@ -6,7 +6,7 @@ import ActionButtons from "./actions-buttons";
 import MovieDescription from "./movie_descriptions";
 import List_movies from "./list_movies";
 import API from "../../configs/endpoint";
-import Video from "../public-component/video";
+import Video from "../public-components/video";
 import Comment_movies from "./comment_movies";
 
 const Detail = () => {
@@ -85,7 +85,7 @@ const Detail = () => {
           <div className="p-0 rounded-lg">
             {/* Nút hành động */}
             <div className="flex flex-wrap items-center -ms-4 gap-4 text-white text-sm">
-              <ActionButtons />
+              <ActionButtons slugEpisode={movieData.SlugEpisode} />
             </div>
 
             {/* Chi tiết phim */}

@@ -5,13 +5,14 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
-import Login from './components/public-component/login';
+import Login from './components/public-components/login';
 import DetailMovie from './pages/detail-movie';
 import BuyPackage from './pages/buy-package';
 import FollowingMoviesList from './pages/following-movies-list ';
 
 import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
+import JoinRoom from './pages/join-room-movie';
 
 
 
@@ -19,27 +20,30 @@ import StreamingRoom from './pages/streaming-room';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
+  //<React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Home />} />
 
-        <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
 
-        <Route path="/search" element={<SearchTerm />} />
+      <Route path="/search" element={<SearchTerm />} />
 
-        <Route path='/detail/:slugMovieName/:slugEpisode?' element={<DetailMovie />} />
+      <Route path='/detail/:slugMovieName/:slugEpisode?' element={<DetailMovie />} />
 
-        <Route path='/buypackage' element={<BuyPackage />} />
+      <Route path='/buypackage' element={<BuyPackage />} />
 
-        <Route path='/following-movies-list' element={<FollowingMoviesList />} />
+      <Route path='/following-movies-list' element={<FollowingMoviesList />} />
 
-        <Route path='/streaming' element={<StreamingRoom />} />
+      <Route path='/streaming/:slugMovieName?/:slugEpisode?/:roomId?' element={<StreamingRoom />} />
+
+      <Route path='/joim-room' element={<JoinRoom />} />
 
 
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+
+    </Routes>
+  </BrowserRouter>
+  //</React.StrictMode>
 );
 
 reportWebVitals();

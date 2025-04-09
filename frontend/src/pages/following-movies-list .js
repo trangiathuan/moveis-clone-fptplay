@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/public-component/footer";
-import Navbar from "../components/public-component/navbar"
+import Footer from "../components/public-components/footer";
+import Navbar from "../components/public-components/navbar"
 import axios from 'axios'
 import API from "../configs/endpoint";
 

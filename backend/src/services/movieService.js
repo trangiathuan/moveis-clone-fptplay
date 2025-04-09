@@ -56,3 +56,38 @@ exports.getListMoviesService = async (slugMovieName) => {
         console.log(error);
     }
 }
+
+exports.deleteRoomMovieService = async () => {
+    const pool = await connection()
+    const result = await pool.request().input('action', sql.VarChar, 'deleteMovieRoom').execute('SP_Movies')
+    return result.recordset
+}
+
+exports.createRoomMovieService = async (slugMovieName, slugEpisode, roomId, host) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'createMovieRoom')
+            .input('SlugMovieName', sql.VarChar, slugMovieName)
+            .input('SlugEpisode', sql.VarChar, slugEpisode)
+            .input('roomId', sql.VarChar, roomId)
+            .input('host', sql.VarChar, host)
+            .execute('SP_Movies')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getMovieRoomService = async (roomId) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'getMovieRoom')
+            .input('roomId', sql.Int, roomId)
+            .execute('SP_Movies')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}

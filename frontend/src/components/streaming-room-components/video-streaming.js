@@ -1,47 +1,78 @@
-import { Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings, Minimize2, Maximize2, Subtitles, Volume2, VolumeX } from "lucide-react";
+import {
+    Play, Pause, RotateCcw, RotateCw, Flag, SkipForward, Settings,
+    Minimize2, Maximize2, Subtitles, Volume2, VolumeX
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import ChatsStreaming from "../streaming-room-components/chats-streaming";
+import io from 'socket.io-client';
+import SOCKET from '../../configs/socket.io.js';
+import { useParams } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
-const Video = ({ videoSrc }) => {
-    const [showControls, setShowControls] = useState(true);
+const socket = io(SOCKET);
+
+const VideoStreaming = ({ videoSrc }) => {
     const videoRef = useRef(null);
+    const { roomId } = useParams();
+    const token = localStorage.getItem('token');
+    const decoded = jwtDecode(token);
+
+    const [showControls, setShowControls] = useState(true);
     const [playing, setPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [progress, setProgress] = useState(0);
     const [videoDuration, setVideoDuration] = useState(0);
-    const [muted, setMuted] = useState(false);
+    const [muted, setMuted] = useState(true);
     const [volume, setVolume] = useState(1);
     const [showSettings, setShowSettings] = useState(false);
     const [playbackSpeed, setPlaybackSpeed] = useState(1);
-    const [fullscreen, setFullscreen] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setShowControls(false);
-        }, 1200);
-        return () => clearTimeout(timeout);
-    }, [showControls]);
+        socket.emit('join_room', { roomId, email: decoded.email });
+
+        socket.on('video_play', () => {
+            if (videoRef.current.paused) {
+                videoRef.current.play();
+                setPlaying(true);
+            }
+        });
+
+        socket.on('video_pause', () => {
+            if (!videoRef.current.paused) {
+                videoRef.current.pause();
+                setPlaying(false);
+            }
+        });
+
+        socket.on('video_seek', (newTime) => {
+            videoRef.current.currentTime = newTime;
+            setProgress((newTime / videoRef.current.duration) * 100);
+        });
+
+        return () => {
+            socket.off('video_play');
+            socket.off('video_pause');
+            socket.off('video_seek');
+        };
+    }, []);
 
     const togglePlay = () => {
         if (videoRef.current.paused) {
             videoRef.current.play();
             setPlaying(true);
+            socket.emit('video_play', roomId);
         } else {
             videoRef.current.pause();
             setPlaying(false);
+            socket.emit('video_pause', roomId);
         }
     };
 
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    };
-
     const updateProgress = () => {
-        setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
-        setCurrentTime(videoRef.current.currentTime);
+        const time = videoRef.current.currentTime;
+        const duration = videoRef.current.duration;
+        setCurrentTime(time);
+        setProgress((time / duration) * 100);
     };
 
     const handleLoadedMetadata = () => {
@@ -49,19 +80,22 @@ const Video = ({ videoSrc }) => {
     };
 
     const skipTime = (seconds) => {
-        videoRef.current.currentTime += seconds;
+        const newTime = videoRef.current.currentTime + seconds;
+        videoRef.current.currentTime = newTime;
+        socket.emit('video_seek', { roomId, newTime });
     };
 
     const toggleMute = () => {
-        setMuted(!muted);
-        videoRef.current.muted = !muted;
+        const newMuted = !muted;
+        setMuted(newMuted);
+        videoRef.current.muted = newMuted;
     };
 
-    const changeVolume = (event) => {
-        const newVolume = parseFloat(event.target.value);
-        setVolume(newVolume);
-        videoRef.current.volume = newVolume;
-        setMuted(newVolume === 0);
+    const changeVolume = (e) => {
+        const vol = parseFloat(e.target.value);
+        setVolume(vol);
+        videoRef.current.volume = vol;
+        setMuted(vol === 0);
     };
 
     const changePlaybackSpeed = (speed) => {
@@ -70,31 +104,29 @@ const Video = ({ videoSrc }) => {
     };
 
     const toggleFullscreen = () => {
-        const videoElement = videoRef.current;
-
+        const el = videoRef.current;
         if (!document.fullscreenElement) {
-            // Nếu chưa fullscreen thì request
-            videoElement.requestFullscreen().catch(err => {
-                console.error("Request fullscreen failed", err);
-            });
+            el.requestFullscreen();
         } else {
-            // Nếu đang fullscreen thì exit
-            document.exitFullscreen().catch(err => {
-                console.error("Exit fullscreen failed", err);
-            });
+            document.exitFullscreen();
         }
     };
 
     useEffect(() => {
-        const handleFullscreenChange = () => {
+        const handleFSChange = () => {
             setIsFullscreen(!!document.fullscreenElement);
         };
-
-        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        document.addEventListener("fullscreenchange", handleFSChange);
         return () => {
-            document.removeEventListener("fullscreenchange", handleFullscreenChange);
+            document.removeEventListener("fullscreenchange", handleFSChange);
         };
     }, []);
+
+    const formatTime = (time) => {
+        const mins = Math.floor(time / 60);
+        const secs = Math.floor(time % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    };
 
     return (
         <div className="relative w-full max-w-7xl mx-auto">
@@ -107,6 +139,7 @@ const Video = ({ videoSrc }) => {
                         ref={videoRef}
                         src={videoSrc}
                         className="w-full h-auto max-h-[700px] cursor-pointer rounded-lg"
+                        muted
                         controls={false}
                         onTimeUpdate={updateProgress}
                         onLoadedMetadata={handleLoadedMetadata}
@@ -125,12 +158,10 @@ const Video = ({ videoSrc }) => {
                             const newTime = (clickX / rect.width) * videoRef.current.duration;
                             videoRef.current.currentTime = newTime;
                             setProgress((newTime / videoRef.current.duration) * 100);
+                            socket.emit('video_seek', newTime);
                         }}
                     >
-                        <div
-                            className="h-full bg-orange-500 rounded-full"
-                            style={{ width: `${progress}%` }}
-                        />
+                        <div className="h-full bg-orange-500 rounded-full" style={{ width: `${progress}%` }} />
                     </div>
 
                     <div className={`absolute bottom-3 left-0 right-0 px-4 flex items-center justify-between transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
@@ -172,15 +203,14 @@ const Video = ({ videoSrc }) => {
                                 </div>
                             )}
                             <button onClick={toggleFullscreen} className="hover:text-orange-500">
-                                {fullscreen ? <Minimize2 /> : <Maximize2 />}
+                                {isFullscreen ? <Minimize2 /> : <Maximize2 />}
                             </button>
                         </div>
                     </div>
                 </div>
-                {/*chat*/}
             </div>
         </div>
     );
 };
 
-export default Video;
+export default VideoStreaming;

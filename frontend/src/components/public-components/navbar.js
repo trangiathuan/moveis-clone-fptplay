@@ -94,9 +94,9 @@ const Navbar = () => {
                                         {isOpen && (
                                             <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
                                                 <ul className="py-2">
-                                                    <li><a href="/following-movies-list" className="block px-4 py-2 text-white">Phim đang theo dõi</a></li>
-                                                    <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
-                                                    <li><a onClick={handleLogout} className="block px-4 py-2 text-white ">
+                                                    <li><a href="/following-movies-list" className="block px-4 py-2 text-white hover:text-orange-600">Phim đang theo dõi</a></li>
+                                                    <li><a href="/joim-room" className="block px-4 py-2 text-white hover:text-orange-600">Phòng xem phim</a></li>
+                                                    <li><a onClick={handleLogout} className="block px-4 py-2 text-white hover:text-orange-600">
                                                         <button>Đăng xuất</button>
                                                     </a></li>
                                                 </ul>

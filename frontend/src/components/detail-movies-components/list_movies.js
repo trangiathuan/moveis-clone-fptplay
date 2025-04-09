@@ -52,8 +52,8 @@ const List_movies = ({ moviesData }) => {
               200: { slidesPerView: 1 },
             }}
           >
-            {episodes.map((episode, index) => (
-              <SwiperSlide key={episode.slugEpisode}>
+            {episodes.map((episode) => (
+              <SwiperSlide key={episode.SlugEpisode}>
                 <div className="relative">
                   <a href={`/detail/${slugMovieName}/${episode.SlugEpisode}`}>
                     <img

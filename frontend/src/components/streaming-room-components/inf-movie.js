@@ -1,11 +1,11 @@
-import ActionButtons from "../detail-movies-component/actions-buttons";
-import Star_comp from "../detail-movies-component/star_comp";
+import ActionButtons from "../detail-movies-components/actions-buttons";
+import Star_comp from "../detail-movies-components/star_comp";
 
 const InfMovie = () => {
     return (
         <div className="block sm:flex xl:space-x-80 lg:space-x-24 md:space-x-52 sm:space-x-32">
             <div className="text-white pt-5">
-                <p className="text-2xl font-bold">Shin cậu bé bút chì</p>
+                <p className="text-2xl font-bold">Shin cậu bé bút chì - Tập 1</p>
                 <p className="text-base font-bold pt-2 pb-2">Shin Chan</p>
                 <Star_comp />
                 <div className="mt-3 text-sm text-white">

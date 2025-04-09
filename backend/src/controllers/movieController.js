@@ -116,3 +116,85 @@ exports.getListMoviesController = async (req, res) => {
         })
     }
 }
+
+exports.deleteRoomMovieController = async (req, res) => {
+    const result = await movieService.deleteRoomMovieService();
+
+    if (result) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xóa dữ liệu thành công',
+            Data: result
+        })
+    }
+    else {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Không có dữ liệu cần xóa',
+            Data: result
+        })
+    }
+}
+
+exports.createRoomMovieController = async (req, res) => {
+    const slugMovieName = req.params.slugMovieName
+    const slugEpisode = req.params.slugEpisode
+    const roomId = req.params.roomId
+    const host = req.body.host
+    console.log('Data sent to server:', slugMovieName, '-', slugEpisode, '-', roomId, '-', host);
+
+    const result = await movieService.createRoomMovieService(slugMovieName, slugEpisode, roomId, host)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xử lý thành công',
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        })
+    }
+}
+
+exports.getMovieRoomController = async (req, res) => {
+    const roomId = parseInt(req.body.roomId)
+
+    console.log('Data sent to server: roomId =', roomId);
+
+    const result = await movieService.getMovieRoomService(roomId)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xử lý thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        })
+    }
+}
