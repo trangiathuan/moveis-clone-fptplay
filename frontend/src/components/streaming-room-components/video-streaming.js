@@ -11,7 +11,9 @@ import io from 'socket.io-client';
 import SOCKET from '../../configs/socket.io.js';
 const socket = io(SOCKET);
 
-const VideoStreaming = ({ videoSrc }) => {
+const VideoStreaming = ({ videoSrc, isHost }) => {
+    const token = localStorage.getItem('token');
+    const decoded = jwtDecode(token);
     const videoRef = useRef(null);
     const [showControls, setShowControls] = useState(true);
     const [playing, setPlaying] = useState(false);
@@ -24,16 +26,23 @@ const VideoStreaming = ({ videoSrc }) => {
     const [playbackSpeed, setPlaybackSpeed] = useState(1);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const containerRef = useRef(null);
-    const [room, setRoom] = useState({});
     const { roomId } = useParams();
-    const token = localStorage.getItem('token');
-    const decoded = jwtDecode(token);
-    const isHost = decoded.email === room.host ? true : false
-
-
 
     useEffect(() => {
         socket.emit('join_room', { roomId, email: decoded.email });
+
+        socket.on('user_joined', () => {
+            if (videoRef.current.readyState >= 1) {
+                setTimeout(() => {
+                    socket.emit('video_seek', videoRef.current.currentTime);
+                }, 1000);
+            } else {
+                // Đợi video load xong metadata
+                videoRef.current.onloadedmetadata = () => {
+                    socket.emit('video_seek', videoRef.current.currentTime);
+                };
+            }
+        });
 
         socket.on('video_play', () => {
             if (videoRef.current.paused) {
@@ -53,7 +62,15 @@ const VideoStreaming = ({ videoSrc }) => {
         socket.on('video_seek', (newTime) => {
             videoRef.current.currentTime = newTime;
             setProgress((newTime / videoRef.current.duration) * 100);
+            console.log(playing);
+
+            if (!playing) {
+                videoRef.current.play();
+            }
         });
+
+
+
 
         return () => {
             socket.off('video_play');
@@ -62,17 +79,7 @@ const VideoStreaming = ({ videoSrc }) => {
         };
     }, []);
 
-    useEffect(() => {
-        getMovieRoom()
-    }, [])
 
-    const getMovieRoom = async () => {
-        const result = await axios.post(`${API}/getMovieRoom`, { roomId });
-        if (result.data.EC === 0) {
-            setRoom(result.data.Data[0]);
-        } else {
-        }
-    }
 
     const togglePlay = () => {
         if (videoRef.current.paused) {

@@ -9,6 +9,7 @@ module.exports = (io) => {
             const roomId = joinRoom.roomId;
             const email = joinRoom.email
             const check = joinRoom.check
+            const newTime = joinRoom.newTime
             if (currentRoom) {
                 socket.leave(currentRoom);
             }
@@ -60,8 +61,10 @@ module.exports = (io) => {
         })
 
         socket.on("video_seek", (newTime) => {
+            console.log('check:', newTime);
+
             if (currentRoom) {
-                socket.to(currentRoom).emit("video_seek", newTime);
+                io.to(currentRoom).emit("video_seek", newTime);
                 console.log(`Video seek event emitted to room ${currentRoom}`);
             }
         });

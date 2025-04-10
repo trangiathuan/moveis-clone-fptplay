@@ -39,8 +39,6 @@ root.render(
 
       <Route path='/joim-room' element={<JoinRoom />} />
 
-
-
     </Routes>
   </BrowserRouter>
   //</React.StrictMode>

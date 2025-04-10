@@ -18,13 +18,25 @@ const StreamingRoom = () => {
     const host = decoded.email
     const [movideData, setMovieData] = useState([])
     const [videoSrc, setVideoSrc] = useState([])
-
+    const [room, setRoom] = useState({});
+    const emailHost = room.host;
+    const isHost = host === emailHost
 
     useEffect(() => {
         createMovieRoom();
         deleteMovieRoom();
         fetchMovieData();
+        getMovieRoom();
     }, [])
+
+
+    const getMovieRoom = async () => {
+        const result = await axios.post(`${API}/getMovieRoom`, { roomId });
+        if (result.data.EC === 0) {
+            setRoom(result.data.Data[0]);
+        } else {
+        }
+    }
 
     const createMovieRoom = async () => {
         const result = await axios.post(`${API}/createMovieRoom/${slugMovieName}/${slugEpisode}/${roomId}`, { host })
@@ -64,7 +76,7 @@ const StreamingRoom = () => {
             </div>
             <div className="pt-24">
                 <div className="block xl:flex max-w-7xl mx-auto md:px-24 sm:px-8 px-2 xl:px-10 xl:space-x-2 space-x-0">
-                    <VideoStreaming videoSrc={videoSrc} />
+                    <VideoStreaming videoSrc={videoSrc} isHost={isHost} />
                     <ChatsStreaming />
                 </div>
             </div>
