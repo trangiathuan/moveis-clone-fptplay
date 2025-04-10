@@ -104,7 +104,7 @@ const Video = ({ videoSrc }) => {
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className="w-full h-auto max-h-[870px] cursor-pointer rounded-lg"
+                        className="w-full h-auto max-h-[1300px] cursor-pointer rounded-lg"
                         controls={false}
                         onTimeUpdate={updateProgress}
                         onLoadedMetadata={handleLoadedMetadata}

@@ -9,7 +9,6 @@ module.exports = (io) => {
             const roomId = joinRoom.roomId;
             const email = joinRoom.email
             const check = joinRoom.check
-            const newTime = joinRoom.newTime
             if (currentRoom) {
                 socket.leave(currentRoom);
             }

@@ -64,8 +64,10 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
 
         socket.on('video_seek', (data) => {
             const newTime = data.newTime;
-            videoRef.current.currentTime = newTime;
-            setProgress((newTime / videoRef.current.duration) * 100);
+            setTimeout(() => {
+                videoRef.current.currentTime = newTime;
+                setProgress((newTime / videoRef.current.duration) * 100);
+            }, 1000);
 
 
             if (!data.isPaused) {
@@ -116,7 +118,7 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
     const skipTime = (seconds) => {
         const newTime = videoRef.current.currentTime + seconds;
         videoRef.current.currentTime = newTime;
-        socket.emit('video_seek', { roomId, newTime });
+        socket.emit('video_seek', { newTime: newTime });
     };
 
     const toggleMute = () => {
@@ -185,7 +187,7 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className={`w-full h-auto max-h-[870px] cursor-pointer rounded-lg ${isHost ? '' : 'pointer-events-none'}`}
+                        className={`w-full h-auto max-h-[1200px] cursor-pointer rounded-lg ${isHost ? '' : 'pointer-events-none'}`}
                         muted
                         controls={false}
                         onTimeUpdate={updateProgress}
@@ -205,7 +207,7 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
                             const newTime = (clickX / rect.width) * videoRef.current.duration;
                             videoRef.current.currentTime = newTime;
                             setProgress((newTime / videoRef.current.duration) * 100);
-                            socket.emit('video_seek', newTime);
+                            socket.emit('video_seek', { newTime: newTime });
                         }}
                     >
                         <div className={` ${isHost ? '' : 'pointer-events-none'} h-full bg-orange-500 rounded-full`} style={{ width: `${progress}%` }} />
