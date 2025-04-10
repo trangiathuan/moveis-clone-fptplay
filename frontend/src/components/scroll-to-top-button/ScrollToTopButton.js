@@ -19,7 +19,7 @@ const ScrollToTopButton = () => {
     // Ngưỡng cuộn để nút xuất hiện (ví dụ: 300px)
     const scrollThreshold = 300;
     // Thời gian cuộn lên đầu trang (ví dụ: 1500ms = 1.5 giây cho "dịu dàng")
-    const scrollDuration = 1000;
+    const scrollDuration = 500;
 
     // Hàm kiểm tra vị trí cuộn để ẩn/hiện nút
     const toggleVisibility = () => {
