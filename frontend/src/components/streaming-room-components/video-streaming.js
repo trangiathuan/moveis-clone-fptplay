@@ -33,8 +33,11 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
 
         socket.on('user_joined', () => {
             if (videoRef.current.readyState >= 1) {
+                const newTime = videoRef.current.currentTime;
+                const isPaused = videoRef.current.paused
                 setTimeout(() => {
-                    socket.emit('video_seek', videoRef.current.currentTime);
+                    const data = { newTime: newTime, isPaused: isPaused }
+                    socket.emit('video_seek', data);
                 }, 1000);
             } else {
                 // Đợi video load xong metadata
@@ -59,14 +62,20 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
             }
         });
 
-        socket.on('video_seek', (newTime) => {
+        socket.on('video_seek', (data) => {
+            const newTime = data.newTime;
             videoRef.current.currentTime = newTime;
             setProgress((newTime / videoRef.current.duration) * 100);
-            console.log(playing);
 
-            if (!playing) {
+
+            if (!data.isPaused) {
                 videoRef.current.play();
+                setPlaying(true);
+            } else {
+                videoRef.current.pause();
+                setPlaying(false);
             }
+
         });
 
 

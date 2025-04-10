@@ -60,11 +60,9 @@ module.exports = (io) => {
             }
         })
 
-        socket.on("video_seek", (newTime) => {
-            console.log('check:', newTime);
-
+        socket.on("video_seek", (data) => {
             if (currentRoom) {
-                io.to(currentRoom).emit("video_seek", newTime);
+                io.to(currentRoom).emit("video_seek", data);
                 console.log(`Video seek event emitted to room ${currentRoom}`);
             }
         });
