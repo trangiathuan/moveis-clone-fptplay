@@ -16,10 +16,14 @@ const StreamingRoom = () => {
     const token = localStorage.getItem('token')
     const decoded = jwtDecode(token)
     const host = decoded.email
+    const [movideData, setMovieData] = useState([])
+    const [videoSrc, setVideoSrc] = useState([])
+
 
     useEffect(() => {
         createMovieRoom();
         deleteMovieRoom();
+        fetchMovieData();
     }, [])
 
     const createMovieRoom = async () => {
@@ -37,8 +41,22 @@ const StreamingRoom = () => {
         }
     }
 
+    const fetchMovieData = async () => {
+        try {
+            const episode = slugEpisode || "tap-1";
+            const result = await axios.get(
+                `${API}/get-by-slugMovieName/${slugMovieName}/${episode}`
+            );
+            if (result.data.EC === 0) {
+                console.log(result.data);
+                setMovieData(result.data.Data[0]);
+                setVideoSrc(result.data.Data[0].MovieFilePath);
+            }
+        } catch (error) {
+            console.error("Lỗi khi gọi API:", error);
+        }
+    };
 
-    const videoSrc = 'https://res.cloudinary.com/dteuqunrm/video/upload/v1743780230/shin-cau-be-but-chi-tap-1_x6wkhr.webm'
     return (
         <div className="bg-black overflow-x-hidden">
             <div>
@@ -52,7 +70,7 @@ const StreamingRoom = () => {
             </div>
             <div className="lg:flex block justify-between xl:max-w-[1200px] lg:max-w-[1000px] md:max-w-[600px] xl:mx-auto md:mx-28 sm:mx-8 mx-5 sm:max-w-[550px]">
                 <div>
-                    <InfMovie />
+                    <InfMovie movideData={movideData} />
                 </div>
                 <div>
                     <RoomMembers />

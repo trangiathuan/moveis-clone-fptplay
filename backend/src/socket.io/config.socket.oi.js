@@ -31,13 +31,17 @@ module.exports = (io) => {
             }
         });
 
-        socket.on('leave_room', () => {
+        socket.on('leave_room', (leftRoom) => {
             if (currentRoom) {
-                socket.leave(currentRoom);
-                console.log(`User left room: ${currentRoom}`);
-                currentRoom = null;
+                const roomId = leftRoom.roomId;
+                const email = leftRoom.email
+                socket.leave(roomId);
+                socket.to(roomId).emit('user_left', {
+                    message: `${email} đã rời khỏi phòng.`,
+                });
             }
         });
+
 
         socket.on('video_play', () => {
             console.log(currentRoom);

@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import io from 'socket.io-client';
 import SOCKET from '../../configs/socket.io.js'
+import API from '../../configs/endpoint.js';
+import axios from 'axios';
 const socket = io(SOCKET);
 
 const ChatsStreaming = () => {
@@ -18,6 +20,12 @@ const ChatsStreaming = () => {
     const { roomId } = useParams();
     const token = localStorage.getItem('token')
     const decoded = jwtDecode(token)
+    const email = decoded.email
+
+
+
+
+
 
 
     useEffect(() => {
@@ -37,29 +45,61 @@ const ChatsStreaming = () => {
             setMessages(prevMessages => [...prevMessages, { content: data.message, system: true }]);
         });
 
+        socket.on('user_left', (data) => {
+            setMessages(prevMessages => [...prevMessages, { content: data.message, system: true }]);
+        });
+
         return () => {
             socket.off('receive_message');
             socket.off('error');
             socket.off('user_joined');
+            socket.off('user_left');
 
             // Rời phòng khi component unmount
             if (currentRoom) {
-                socket.emit('leave_room');
+                socket.emit('leave_room', { roomId: currentRoom, email: email });
             }
         };
     }, [currentRoom]);
 
     useEffect(() => {
-        joinRoom()
-    }, [])
+        // Gửi sự kiện rời phòng khi reload hoặc rời trang
+        const handleBeforeUnload = () => {
+            if (currentRoom) {
+                socket.emit('leave_room', { roomId: currentRoom, email: email });
+            }
+        };
 
-    const joinRoom = () => {
-        const joinRoom = { roomId: roomId, email: decoded.email, check: 1 }
-        socket.emit('join_room', joinRoom);
-        setCurrentRoom(roomId);
-        setMessages([]); // Xóa tin nhắn cũ khi tham gia phòng mới
-        setError('');
-    };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            // Gỡ bỏ lắng nghe khi component unmount
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+
+            // Gửi sự kiện leave_room khi unmount (VD: chuyển sang component khác)
+            if (currentRoom) {
+                socket.emit('leave_room', { roomId: currentRoom, email: email });
+            }
+        };
+    }, [currentRoom])
+
+    useEffect(() => {
+        if (roomId && decoded?.email) {
+            const joinRoomData = { roomId: roomId, email: email, check: 1 };
+            socket.emit('join_room', joinRoomData);
+            setCurrentRoom(roomId);
+            setMessages([]);
+            setError('');
+        }
+
+        return () => {
+            if (roomId && decoded?.email) {
+                socket.emit('leave_room', { roomId: roomId, email: email });
+            }
+        };
+    }, []);
+
+
 
     // Cải thiện cơ chế cuộn
     useEffect(() => {
@@ -67,6 +107,8 @@ const ChatsStreaming = () => {
             messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
         }
     }, [messages]);
+
+
 
     const handleSendMessage = (content) => {
 
@@ -81,18 +123,6 @@ const ChatsStreaming = () => {
         const newMessage = { content: content, sender: decoded.email }; // Có thể thêm ID người dùng thực tế
         socket.emit('send_message', newMessage); // Gửi tin nhắn tới server
         setMessage('');
-    };
-
-    // Xử lý tham gia phòng
-
-
-    // Xử lý rời phòng
-    const leaveRoom = () => {
-        if (currentRoom) {
-            socket.emit('leave_room');
-            setCurrentRoom(null);
-            setMessages([]); // Xóa tin nhắn cũ
-        }
     };
 
     const handleKeyDown = (e) => {
@@ -146,7 +176,16 @@ const ChatsStreaming = () => {
                                             <span className="text-gray-400">{msg.content}</span>
                                         ) : (
                                             <>
-                                                <strong className='text-fuchsia-500'>{msg.sender || 'Người dùng'}:</strong> {msg.content}
+                                                {email === msg.sender ?
+                                                    (
+                                                        <>
+                                                            <strong className='text-orange-500'>{msg.sender || 'Người dùng'}:</strong> {msg.content}
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <strong className='text-fuchsia-700'>{msg.sender || 'Người dùng'}:</strong> {msg.content}
+                                                        </>
+                                                    )}
                                             </>
                                         )}
                                     </div>

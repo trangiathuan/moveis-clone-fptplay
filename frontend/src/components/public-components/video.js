@@ -14,6 +14,8 @@ const Video = ({ videoSrc }) => {
     const [playbackSpeed, setPlaybackSpeed] = useState(1);
     const [fullscreen, setFullscreen] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const containerRef = useRef(null);
+
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -69,19 +71,15 @@ const Video = ({ videoSrc }) => {
     };
 
     const toggleFullscreen = () => {
-        const videoElement = videoRef.current;
+        const elem = containerRef.current;
 
         if (!document.fullscreenElement) {
-            // Nếu chưa fullscreen thì request
-            videoElement.requestFullscreen().catch(err => {
-                console.error("Request fullscreen failed", err);
-            });
+            elem?.requestFullscreen?.();
         } else {
-            // Nếu đang fullscreen thì exit
-            document.exitFullscreen().catch(err => {
-                console.error("Exit fullscreen failed", err);
-            });
+            document.exitFullscreen?.();
         }
+
+        setIsFullscreen(!isFullscreen);
     };
 
     useEffect(() => {
@@ -99,13 +97,14 @@ const Video = ({ videoSrc }) => {
         <div className="relative w-full max-w-7xl mx-auto">
             <div className="flex mx-auto space-x-4">
                 <div
+                    ref={containerRef}
                     className="relative mx-auto w-full max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
                     onMouseMove={() => setShowControls(true)}
                 >
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className="w-full h-auto max-h-[700px] cursor-pointer rounded-lg"
+                        className="w-full h-auto max-h-[870px] cursor-pointer rounded-lg"
                         controls={false}
                         onTimeUpdate={updateProgress}
                         onLoadedMetadata={handleLoadedMetadata}

@@ -3,19 +3,16 @@ import {
     Minimize2, Maximize2, Subtitles, Volume2, VolumeX
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import io from 'socket.io-client';
-import SOCKET from '../../configs/socket.io.js';
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-
+import API from '../../configs/endpoint.js';
+import axios from 'axios';
+import io from 'socket.io-client';
+import SOCKET from '../../configs/socket.io.js';
 const socket = io(SOCKET);
 
 const VideoStreaming = ({ videoSrc }) => {
     const videoRef = useRef(null);
-    const { roomId } = useParams();
-    const token = localStorage.getItem('token');
-    const decoded = jwtDecode(token);
-
     const [showControls, setShowControls] = useState(true);
     const [playing, setPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -26,6 +23,14 @@ const VideoStreaming = ({ videoSrc }) => {
     const [showSettings, setShowSettings] = useState(false);
     const [playbackSpeed, setPlaybackSpeed] = useState(1);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const containerRef = useRef(null);
+    const [room, setRoom] = useState({});
+    const { roomId } = useParams();
+    const token = localStorage.getItem('token');
+    const decoded = jwtDecode(token);
+    const isHost = decoded.email === room.host ? true : false
+
+
 
     useEffect(() => {
         socket.emit('join_room', { roomId, email: decoded.email });
@@ -38,6 +43,7 @@ const VideoStreaming = ({ videoSrc }) => {
         });
 
         socket.on('video_pause', () => {
+            console.log('Received pause event');
             if (!videoRef.current.paused) {
                 videoRef.current.pause();
                 setPlaying(false);
@@ -55,6 +61,18 @@ const VideoStreaming = ({ videoSrc }) => {
             socket.off('video_seek');
         };
     }, []);
+
+    useEffect(() => {
+        getMovieRoom()
+    }, [])
+
+    const getMovieRoom = async () => {
+        const result = await axios.post(`${API}/getMovieRoom`, { roomId });
+        if (result.data.EC === 0) {
+            setRoom(result.data.Data[0]);
+        } else {
+        }
+    }
 
     const togglePlay = () => {
         if (videoRef.current.paused) {
@@ -104,13 +122,23 @@ const VideoStreaming = ({ videoSrc }) => {
     };
 
     const toggleFullscreen = () => {
-        const el = videoRef.current;
+        const elem = containerRef.current;
+
         if (!document.fullscreenElement) {
-            el.requestFullscreen();
+            elem?.requestFullscreen?.();
         } else {
-            document.exitFullscreen();
+            document.exitFullscreen?.();
         }
+
+        setIsFullscreen(!isFullscreen);
     };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setShowControls(false);
+        }, 1200);
+        return () => clearTimeout(timeout);
+    }, [showControls]);
 
     useEffect(() => {
         const handleFSChange = () => {
@@ -129,16 +157,19 @@ const VideoStreaming = ({ videoSrc }) => {
     };
 
     return (
-        <div className="relative w-full max-w-7xl mx-auto">
+        <div
+
+            className="relative w-full max-w-7xl mx-auto" >
             <div className="flex mx-auto space-x-4">
                 <div
+                    ref={containerRef}
                     className="relative mx-auto w-full max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
                     onMouseMove={() => setShowControls(true)}
                 >
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className="w-full h-auto max-h-[700px] cursor-pointer rounded-lg"
+                        className={`w-full h-auto max-h-[870px] cursor-pointer rounded-lg ${isHost ? '' : 'pointer-events-none'}`}
                         muted
                         controls={false}
                         onTimeUpdate={updateProgress}
@@ -151,7 +182,7 @@ const VideoStreaming = ({ videoSrc }) => {
                     </span>
 
                     <div
-                        className={`absolute bottom-[55px] left-16 right-4 h-1 bg-white/40 rounded-full cursor-pointer transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}
+                        className={`absolute bottom-[55px] left-16 right-4 h-1 bg-white/40 rounded-full cursor-pointer transition-opacity ${isHost ? '' : 'pointer-events-none'} duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}
                         onClick={(e) => {
                             const rect = e.currentTarget.getBoundingClientRect();
                             const clickX = e.clientX - rect.left;
@@ -161,16 +192,16 @@ const VideoStreaming = ({ videoSrc }) => {
                             socket.emit('video_seek', newTime);
                         }}
                     >
-                        <div className="h-full bg-orange-500 rounded-full" style={{ width: `${progress}%` }} />
+                        <div className={` ${isHost ? '' : 'pointer-events-none'} h-full bg-orange-500 rounded-full`} style={{ width: `${progress}%` }} />
                     </div>
 
                     <div className={`absolute bottom-3 left-0 right-0 px-4 flex items-center justify-between transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
                         <div className="flex items-center space-x-4 text-white">
-                            <button onClick={togglePlay} className="hover:text-orange-500">
+                            <button onClick={togglePlay} className={`${isHost ? 'block' : 'hidden'} hover:text-orange-500`}>
                                 {playing ? <Pause /> : <Play />}
                             </button>
-                            <button onClick={() => skipTime(-10)} className="hover:text-orange-500"><RotateCcw /></button>
-                            <button onClick={() => skipTime(10)} className="hover:text-orange-500"><RotateCw /></button>
+                            <button onClick={() => skipTime(-10)} className={`${isHost ? 'block' : 'hidden'} hover:text-orange-500`}><RotateCcw /></button>
+                            <button onClick={() => skipTime(10)} className={`${isHost ? 'block' : 'hidden'} hover:text-orange-500`}><RotateCw /></button>
                             <button onClick={toggleMute} className="hover:text-orange-500">
                                 {muted || volume === 0 ? <VolumeX /> : <Volume2 />}
                             </button>
@@ -186,9 +217,9 @@ const VideoStreaming = ({ videoSrc }) => {
                         </div>
 
                         <div className="flex items-center space-x-4 text-white relative">
-                            <button className="hover:text-orange-500"><Subtitles /></button>
-                            <button className="hover:text-orange-500"><SkipForward /></button>
-                            <button onClick={() => setShowSettings(!showSettings)} className="hover:text-orange-500"><Settings /></button>
+                            <button className={`${isHost ? 'block' : 'hidden'} hover:text-orange-500`}><Subtitles /></button>
+                            <button className={`${isHost ? 'block' : 'hidden'} hover:text-orange-500`}><SkipForward /></button>
+                            <button onClick={() => setShowSettings(!showSettings)} className={`${isHost ? 'block' : 'hidden'} hover:text-orange-500`}><Settings /></button>
                             {showSettings && (
                                 <div className="absolute bottom-10 right-0 bg-gray-800 p-2 rounded shadow-lg space-y-1 z-10">
                                     {[0.75, 1, 1.25, 2, 3, 5].map((speed) => (
@@ -209,7 +240,7 @@ const VideoStreaming = ({ videoSrc }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
