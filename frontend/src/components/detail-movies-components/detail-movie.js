@@ -116,7 +116,7 @@ const Detail = () => {
         <List_movies moviesData={movieData} />
       </div>
       {/* phần bình luận của phim  */}
-      <div className="w-full max-w-7xl px-2 sm:px-7 mt-5"><Comment_movies /></div>
+      <div className="w-full max-w-7xl px-2 sm:px-7 mt-5"><Comment_movies moviesData={movieData} /></div>
 
     </div>
   );

@@ -8,6 +8,7 @@ const ActionButtons = ({ slugEpisode }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const { slugMovieName } = useParams(); // Lấy id phim từ URL
   const [randomNumber, setRandomNumber] = useState(0)
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchFollowStatus();
@@ -26,20 +27,22 @@ const ActionButtons = ({ slugEpisode }) => {
   // Lấy trạng thái theo dõi phim
   const fetchFollowStatus = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${API}/check-follow/${slugMovieName}`, // API đúng
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      if (token) {
+        const response = await axios.get(
+          `${API}/check-follow/${slugMovieName}`, // API đúng
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response.data);
+        if (response.data.Status === 1) {
+          setIsFollowing(true); // Cập nhật trạng thái
         }
-      );
-      console.log(response.data);
-      if (response.data.Status === 1) {
-        setIsFollowing(true); // Cập nhật trạng thái
       }
+
     } catch (error) {
       console.error("Lỗi khi lấy trạng thái theo dõi:", error);
     }
@@ -48,7 +51,6 @@ const ActionButtons = ({ slugEpisode }) => {
   // Xử lý theo dõi / bỏ theo dõi
   const handleFollow = async () => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.get(
         `${API}/toggleFollowMovie/${slugMovieName}`,
         {
@@ -100,7 +102,7 @@ const ActionButtons = ({ slugEpisode }) => {
 
       <a href={`/streaming/${slugMovieName}/${slugEpisode}/${randomNumber}`} className={`${slugEpisode ? 'block' : 'hidden'}`}>
         <button
-          className="flex items-center px-3 sm:px-4 py-1 sm:py-2 rounded-full transition text-white text-xs sm:text-sm md:text-base whitespace-nowrap"
+          className={`${token ? 'flex' : 'hidden'} items-center px-3 sm:px-4 py-1 sm:py-2 rounded-full transition text-white text-xs sm:text-sm md:text-base whitespace-nowrap`}
         >
           <MonitorPlay className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
           Live
