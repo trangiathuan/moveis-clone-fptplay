@@ -198,3 +198,59 @@ exports.getMovieRoomController = async (req, res) => {
         })
     }
 }
+
+exports.getCommentsController = async (req, res) => {
+    const { MovieID } = req.body
+    console.log('Data sent to server:', MovieID);
+    const result = await movieService.getCommentsService(MovieID)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xử lý thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        })
+    }
+}
+
+exports.createCommentsController = async (req, res) => {
+    const { MovieID, contents, email } = req.body
+    console.log('Data sent to server:', MovieID, '-', contents, '-', email);
+    const result = await movieService.createCommentsService(MovieID, contents, email)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xử lý thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        })
+    }
+}

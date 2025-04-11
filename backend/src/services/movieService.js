@@ -91,3 +91,31 @@ exports.getMovieRoomService = async (roomId) => {
         console.log(error);
     }
 }
+
+exports.getCommentsService = async (MovieID) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'getComments')
+            .input('MovieID', sql.Int, MovieID)
+            .execute('SP_Movies')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.createCommentsService = async (MovieID, contents, email) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'createComment')
+            .input('MovieID', sql.Int, MovieID)
+            .input('contents', sql.NVarChar, contents)
+            .input('email', sql.VarChar, email)
+            .execute('SP_Movies')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}

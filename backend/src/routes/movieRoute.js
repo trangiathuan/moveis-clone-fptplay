@@ -9,6 +9,10 @@ router.get('/get-list-Movies/:slugMovieName', movieController.getListMoviesContr
 router.post('/createMovieRoom/:slugMovieName/:slugEpisode/:roomId', movieController.createRoomMovieController);
 router.post('/deleteMovieRoom', movieController.deleteRoomMovieController);
 router.post('/getMovieRoom', movieController.getMovieRoomController);
+router.post('/getComments', movieController.getCommentsController);
+router.post('/createComment', movieController.createCommentsController);
+
+
 
 
 
