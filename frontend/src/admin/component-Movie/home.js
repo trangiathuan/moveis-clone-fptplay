@@ -4,7 +4,7 @@ import Slidebar from "./slide-bar";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 const Home_Admin = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 

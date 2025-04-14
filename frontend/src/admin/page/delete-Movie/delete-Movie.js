@@ -1,9 +1,9 @@
-const Change_film = () => {
+const Delete_Movie = () => {
     return (
         <div className="bg-black text-white">
-            Change_film
+            Delete_Movie
         </div>
     )
 }
 
-export default Change_film;
+export default Delete_Movie;
