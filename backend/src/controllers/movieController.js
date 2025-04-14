@@ -1,4 +1,7 @@
 const movieService = require('../services/movieService')
+const cloudinaryService = require('../services/cloudinaryService')
+const fs = require('fs');
+
 exports.getAllMovieNewController = async (req, res) => {
     const result = await movieService.getAllMovieNewService();
 
@@ -252,5 +255,69 @@ exports.createCommentsController = async (req, res) => {
             Message: 'Xử lý thất bại',
             Data: null
         })
+    }
+}
+
+// Admin
+
+exports.addNewMoviesController = async (req, res) => {
+    const { MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear, AgeRestriction, NumberOfEpisodes, Country,
+        SummaryTitle, SummaryContent, Actor, Director, MovieGenre, CategoryID } = req.body
+
+    const SlugMovieName = toSlug(MovieNameVietnamese);
+    const imageURL = req.file.path
+
+    console.log('Image Path:', imageURL);
+    console.log('Data sent to server:', req.body);
+
+    if (imageURL) {
+        const MovieImagePath = await cloudinaryService.uploadImage(imageURL)
+        fs.unlink(imageURL, () => { });
+
+        const result = await movieService.addNewMoviesService(MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear,
+            AgeRestriction, NumberOfEpisodes, Country, SummaryTitle, SummaryContent, Actor, Director,
+            MovieGenre, CategoryID, SlugMovieName, MovieImagePath)
+
+        if (result && result.length > 0) {
+            return res.status(200).json({
+                EC: 0,
+                Status: 'Success',
+                Message: 'Xử lý thành công',
+                Data: result
+            })
+        }
+        else {
+            console.log({
+                EC: -1,
+                Status: 'Failed',
+                Message: 'Xử lý thất bại',
+                Data: null
+            });
+            return res.status(200).json({
+                EC: -1,
+                Status: 'Failed',
+                Message: 'Xử lý thất bại',
+                Data: null
+            })
+        }
+    } else {
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            MovieImagePath: null
+        })
+    }
+
+
+
+    function toSlug(str) {
+        return str
+            .normalize('NFD')                     // tách dấu khỏi chữ
+            .replace(/[\u0300-\u036f]/g, '')      // xóa dấu
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')         // xóa ký tự đặc biệt
+            .trim()
+            .replace(/\s+/g, '-');                // thay khoảng trắng bằng -
     }
 }

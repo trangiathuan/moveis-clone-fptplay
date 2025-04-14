@@ -119,3 +119,34 @@ exports.createCommentsService = async (MovieID, contents, email) => {
         console.log(error);
     }
 }
+
+// Admin    
+
+exports.addNewMoviesService = async (MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear,
+    AgeRestriction, NumberOfEpisodes, Country, SummaryTitle, SummaryContent, Actor, Director,
+    MovieGenre, CategoryID, SlugMovieName, MovieImagePath) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'addNewMovie')
+            .input('MovieNameVietnamese', sql.NVarChar, MovieNameVietnamese)
+            .input('MovieNameEnglish', sql.NVarChar, MovieNameEnglish)
+            .input('MovieStatus', sql.NVarChar, MovieStatus)
+            .input('ReleaseYear', sql.Int, ReleaseYear)
+            .input('AgeRestriction', sql.VarChar, AgeRestriction)
+            .input('NumberOfEpisodes', sql.NVarChar, NumberOfEpisodes)
+            .input('Country', sql.NVarChar, Country)
+            .input('SummaryTitle', sql.NVarChar, SummaryTitle)
+            .input('SummaryContent', sql.NVarChar, SummaryContent)
+            .input('Actor', sql.NVarChar, Actor)
+            .input('Director', sql.NVarChar, Director)
+            .input('MovieGenre', sql.NVarChar, MovieGenre)
+            .input('MovieImagePath', sql.NVarChar, MovieImagePath)
+            .input('CategoryID', sql.Int, CategoryID)
+            .input('SlugMovieName', sql.VarChar, SlugMovieName)
+            .execute('SP_Admin')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}
