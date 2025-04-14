@@ -19,6 +19,7 @@ import Repair_Movie from './admin/page/repair-Movie/repair-Movie';
 import Delete_Movie from './admin/page/delete-Movie/delete-Movie';
 import ListMovie from './admin/page/list-movie/list-movie';
 import AddMovie from './admin/page/add-Movie/add-Movie';
+import ListUser from './admin/page/users/list-users';
 
 
 
@@ -58,6 +59,9 @@ root.render(
         <Route path='repair-movie' element={<Repair_Movie />} />
 
         <Route path='delete-movie' element={<Delete_Movie />} />
+
+
+        <Route path='list-users' element={<ListUser />} />
 
       </Route>
 

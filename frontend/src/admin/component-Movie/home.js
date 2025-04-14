@@ -15,29 +15,29 @@ const Home_Admin = () => {
 
     return (
         <div className="bg-white overflow-x-hidden">
-            <div className="flex flex-col md:flex-row h-screen">
+            {/* Sử dụng relative để nội dung không bị đẩy */}
+            <div className="relative h-screen">
+                {/* Slidebar cố định */}
                 <Slidebar isOpen={sidebarOpen} />
-                <div className={`flex-1 min-h-screen bg-gray-50 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-64" : ""}`}>
+
+                {/* Nội dung chính */}
+                <div className={`transition-all duration-300 ${sidebarOpen ? "pl-64" : "pl-0"}`}>
                     <Header onToggleSidebar={toggleSidebar} />
 
-                    <div className="text-black p-4">
-                        {/* Nếu đang ở đúng /dashboard thì hiện dòng này */}
+                    <div className="text-black p-4 min-h-[calc(100vh-4rem)]">
                         {isAtHomeAdminRoot && (
                             <div className="mb-4 text-lg font-bold text-blue-600">
                                 chỗ admin nè cu
                             </div>
                         )}
-
-                        {/* Render nội dung con */}
                         <Outlet />
                     </div>
                 </div>
             </div>
 
-            <div className="text-white">
-                <Footer />
-            </div>
+            <Footer />
         </div>
+
     )
 }
 export default Home_Admin;

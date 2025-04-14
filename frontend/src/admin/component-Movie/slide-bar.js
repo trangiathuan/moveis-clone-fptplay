@@ -8,6 +8,7 @@ import {
     Menu,
     ChevronRight,
     Globe,
+    User,
 } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
@@ -67,8 +68,11 @@ const Slidebar = ({ isOpen }) => {
                             <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Người dùng</h2>
                             <ul className="space-y-2 text-sm">
                                 <li className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
-                                    <Lock className="w-4 h-4" />
-                                    Login
+                                    <NavLink to='/dashboard/list-users' className='flex space-x-1 items-center'>
+                                        <User className="w-4 h-4" />
+                                        <p>Tài khoản</p>
+                                    </NavLink>
+
                                 </li>
                                 <li className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
                                     <UserPlus className="w-4 h-4" />
