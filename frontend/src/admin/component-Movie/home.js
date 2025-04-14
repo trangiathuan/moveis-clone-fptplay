@@ -14,29 +14,31 @@ const Home_Admin = () => {
     const isAtHomeAdminRoot = location.pathname === "/dashboard";
 
     return (
-        <div className="bg-white overflow-x-hidden">
-            <div className="flex flex-col md:flex-row h-screen">
+        <div className="relative min-h-screen bg-white overflow-x-hidden">
+            {/* Sidebar */}
+            <div className="flex">
                 <Slidebar isOpen={sidebarOpen} />
-                <div className={`flex-1 min-h-screen bg-gray-50 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-64" : ""}`}>
+
+                {/* Main content */}
+                <div className={`flex-1 flex flex-col min-h-screen ${sidebarOpen ? "ml-64" : ""}`}>
                     <Header onToggleSidebar={toggleSidebar} />
 
-                    <div className="text-black p-4">
-                        {/* Nếu đang ở đúng /dashboard thì hiện dòng này */}
+                    {/* Content area with padding-bottom to avoid overlapping footer */}
+                    <main className="flex-grow p-4 bg-gray-50 text-black pb-24">
                         {isAtHomeAdminRoot && (
                             <div className="mb-4 text-lg font-bold text-blue-600">
                                 chỗ admin nè cu
                             </div>
                         )}
-
-                        {/* Render nội dung con */}
                         <Outlet />
-                    </div>
+                    </main>
                 </div>
             </div>
 
-            <div className="text-white">
+            {/* Footer overlays full width, ignoring sidebar */}
+            <footer className="absolute bottom-0 left-0 w-full bg-black text-white z-50">
                 <Footer />
-            </div>
+            </footer>
         </div>
     )
 }
