@@ -1,4 +1,4 @@
-const Add_Movie = () => {
+const AddMovie = () => {
     return (
         <div className="bg-black text-white">
             Add_Movie
@@ -6,4 +6,4 @@ const Add_Movie = () => {
     )
 }
 
-export default Add_Movie;
+export default AddMovie;

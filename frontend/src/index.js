@@ -14,10 +14,11 @@ import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
 import JoinRoom from './pages/join-room-movie';
 import Home_Admin from './admin/component-Movie/home';
-import Add_Movie from './admin/page/add-Movie/add-Movie';
 import Change_Movie from './admin/page/change-Movie/change-Movie';
 import Repair_Movie from './admin/page/repair-Movie/repair-Movie';
 import Delete_Movie from './admin/page/delete-Movie/delete-Movie';
+import ListMovie from './admin/page/list-movie/list-movie';
+import AddMovie from './admin/page/add-Movie/add-Movie';
 
 
 
@@ -46,11 +47,18 @@ root.render(
 
       {/* admin router */}
 
-      <Route path='/home_admin' element={<Home_Admin />}>
-        <Route path='add-film' element={<Add_film />} />
-        <Route path='change-film' element={<Change_film />} />
-        <Route path='repair-film' element={<Repair_film />} />
-        <Route path='delete-film' element={<Delete_film />} />
+      <Route path='/dashboard' element={<Home_Admin />}>
+
+        <Route path='list-movie' element={<ListMovie />} />
+
+        <Route path='add-movie' element={<AddMovie />} />
+
+        <Route path='change-movie' element={<Change_Movie />} />
+
+        <Route path='repair-movie' element={<Repair_Movie />} />
+
+        <Route path='delete-movie' element={<Delete_Movie />} />
+
       </Route>
 
     </Routes>

@@ -11,7 +11,7 @@ const Home_Admin = () => {
     const location = useLocation();
 
     // Kiểm tra nếu chỉ là "/home_admin"
-    const isAtHomeAdminRoot = location.pathname === "/home_admin";
+    const isAtHomeAdminRoot = location.pathname === "/dashboard";
 
     return (
         <div className="bg-white overflow-x-hidden">
@@ -21,7 +21,7 @@ const Home_Admin = () => {
                     <Header onToggleSidebar={toggleSidebar} />
 
                     <div className="text-black p-4">
-                        {/* Nếu đang ở đúng /home_admin thì hiện dòng này */}
+                        {/* Nếu đang ở đúng /dashboard thì hiện dòng này */}
                         {isAtHomeAdminRoot && (
                             <div className="mb-4 text-lg font-bold text-blue-600">
                                 chỗ admin nè cu

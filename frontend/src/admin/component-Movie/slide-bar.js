@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Link } from "react-router-dom";
 const Slidebar = ({ isOpen }) => {
+    console.log(isOpen);
+
     return (
         <aside className={`absolute top-0 left-0 h-full w-64 bg-white text-black border-r shadow-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className="px-4 py-6 flex flex-col justify-between h-full">
@@ -25,39 +27,44 @@ const Slidebar = ({ isOpen }) => {
                     </div>
 
                     <nav className="space-y-6">
-                        <NavLink to="/home_admin" className="bg-orange-100 text-orange-600 rounded-md px-3 py-2 flex items-center gap-2 font-medium">
+                        <NavLink to="/dashboard" className="bg-orange-100 text-orange-600 rounded-md px-3 py-2 flex items-center gap-2 font-medium">
                             <LayoutDashboard className="w-4 h-4" />
                             Dashboard
                         </NavLink>
 
                         <div>
-                            <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Movie Management</h2>
+                            <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Quản lý phim</h2>
                             <ul className="space-y-2 text-sm">
                                 <li>
-                                    <NavLink to="/home_admin/add-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        🎬 Thêm Phim
+                                    <NavLink to="/dashboard/list-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        🎬 Danh sách phim
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/home_admin/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        🛠️ Sửa Phim
+                                    <NavLink to="/dashboard/add-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        🎬 Thêm phim mới
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/home_admin/delete-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        🗑️ Xóa Phim
+                                    <NavLink to="/dashboard/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        Option 1
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/home_admin/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        🔄 Thay đổi Phim
+                                    <NavLink to="/dashboard/delete-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        Option 1
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        Option 1
                                     </NavLink>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Pages</h2>
+                            <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Người dùng</h2>
                             <ul className="space-y-2 text-sm">
                                 <li className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
                                     <Lock className="w-4 h-4" />
