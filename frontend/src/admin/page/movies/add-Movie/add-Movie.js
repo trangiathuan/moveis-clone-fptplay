@@ -91,14 +91,14 @@ const AddMovie = () => {
                     <select name="ReleaseYear" onChange={handleChange}
                         className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
                         <option value="">-- Chọn năm phát hành --</option>
-                        {Array.from({ length: 2025 - 2018 + 1 }, (_, i) => {
-                            const year = 2018 + i;
+                        {Array.from({ length: 2025 - 1990 + 1 }, (_, i) => {
+                            const year = 1990 + i;
                             return <option key={year} value={year}>{year}</option>
                         })}
                     </select>
                     <input type="text" name="AgeRestriction" placeholder="Giới hạn tuổi (vd: T13)" onChange={handleChange}
                         className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
-                    <input type="text" name="NumberOfEpisodes" placeholder="Số tập (vd: 52 tập)" onChange={handleChange}
+                    <input type="text" name="NumberOfEpisodes" placeholder="Số tập (vd: 52/52 tập)" onChange={handleChange}
                         className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
                     <input type="text" name="Country" placeholder="Quốc gia" onChange={handleChange}
                         className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />

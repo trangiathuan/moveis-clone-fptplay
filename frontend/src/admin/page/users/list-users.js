@@ -11,9 +11,6 @@ const ListUser = () => {
                 <h2 className="text-2xl font-bold mb-4">Danh sách người dùng</h2>
                 <div className="space-x-2">
                     <input type="text" placeholder="Tìm kiếm" className="p-2 ư h-10 border border-gray-200 rounded-lg outline-none focus:border-2 focus:border-gray-300" />
-                    <button className="text-white px-2 w-24 h-9 bg-red-600 rounded-lg">
-                        Tìm kiếm
-                    </button>
                 </div>
             </div>
             <div className="overflow-x-auto ">
@@ -24,7 +21,7 @@ const ListUser = () => {
                             <th className="py-2 px-4 border-b">Tài khoản</th>
                             <th className="py-2 px-4 border-b">Email</th>
                             <th className="py-2 px-4 border-b">Vai trò</th>
-                            <th className="py-2 px-4 border-b">Chức năng</th>
+                            <th className="py-2 px-4 border-b w-32 text-center">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +36,12 @@ const ListUser = () => {
                                 <td className="py-2 px-4 border-b">{user.username}</td>
                                 <td className="py-2 px-4 border-b">{user.email}</td>
                                 <td className="py-2 px-4 border-b">{user.role}</td>
-                                <td className="py-2 px-4 border-b">{user.role}</td>
+                                <td className="py-2 px-4 border-b">
+                                    <div className='flex space-x-2'>
+                                        <button className='bg-blue-700 rounded-lg h-9 w-20 text-white'>Cập nhật</button>
+                                        <button className='bg-red-700 rounded-lg h-9 w-20 text-white'>Xóa</button>
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
