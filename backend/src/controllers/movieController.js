@@ -259,57 +259,64 @@ exports.createCommentsController = async (req, res) => {
 }
 
 // Admin
-
 exports.addNewMoviesController = async (req, res) => {
     const { MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear, AgeRestriction, NumberOfEpisodes, Country,
         SummaryTitle, SummaryContent, Actor, Director, MovieGenre, CategoryID } = req.body
 
-    const SlugMovieName = toSlug(MovieNameVietnamese);
-    const imageURL = req.file.path
+    const role = req.user.role
 
-    console.log('Image Path:', imageURL);
-    console.log('Data sent to server:', req.body);
 
-    if (imageURL) {
-        const MovieImagePath = await cloudinaryService.uploadImage(imageURL)
-        fs.unlink(imageURL, () => { });
+    if (role === 'admin') {
+        const SlugMovieName = toSlug(MovieNameVietnamese);
+        const imageURL = req.file.path
 
-        const result = await movieService.addNewMoviesService(MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear,
-            AgeRestriction, NumberOfEpisodes, Country, SummaryTitle, SummaryContent, Actor, Director,
-            MovieGenre, CategoryID, SlugMovieName, MovieImagePath)
+        console.log('Image Path:', imageURL);
+        console.log('Data sent to server:', req.body);
+        if (imageURL) {
+            const MovieImagePath = await cloudinaryService.uploadImage(imageURL)
+            fs.unlink(imageURL, () => { });
 
-        if (result && result.length > 0) {
+            const result = await movieService.addNewMoviesService(MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear,
+                AgeRestriction, NumberOfEpisodes, Country, SummaryTitle, SummaryContent, Actor, Director,
+                MovieGenre, CategoryID, SlugMovieName, MovieImagePath)
+
+            if (result && result.length > 0) {
+                return res.status(200).json({
+                    EC: 0,
+                    Status: 'Success',
+                    Message: 'Xử lý thành công',
+                    Data: result
+                })
+            }
+            else {
+                console.log({
+                    EC: -1,
+                    Status: 'Failed',
+                    Message: 'Xử lý thất bại',
+                    Data: null
+                });
+                return res.status(200).json({
+                    EC: -1,
+                    Status: 'Failed',
+                    Message: 'Xử lý thất bại',
+                    Data: null
+                })
+            }
+        } else {
             return res.status(200).json({
-                EC: 0,
-                Status: 'Success',
-                Message: 'Xử lý thành công',
-                Data: result
-            })
-        }
-        else {
-            console.log({
                 EC: -1,
                 Status: 'Failed',
                 Message: 'Xử lý thất bại',
-                Data: null
-            });
-            return res.status(200).json({
-                EC: -1,
-                Status: 'Failed',
-                Message: 'Xử lý thất bại',
-                Data: null
+                MovieImagePath: null
             })
         }
     } else {
         return res.status(200).json({
             EC: -1,
             Status: 'Failed',
-            Message: 'Xử lý thất bại',
-            MovieImagePath: null
+            Message: 'Chức năng dành cho người quản trị'
         })
     }
-
-
 
     function toSlug(str) {
         return str

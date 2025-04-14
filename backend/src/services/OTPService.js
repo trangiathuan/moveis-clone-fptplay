@@ -75,10 +75,14 @@ exports.verifyOTPService = async (email, otp) => {
                 .execute('SP_Users');
             const idUser = (result.recordset[0].id);
             const emailUser = (result.recordset[0].email);
+            const role = (result.recordset[0].role);
+            console.log(result.recordset);
+
 
             const token = jwt.sign({
                 id: idUser,
-                email: emailUser
+                email: emailUser,
+                role: role
             },
                 process.env.SecretKey, { expiresIn: '30d' }
             )

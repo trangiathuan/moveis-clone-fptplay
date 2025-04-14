@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movieController')
+const authAdmin = require('../middleware/authAdmin')
 
 // Cấu hình multer
 const multer = require('multer');
@@ -26,7 +27,7 @@ router.post('/getComments', movieController.getCommentsController);
 router.post('/createComment', movieController.createCommentsController);
 
 // Admin
-router.post('/add-new-movies', upload.single('file'), movieController.addNewMoviesController)
+router.post('/add-new-movies', authAdmin, upload.single('file'), movieController.addNewMoviesController)
 
 
 
