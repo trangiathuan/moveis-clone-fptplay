@@ -38,7 +38,7 @@ const Slidebar = ({ isOpen }) => {
                             <ul className="space-y-2 text-sm">
                                 <li>
                                     <NavLink to="/dashboard/list-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        🎬 Danh sách phim
+                                        🎞️ Danh sách phim
                                     </NavLink>
                                 </li>
                                 <li>
@@ -48,17 +48,17 @@ const Slidebar = ({ isOpen }) => {
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        Option 1
+                                        🛠️ Sửa Phim
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/delete-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        Option 1
+                                        🗑️ Xóa Phim
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        Option 1
+                                        🔄 Thay đổi Phim
                                     </NavLink>
                                 </li>
                             </ul>
@@ -74,9 +74,10 @@ const Slidebar = ({ isOpen }) => {
                                     </NavLink>
 
                                 </li>
-                                <li className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
-                                    <UserPlus className="w-4 h-4" />
-                                    Register
+                                <li>
+                                    <NavLink to="/dashboard/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        ♻️👤 Thay đổi người dùng
+                                    </NavLink>
                                 </li>
                             </ul>
                         </div>

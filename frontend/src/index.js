@@ -14,11 +14,11 @@ import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
 import JoinRoom from './pages/join-room-movie';
 import Home_Admin from './admin/component-Movie/home';
-import Change_Movie from './admin/page/change-Movie/change-Movie';
-import Repair_Movie from './admin/page/repair-Movie/repair-Movie';
-import Delete_Movie from './admin/page/delete-Movie/delete-Movie';
-import ListMovie from './admin/page/list-movie/list-movie';
-import AddMovie from './admin/page/add-Movie/add-Movie';
+import Change_Movie from './admin/page/movies/change-Movie/change-Movie';
+import Repair_Movie from './admin/page/movies/repair-Movie/repair-Movie';
+import Delete_Movie from './admin/page/movies/delete-Movie/delete-Movie';
+import ListMovie from './admin/page/movies/list-movie/list-movie';
+import AddMovie from './admin/page/movies/add-Movie/add-Movie';
 import ListUser from './admin/page/users/list-users';
 
 
@@ -49,7 +49,7 @@ root.render(
       {/* admin router */}
 
       <Route path='/dashboard' element={<Home_Admin />}>
-
+        {/* ----------------------------------------------- */}
         <Route path='list-movie' element={<ListMovie />} />
 
         <Route path='add-movie' element={<AddMovie />} />
@@ -59,6 +59,11 @@ root.render(
         <Route path='repair-movie' element={<Repair_Movie />} />
 
         <Route path='delete-movie' element={<Delete_Movie />} />
+        {/* ----------------------------------------------- */}
+        <Route path='list-users' element={<ListUser />} />
+        {/*<Route path='list-users' element={<ListUser />} />
+        <Route path='list-users' element={<ListUser />} />
+        <Route path='list-users' element={<ListUser />} /> */}
 
 
         <Route path='list-users' element={<ListUser />} />
