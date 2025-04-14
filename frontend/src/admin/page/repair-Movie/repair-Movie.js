@@ -1,9 +1,9 @@
-const Delete_film = () => {
+const Repair_Movie = () => {
     return (
         <div className="bg-black text-white">
-            Delete_film
+            Repair_Movie
         </div>
     )
 }
 
-export default Delete_film;
+export default Repair_Movie;

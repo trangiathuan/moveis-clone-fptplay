@@ -1,9 +1,9 @@
-const Add_film = () => {
+const Add_Movie = () => {
     return (
         <div className="bg-black text-white">
-            Add_film
+            Add_Movie
         </div>
     )
 }
 
-export default Add_film;
+export default Add_Movie;

@@ -11,10 +11,6 @@ import {
 } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
-import Add_film from "./component-film/add-film";
-import Change_film from "./component-film/change-film";
-import Delete_film from "./component-film/delete-film";
-import Repair_film from "./component-film/repair-film";
 import { NavLink, Link } from "react-router-dom";
 const Slidebar = ({ isOpen }) => {
     return (
@@ -38,22 +34,22 @@ const Slidebar = ({ isOpen }) => {
                             <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Movie Management</h2>
                             <ul className="space-y-2 text-sm">
                                 <li>
-                                    <NavLink to="/home_admin/add-film" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/home_admin/add-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🎬 Thêm Phim
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/home_admin/repair-film" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/home_admin/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🛠️ Sửa Phim
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/home_admin/delete-film" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/home_admin/delete-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🗑️ Xóa Phim
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/home_admin/change-film" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/home_admin/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🔄 Thay đổi Phim
                                     </NavLink>
                                 </li>
