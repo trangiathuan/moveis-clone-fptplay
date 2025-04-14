@@ -181,13 +181,13 @@ const VideoStreaming = ({ videoSrc, isHost }) => {
             <div className="flex mx-auto space-x-4">
                 <div
                     ref={containerRef}
-                    className="relative mx-auto w-full max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
+                    className="relative mx-auto w-full h-[510px] max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
                     onMouseMove={() => setShowControls(true)}
                 >
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className={`w-full h-auto max-h-[1200px] cursor-pointer rounded-lg ${isHost ? '' : 'pointer-events-none'}`}
+                        className={`w-full h-full max-h-[1300px] cursor-pointer rounded-lg object-contain ${isHost ? '' : 'pointer-events-none'}`}
                         muted
                         controls={false}
                         onTimeUpdate={updateProgress}

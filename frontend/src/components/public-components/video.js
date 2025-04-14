@@ -98,13 +98,13 @@ const Video = ({ videoSrc }) => {
             <div className="flex mx-auto space-x-4">
                 <div
                     ref={containerRef}
-                    className="relative mx-auto w-full max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
+                    className="relative mx-auto w-full h-[200px] sm:h-[600px] max-h-[700px] max-w-[1110px] rounded-lg overflow-hidden"
                     onMouseMove={() => setShowControls(true)}
                 >
                     <video
                         ref={videoRef}
                         src={videoSrc}
-                        className="w-full h-auto max-h-[1300px] cursor-pointer rounded-lg"
+                        className="w-full h-full max-h-[1300px] cursor-pointer rounded-lg object-contain"
                         controls={false}
                         onTimeUpdate={updateProgress}
                         onLoadedMetadata={handleLoadedMetadata}

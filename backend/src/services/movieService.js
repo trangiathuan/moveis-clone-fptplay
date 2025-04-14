@@ -150,3 +150,21 @@ exports.addNewMoviesService = async (MovieNameVietnamese, MovieNameEnglish, Movi
         console.log(error);
     }
 }
+
+exports.addEpisodeMoviesService = async (MovieID, EpisodeNumber, EpisodeDescription, MovieFilePath, MovieImagePath, SlugEpisode) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'addEpisodeMovie')
+            .input('MovieID', sql.Int, MovieID)
+            .input('EpisodeNumber', sql.NVarChar, EpisodeNumber)
+            .input('EpisodeDescription', sql.NVarChar, EpisodeDescription)
+            .input('MovieFilePath', sql.NVarChar, MovieFilePath)
+            .input('MovieImagePath', sql.NVarChar, MovieImagePath)
+            .input('SlugEpisode', sql.VarChar, SlugEpisode)
+            .execute('SP_Admin')
+        return result.recordset;
+    } catch (error) {
+        console.log(error);
+    }
+}

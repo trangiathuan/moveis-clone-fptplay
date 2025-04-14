@@ -28,6 +28,8 @@ router.post('/createComment', movieController.createCommentsController);
 
 // Admin
 router.post('/add-new-movies', authAdmin, upload.single('file'), movieController.addNewMoviesController)
+router.post('/add-episode-movies/:MovieID', authAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), movieController.addEpisodeMoviesController)
+
 
 
 
