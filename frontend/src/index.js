@@ -13,6 +13,11 @@ import FollowingMoviesList from './pages/following-movies-list ';
 import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
 import JoinRoom from './pages/join-room-movie';
+import Home_Admin from './admin-components/home';
+import Add_film from './admin-components/component-film/add-film';
+import Change_film from './admin-components/component-film/change-film';
+import Repair_film from './admin-components/component-film/repair-film';
+import Delete_film from './admin-components/component-film/delete-film';
 
 
 
@@ -39,10 +44,19 @@ root.render(
 
       <Route path='/joim-room' element={<JoinRoom />} />
 
+      {/* admin router */}
 
-
+      <Route path='/home_admin' element={<Home_Admin />}>
+        <Route path='add-film' element={<Add_film />} />
+        <Route path='change-film' element={<Change_film />} />
+        <Route path='repair-film' element={<Repair_film />} />
+        <Route path='delete-film' element={<Delete_film />} />
+      </Route>
     </Routes>
+
+
   </BrowserRouter>
+
   //</React.StrictMode>
 );
 
