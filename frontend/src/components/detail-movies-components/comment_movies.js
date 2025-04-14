@@ -20,17 +20,13 @@ const Comment_movies = ({ moviesData }) => {
     const [allComments, setAllComments] = useState([])
     const [contents, setContents] = useState()
     let email = '';
-    let role = ''
+
 
     const token = localStorage.getItem('token');
     if (token) {
         try {
             const decoded = jwtDecode(token);
             email = decoded.email;
-            role = decoded.role;
-            console.log(decoded);
-
-
         } catch (err) {
             console.error("Token không hợp lệ:", err);
         }

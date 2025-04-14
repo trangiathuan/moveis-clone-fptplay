@@ -272,6 +272,7 @@ exports.addNewMoviesController = async (req, res) => {
 
         console.log('Image Path:', imageURL);
         console.log('Data sent to server:', req.body);
+
         if (imageURL) {
             const MovieImagePath = await cloudinaryService.uploadImage(imageURL)
             fs.unlink(imageURL, () => { });
