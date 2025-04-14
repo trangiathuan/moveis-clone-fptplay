@@ -1,6 +1,19 @@
 const connection = require("../configs/configDatabase");
 const sql = require('mssql');
 
+exports.getAllUsersService = async () => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'getAllUsers')
+            .execute('SP_Users')
+        return result.recordset
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
 exports.checkFollowMovieService = async (slugMovieName, userID) => {
     try {
         const pool = await connection();

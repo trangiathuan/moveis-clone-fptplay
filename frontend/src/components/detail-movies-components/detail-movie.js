@@ -10,156 +10,114 @@ import Video from "../public-components/video";
 import Comment_movies from "./comment_movies";
 
 const Detail = () => {
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [genreFilter, setGenreFilter] = useState('');
-  const [episodes, setEpisodes] = useState([]);
+  const [movieData, setMovieData] = useState(null);
+  const [videoSrc, setVideoSrc] = useState("");
+  const { slugMovieName, slugEpisode } = useParams(); // Lấy slug từ URL
 
   useEffect(() => {
-    fetchMoviesData();
-  }, []);
+    fetchMovieData();
+  }, [slugEpisode]);
 
-  const fetchMoviesData = async () => {
+  const fetchMovieData = async () => {
     try {
-      const result = await axios.get('http://localhost:8080/api/get-all-movies-new');
+      const episode = slugEpisode || "tap-1";
+      const result = await axios.get(
+        `${API}/get-by-slugMovieName/${slugMovieName}/${episode}`
+      );
       if (result.data.EC === 0) {
-        setMovies(result.data.Data);
-      } else {
-        console.warn("Dữ liệu không hợp lệ:", result.data);
+        console.log(result.data);
+        setMovieData(result.data.Data[0]);
+        setVideoSrc(result.data.Data[0].MovieFilePath);
       }
     } catch (error) {
-      console.error("Lỗi khi gọi API danh sách phim:", error);
+      console.error("Lỗi khi gọi API:", error);
     }
   };
 
-  useEffect(() => {
-    if (selectedMovie?.MovieSlug) {
-      fetchEpisodesData(selectedMovie.MovieSlug);
-    } else {
-      setEpisodes([]);
-    }
-  }, [selectedMovie]);
-
-  const fetchEpisodesData = async (slugMovieName) => {
-    try {
-      const result = await axios.get(`http://localhost:8080/api/get-list-movies/${slugMovieName}`);
-      if (result.data.EC === 0) {
-        setEpisodes(result.data.Data);
-        console.log(episodes);
-
-      } else {
-        setEpisodes([]);
-      }
-    } catch (error) {
-      console.error("Lỗi khi gọi API tập phim:", error);
-    }
-  };
-
-  const filteredMovies = movies.filter(movie =>
-    movie.MovieNameVietnamese.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (genreFilter ? movie.MovieGenre.toLowerCase().includes(genreFilter.toLowerCase()) : true)
-  );
+  if (!movieData) {
+    return <div className="text-white">Loading...</div>;
+  }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">📽️ Danh sách phim</h2>
+    <div className="flex flex-col items-center bg-black min-h-screen text-white pt-24">
+      {/* Container chính */}
+      <div className="w-full max-w-7xl px-4 md:px-8 lg:px-12">
+        {/* Video */}
+        <div className="w-full">
+          <Video videoSrc={videoSrc} />
+        </div>
 
-      <div className="flex gap-4 mb-4">
-        <input
-          type="text"
-          placeholder="🔍 Tìm theo tên phim..."
-          className="border p-2 rounded w-1/2"
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="🎭 Lọc theo thể loại..."
-          className="border p-2 rounded w-1/2"
-          onChange={(e) => setGenreFilter(e.target.value)}
-        />
-      </div>
+        {/* Thông tin phim */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 px-4 md:px-8">
+          {/* Bên trái */}
+          <div className="md:col-span-2">
+            <h1 className="text-2xl font-bold">{movieData.MovieNameVietnamese} - {movieData.EpisodeNumber}</h1>
+            <p className="text-white text-base font-bold pt-2 pb-2">
+              {movieData.MovieNameEnglish}
+            </p>
+            <Star_comp />
 
-      <div className="overflow-auto">
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border px-4 py-2">Tên phim</th>
-              <th className="border px-4 py-2">Tên tiếng Anh</th>
-              <th className="border px-4 py-2">Thể loại</th>
-              <th className="border px-4 py-2">Quốc gia</th>
-              <th className="border px-4 py-2">Số tập</th>
-              <th className="border px-4 py-2">Năm</th>
-              <th className="border px-4 py-2">Chi tiết</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredMovies.map(movie => (
-              <tr key={movie.MovieID} className="hover:bg-gray-50">
-                <td className="border px-4 py-2">{movie.MovieNameVietnamese}</td>
-                <td className="border px-4 py-2">{movie.MovieNameEnglish}</td>
-                <td className="border px-4 py-2">{movie.MovieGenre}</td>
-                <td className="border px-4 py-2">{movie.Country}</td>
-                <td className="border px-4 py-2">{movie.NumberOfEpisodes}</td>
-                <td className="border px-4 py-2">{movie.ReleaseYear}</td>
-                <td className="border px-4 py-2">
-                  <button
-                    className="text-blue-500 underline"
-                    onClick={() => setSelectedMovie(movie)}
-                  >
-                    Xem
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            <div className="mt-3 text-sm text-white">
+              <span className="text-red-500 text-base font-bold">
+                {movieData.MovieStatus}
+              </span>
+              {movieData.ReleaseYear && (
+                <>
+                  <span className="mx-2 text-neutral-400">•</span>
+                  <span>{movieData.ReleaseYear}</span>
+                </>
+              )}
+              <span className="mx-2 text-neutral-400">•</span>
+              <span>{movieData.AgeRestriction}</span>
+              <span className="mx-2 text-neutral-400">•</span>
+              <span>{movieData.NumberOfEpisodes}</span>
+              <span className="mx-2 text-neutral-400">•</span>
+              <span>{movieData.Country}</span>
+            </div>
 
-      {/* Modal Chi tiết */}
-      {selectedMovie && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-3xl relative max-h-[90vh] overflow-y-auto">
-            <button
-              className="absolute top-2 right-2 text-gray-600 text-xl"
-              onClick={() => setSelectedMovie(null)}
-            >
-              ×
-            </button>
-            <h3 className="text-xl font-bold mb-2">{selectedMovie.MovieNameVietnamese}</h3>
-            <img src={selectedMovie.MovieImagePath} alt="Ảnh phim" className="w-full h-60 object-cover rounded mb-4" />
-            <p><strong>Tóm tắt:</strong> {selectedMovie.SummaryContent}</p>
-            <p><strong>Thể loại:</strong> {selectedMovie.MovieGenre}</p>
-            <p><strong>Đạo diễn:</strong> {selectedMovie.Director}</p>
-            <p><strong>Diễn viên:</strong> {selectedMovie.Actor}</p>
-            <p><strong>Tuổi giới hạn:</strong> {selectedMovie.AgeRestriction}</p>
+            <div className="mt-3 font-semibold">{movieData.SummaryTitle}</div>
+            <div className="mt-4 text-gray-300 text-base">
+              <MovieDescription description={movieData.SummaryContent} />
+            </div>
+          </div>
 
-            {/* Danh sách tập phim */}
-            {episodes.length > 0 && (
-              <div className="mt-6">
-                <h4 className="font-semibold mb-2">📺 Danh sách tập phim:</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[300px] overflow-y-auto">
-                  {episodes.map((ep) => (
-                    <div key={ep.MovieEpisodeID} className="border rounded-lg p-3 shadow hover:shadow-md transition">
-                      <div className="font-medium text-sm mb-1">🎞 Tập {ep.EpisodeNumber}</div>
-                      <img src={ep.MovieImagePath} alt={`Tập ${ep.EpisodeNumber}`} className="w-full h-36 object-cover rounded mb-2" />
-                      <p className="text-xs mb-2">{ep.EpisodeDescription || 'Không có mô tả'}</p>
-                      <a
-                        href={ep.MovieFilePath}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block text-sm text-blue-600 hover:underline"
-                      >
-                        ▶️ Xem tập này
-                      </a>
-                    </div>
-                  ))}
-                </div>
+          {/* Bên phải */}
+          <div className="p-0 rounded-lg">
+            {/* Nút hành động */}
+            <div className="flex flex-wrap items-center -ms-4 gap-4 text-white text-sm">
+              <ActionButtons slugEpisode={movieData.SlugEpisode} />
+            </div>
+
+            {/* Chi tiết phim */}
+            <div className="text-white text-base mt-2 space-y-2">
+              <div className="flex flex-wrap">
+                <span className="font-semibold w-24">Diễn viên:</span>
+                <span className="text-gray-300 flex-1">{movieData.Actor}</span>
               </div>
-            )}
+              <div className="flex flex-wrap">
+                <span className="font-semibold w-24">Đạo diễn:</span>
+                <span className="text-gray-300 flex-1">{movieData.Director}</span>
+              </div>
+              <div className="flex flex-wrap">
+                <span className="font-semibold w-24">Thể loại:</span>
+                <span className="text-gray-300 flex-1">{movieData.MovieGenre}</span>
+              </div>
+              <div className="flex flex-wrap">
+                <span className="font-semibold w-24">Danh mục:</span>
+                <span className="text-gray-300">{movieData.CategoryName}</span>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </div>
+
+      {/* Danh sách phim */}
+      <div className="w-full max-w-7xl px-2 sm:px-7 mt-5">
+        <List_movies moviesData={movieData} />
+      </div>
+      {/* phần bình luận của phim  */}
+      <div className="w-full max-w-7xl px-2 sm:px-7 mt-5"><Comment_movies moviesData={movieData} /></div>
+
     </div>
   );
 };

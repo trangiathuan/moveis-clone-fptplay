@@ -1,4 +1,23 @@
 const userService = require('../services/userService')
+
+exports.getAllUsersController = async (req, res) => {
+    const result = await userService.getAllUsersService()
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 1,
+            Message: 'Xử lý thành công',
+            Data: result
+        })
+    } else {
+        return res.status(200).json({
+            EC: -1,
+            Status: 0,
+            Message: 'Xử lý thất bại'
+        })
+    }
+}
+
 exports.checkFollowMovieController = async (req, res) => {
     const slugMovieName = req.params.slugMovieName
     const userID = req.user.id
@@ -64,3 +83,4 @@ exports.getFollowingMoviesListController = async (req, res) => {
         })
     }
 }
+

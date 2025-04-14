@@ -1,10 +1,16 @@
-const users = [
-    { username: "admin", email: "admin@mail.com", role: "Admin" },
-    { username: "user01", email: "user01@mail.com", role: "User" },
-    { username: "mod", email: "mod@mail.com", role: "Moderator" },
-];
+import axios from "axios";
+import { useEffect, useState } from "react";
+import API from "../../../configs/endpoint";
+
 
 const ListUser = () => {
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        getAllUsers()
+    })
+    const getAllUsers = async () => {
+        const res = await axios.get(`${API}/getAllUsers`)
+    }
     return (
         <div className="p-4">
             <div className="flex justify-between">
