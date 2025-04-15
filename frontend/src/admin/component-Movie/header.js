@@ -61,24 +61,25 @@ const Header = ({ onToggleSidebar }) => {
             </div>
 
             {/* Phần bên phải: Dropdown User */}
-            <div className="relative flex-shrink-0" ref={dropdownRef}>
+            <div className="relative flex-shrink-0 " ref={dropdownRef}>
                 {/* Nút bấm để mở/đóng Dropdown */}
-                <button // Thay div bằng button để dễ focus và tốt cho accessibility
-                    onClick={toggleDropdown}
-                    className="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-300"
-                    aria-haspopup="true" // Chỉ ra rằng nút này mở một popup (dropdown)
-                    aria-expanded={isDropdownOpen} // Chỉ ra trạng thái mở/đóng của dropdown
-                >
-                    <Mail className="w-5 h-5 text-gray-700" aria-hidden="true" /> {/* aria-hidden vì icon chỉ mang tính trang trí */}
-                    <img
-                        src="https://i.pravatar.cc/30?img=1" // Nên thay bằng nguồn ảnh thật
-                        alt="User Avatar" // Alt text quan trọng
-                        className="w-6 h-6 rounded-full"
-                    />
-                    {/* Tên user, ẩn trên màn hình siêu nhỏ */}
-                    <span className="hidden sm:inline text-sm font-medium text-gray-800">Stebin Ben</span>
-                </button>
-
+                <div className='flex gap-4 items-center'> {/* code tới đoạn này */}
+                    <Mail className="w-6 h-6 text-gray-700 items-center" aria-hidden="true" /> {/* aria-hidden vì icon chỉ mang tính trang trí */}
+                    <button // Thay div bằng button để dễ focus và tốt cho accessibility
+                        onClick={toggleDropdown}
+                        className="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-300"
+                        aria-haspopup="true" // Chỉ ra rằng nút này mở một popup (dropdown)
+                        aria-expanded={isDropdownOpen} // Chỉ ra trạng thái mở/đóng của dropdown
+                    >
+                        <img
+                            src="https://i.pravatar.cc/30?img=1" // Nên thay bằng nguồn ảnh thật
+                            alt="User Avatar" // Alt text quan trọng
+                            className="w-6 h-6 rounded-full"
+                        />
+                        {/* Tên user, ẩn trên màn hình siêu nhỏ */}
+                        <span className="hidden sm:inline text-sm font-medium text-gray-800">Stebin Ben</span>
+                    </button>
+                </div>
                 {/* Dropdown Menu Content */}
                 {isDropdownOpen && (
                     // Container chính của dropdown: vị trí absolute, căn phải, style
