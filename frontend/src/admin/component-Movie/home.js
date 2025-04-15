@@ -36,9 +36,9 @@ const Home_Admin = () => {
             </div>
 
             {/* Footer overlays full width, ignoring sidebar */}
-            <footer className="absolute bottom-0 left-0 w-full bg-black text-white z-50">
+            {/* <footer className="absolute bottom-0 left-0 w-full bg-black text-white z-50">
                 <Footer />
-            </footer>
+            </footer> */}
         </div>
 
     )

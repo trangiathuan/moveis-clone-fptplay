@@ -1,22 +1,65 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import API from "../../../configs/endpoint";
+import { UserPlus, X } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ListUser = () => {
     const [users, setUsers] = useState([])
+    const [modalUpdate, setModalUpdate] = useState(null)
+    const [modalAddUser, setModalAddUser] = useState(false)
+    const [search, setSearch] = useState('');
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [role, setRole] = useState('user')
+    const token = localStorage.getItem("token");
+
+    const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase()) ||
+        user.role.toLowerCase().includes(search.toLowerCase())
+    );
+
     useEffect(() => {
         getAllUsers()
-    })
+    }, [])
     const getAllUsers = async () => {
         const res = await axios.get(`${API}/getAllUsers`)
+        if (res.data.EC === 0) {
+            setUsers(res.data.Data)
+        }
     }
+
+    const createUser = async () => {
+        const res = await axios.post(`${API}/createUser`, { email, name, role }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        if (res.data.EC === 0) {
+            console.log(res.data.Data);
+            setUsers(res.data.Data)
+            await getAllUsers()
+            setName('')
+            setEmail('')
+            setRole('user')
+            setModalAddUser(false)
+            toast.success(res.data.Message)
+        } else {
+            toast.warn(res.data.Message)
+        }
+    }
+
     return (
         <div className="p-4">
-            <div className="flex justify-between">
-                <h2 className="text-2xl font-bold mb-4">Danh sách người dùng</h2>
-                <div className="space-x-2">
-                    <input type="text" placeholder="Tìm kiếm" className="p-2 ư h-10 border border-gray-200 rounded-lg outline-none focus:border-2 focus:border-gray-300" />
+            <ToastContainer />
+            <div className="flex justify-between pb-2">
+                <h2 className="text-2xl font-bold">Danh sách người dùng</h2>
+                <div className="space-x-5 flex items-center">
+                    <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Tìm kiếm" className="p-2 ư h-10 border border-gray-200 rounded-lg outline-none focus:border-2 focus:border-gray-300" />
+                    <button onClick={() => setModalAddUser(true)}><UserPlus /></button>
                 </div>
             </div>
             <div className="overflow-x-auto ">
@@ -24,27 +67,27 @@ const ListUser = () => {
                     <thead className="bg-gray-100 text-left">
                         <tr>
                             <th className="w-32 border-b"></th>
-                            <th className="py-2 px-4 border-b">Tài khoản</th>
-                            <th className="py-2 px-4 border-b">Email</th>
-                            <th className="py-2 px-4 border-b">Vai trò</th>
+                            <th className="py-2 px-4 border-b w-72">Tên người dùng</th>
+                            <th className="py-2 px-4 border-b w-72">Email</th>
+                            <th className="py-2 px-4 border-b w-72">Vai trò</th>
                             <th className="py-2 px-4 border-b w-32 text-center">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, index) => (
+                        {filteredUsers.map((user, index) => (
                             <tr key={index} className="hover:bg-gray-50 items-center">
                                 <tr className="border-b">
                                     <img
-                                        src='https://scontent.fsgn18-1.fna.fbcdn.net/v/t39.30808-6/479512658_1351962522704344_8795569477034108113_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHZ3GtCb8fAyfyxbYVX7ws9e4aEFlagktJ7hoQWVqCS0m5PPEugp9fl3txXdOHWO-E_nd0ucVcxCcEKPgW77XLW&_nc_ohc=rCy1mghqR8QQ7kNvwEglEj3&_nc_oc=AdkfFSOUzrKvEXptERPy3KNJyaD_kHNeFVrxYG108Dp1VzjmQB2ygcXxiaKzD_FxJ_weuF-LpCyKaM288JEOTxvu&_nc_zt=23&_nc_ht=scontent.fsgn18-1.fna&_nc_gid=7dJxf9tp7xLfoBtVo7AHLA&oh=00_AfH1lybbI-D4bL6oQObpzadxUNp0cEvq2wpMm3Ez_kHgmg&oe=67FE9047'
+                                        src={user.avatarUrl || `https://images.ctfassets.net/j040bzbn054u/2HldvDjZU5qwkIuFzJnmjQ/bb328d0561dfd69d44d9284b037b2fee/u-next_square_profile_icon_grey.jpg?fm=jpg&fl=progressive&q=80&w=1000`}
                                         className="w-10 h-10 m-2 mx-20 rounded-full object-cover flex-shrink-0"
                                     />
                                 </tr>
-                                <td className="py-2 px-4 border-b">{user.username}</td>
+                                <td className="py-2 px-4 border-b">{user.name}</td>
                                 <td className="py-2 px-4 border-b">{user.email}</td>
-                                <td className="py-2 px-4 border-b">{user.role}</td>
+                                <td className={`py-2 px-4 border-b ${user.role === 'admin' ? 'text-red-600 font-bold' : 'text-blue-600 font-bold'}`}>{user.role}</td>
                                 <td className="py-2 px-4 border-b">
                                     <div className='flex space-x-2'>
-                                        <button className='bg-blue-700 rounded-lg h-9 w-20 text-white'>Cập nhật</button>
+                                        <button onClick={() => setModalUpdate(user)} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
                                         <button className='bg-red-700 rounded-lg h-9 w-20 text-white'>Xóa</button>
                                     </div>
                                 </td>
@@ -53,6 +96,84 @@ const ListUser = () => {
                     </tbody>
                 </table>
             </div>
+            {modalUpdate && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white w-[320px] h-[550px] rounded-lg p-7 mx-auto px-0">
+                        <div className="flex justify-center">
+                            <img className="w-24 h-24 rounded-full" src={modalUpdate.avatarUrl || `https://images.ctfassets.net/j040bzbn054u/2HldvDjZU5qwkIuFzJnmjQ/bb328d0561dfd69d44d9284b037b2fee/u-next_square_profile_icon_grey.jpg?fm=jpg&fl=progressive&q=80&w=1000`} />
+                            <button onClick={() => setModalUpdate()} className="fixed ms-[250px]  text-xl"><X /></button>
+                        </div>
+                        <div className="flex flex-col pt-10 ps-10">
+                            <p className=" font-bold">Tên người dùng</p>
+                            <input type="text" value={modalUpdate.name} className=" border rounded-lg mt-1 ps-1 h-10  w-60 outline-none focus:border-orange-400 focus:border-2 " />
+                        </div>
+                        <div className="flex flex-col ps-10 pt-3">
+                            <p className=" font-bold">Email</p>
+                            <input type="text" value={modalUpdate.email} className=" border rounded-lg mt-1 p-2 w-60 outline-none focus:border-orange-400 focus:border-2 " />
+                        </div>
+                        <div className="flex flex-col ps-10 pt-3">
+                            <p className=" font-bold">Vai trò</p>
+                            <select
+                                id="role"
+                                className="border rounded-lg mt-1 p-2 w-60 outline-none focus:border-orange-400 focus:border-2 "
+                                value={modalUpdate.role}
+                                onChange={(e) =>
+                                    setModalUpdate({ ...modalUpdate, role: e.target.value })
+                                }
+                            >
+                                <option className="hover:bg-orange-400" value="admin">admin</option>
+                                <option value="user">user</option>
+                            </select>
+                        </div>
+                        <div className="pt-20 flex mx-[120px] w-full">
+                            <button className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {modalAddUser && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white w-[320px] h-[550px] rounded-lg p-7 mx-auto px-0">
+                        <div className="flex justify-center">
+                            <img className="w-24 h-24 rounded-full" src={`https://images.ctfassets.net/j040bzbn054u/2HldvDjZU5qwkIuFzJnmjQ/bb328d0561dfd69d44d9284b037b2fee/u-next_square_profile_icon_grey.jpg?fm=jpg&fl=progressive&q=80&w=1000`} />
+                            <button onClick={() => setModalAddUser(false)} className="fixed ms-[250px]  text-xl"><X /></button>
+                        </div>
+                        <div className="flex flex-col pt-10 ps-10">
+                            <p className=" font-bold">Tên người dùng</p>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className=" border rounded-lg mt-1 ps-1 h-10  w-60 outline-none focus:border-orange-400 focus:border-2 " />
+                        </div>
+                        <div className="flex flex-col ps-10 pt-3">
+                            <p className=" font-bold">Email</p>
+                            <input
+                                type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className=" border rounded-lg mt-1 p-2 w-60 outline-none focus:border-orange-400 focus:border-2 " />
+                        </div>
+                        <div className="flex flex-col ps-10 pt-3">
+                            <p className=" font-bold">Vai trò</p>
+                            <select
+                                id="role"
+                                className="border rounded-lg mt-1 p-2 w-60 outline-none focus:border-orange-400 focus:border-2 "
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+
+                            >
+                                <option value="user">user</option>
+                                <option value="admin">admin</option>
+                            </select>
+                        </div>
+                        <div className="pt-20 flex mx-[120px] w-full">
+                            <button type="submit" onClick={createUser} className='bg-green-800 rounded-lg h-9 w-20 text-white hover:bg-green-900'>Thêm</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

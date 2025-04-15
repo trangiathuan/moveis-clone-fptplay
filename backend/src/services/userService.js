@@ -6,7 +6,23 @@ exports.getAllUsersService = async () => {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getAllUsers')
-            .execute('SP_Users')
+            .execute('SP_Admin')
+        return result.recordset
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+exports.createUserService = async (email, name, role) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'createUser')
+            .input('email', sql.VarChar, email)
+            .input('name', sql.NVarChar, name)
+            .input('role', sql.VarChar, role)
+            .execute('SP_Admin')
         return result.recordset
     } catch (error) {
         console.log(error);
