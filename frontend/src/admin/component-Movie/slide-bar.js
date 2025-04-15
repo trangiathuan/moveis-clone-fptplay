@@ -60,6 +60,11 @@ const Slidebar = ({ isOpen }) => {
                                         🔄 Thay đổi Phim
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink to="/dashboard/add-episode-movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        Menu tạm
+                                    </NavLink>
+                                </li>
                             </ul>
                         </div>
 

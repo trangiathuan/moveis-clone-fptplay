@@ -20,6 +20,7 @@ import Delete_Movie from './admin/page/movies/delete-Movie/delete-Movie';
 import ListMovie from './admin/page/movies/list-movie/list-movie';
 import AddMovie from './admin/page/movies/add-Movie/add-Movie';
 import ListUser from './admin/page/users/list-users';
+import AddEpisodeMovie from './admin/page/movies/add-episode-movie/add-episode-movie';
 
 
 
@@ -59,6 +60,9 @@ root.render(
         <Route path='repair-movie' element={<Repair_Movie />} />
 
         <Route path='delete-movie' element={<Delete_Movie />} />
+
+        <Route path='add-episode-movie' element={<AddEpisodeMovie />} />
+
         {/* ----------------------------------------------- */}
         <Route path='list-users' element={<ListUser />} />
         {/*<Route path='list-users' element={<ListUser />} />
