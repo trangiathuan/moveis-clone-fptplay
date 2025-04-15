@@ -11,6 +11,8 @@ router.get('/getAllUsers', userController.getAllUsersController);
 router.post('/createUser', authAdmin, userController.createUserController);
 router.put('/updateUser', userController.updateUserController);
 router.delete('/deleteUser', authAdmin, userController.deleteUserController);
+router.get('/isAdmin', authAdmin, userController.isAdminController);
+
 
 
 

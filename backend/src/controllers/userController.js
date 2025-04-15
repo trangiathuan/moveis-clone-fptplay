@@ -1,5 +1,14 @@
 const userService = require('../services/userService')
 
+exports.isAdminController = async (req, res) => {
+    return res.status(200).json({
+        EC: 0,
+        Status: 1,
+        Message: 'Chào mừng bạn đến với giao diện quản trị viên',
+    })
+
+}
+
 exports.getAllUsersController = async (req, res) => {
     const result = await userService.getAllUsersService()
     if (result && result.length > 0) {
