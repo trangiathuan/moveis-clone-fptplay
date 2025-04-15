@@ -30,6 +30,38 @@ exports.createUserService = async (email, name, role) => {
     }
 }
 
+exports.updateUserService = async (id, email, name, avatarUrl, role) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'updateUser')
+            .input('id', sql.Int, id)
+            .input('email', sql.VarChar, email)
+            .input('name', sql.NVarChar, name)
+            .input('avatarUrl', sql.VarChar, avatarUrl)
+            .input('role', sql.VarChar, role)
+            .execute('SP_Admin')
+        return result.recordset
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+exports.deleteUserService = async (id) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'deleteUser')
+            .input('id', sql.Int, id)
+            .execute('SP_Admin')
+        return result.recordset
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
 exports.checkFollowMovieService = async (slugMovieName, userID) => {
     try {
         const pool = await connection();

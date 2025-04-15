@@ -9,12 +9,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const ListUser = () => {
     const [users, setUsers] = useState([])
     const [modalUpdate, setModalUpdate] = useState(null)
+    const [modalDelete, setModalDelete] = useState(null)
     const [modalAddUser, setModalAddUser] = useState(false)
     const [search, setSearch] = useState('');
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('user')
+    const [verifyEmail, setVerifyEmail] = useState('');
     const token = localStorage.getItem("token");
+
+    console.log(modalUpdate);
+
 
     const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -25,6 +30,7 @@ const ListUser = () => {
     useEffect(() => {
         getAllUsers()
     }, [])
+
     const getAllUsers = async () => {
         const res = await axios.get(`${API}/getAllUsers`)
         if (res.data.EC === 0) {
@@ -49,6 +55,40 @@ const ListUser = () => {
             toast.success(res.data.Message)
         } else {
             toast.warn(res.data.Message)
+        }
+    }
+
+    const updateUser = async () => {
+        const res = await axios.put(`${API}/updateUser`, modalUpdate)
+        if (res.data.EC === 0) {
+            console.log(res.data.Data);
+            await getAllUsers()
+            setModalUpdate()
+            toast.success(res.data.Message)
+        } else {
+            toast.warn(res.data.Message)
+        }
+    }
+
+    const deleteUser = async (id) => {
+        if (verifyEmail === modalDelete.email) {
+            const res = await axios.delete(`${API}/deleteUser`, {
+                data: { id },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            if (res.data.EC === 0) {
+                toast.success(res.data.Message)
+                await getAllUsers()
+                setModalDelete()
+                setVerifyEmail('')
+
+            }
+            else {
+                toast.warn(res.data.Message)
+            }
         }
     }
 
@@ -86,9 +126,9 @@ const ListUser = () => {
                                 <td className="py-2 px-4 border-b">{user.email}</td>
                                 <td className={`py-2 px-4 border-b ${user.role === 'admin' ? 'text-red-600 font-bold' : 'text-blue-600 font-bold'}`}>{user.role}</td>
                                 <td className="py-2 px-4 border-b">
-                                    <div className='flex space-x-2'>
+                                    <div className='flex space-x-2 justify-center'>
                                         <button onClick={() => setModalUpdate(user)} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
-                                        <button className='bg-red-700 rounded-lg h-9 w-20 text-white'>Xóa</button>
+                                        <button onClick={() => setModalDelete(user)} className='bg-red-700 rounded-lg h-9 w-20 text-white'>Xóa</button>
                                     </div>
                                 </td>
                             </tr>
@@ -105,11 +145,11 @@ const ListUser = () => {
                         </div>
                         <div className="flex flex-col pt-10 ps-10">
                             <p className=" font-bold">Tên người dùng</p>
-                            <input type="text" value={modalUpdate.name} className=" border rounded-lg mt-1 ps-1 h-10  w-60 outline-none focus:border-orange-400 focus:border-2 " />
+                            <input type="text" value={modalUpdate.name} onChange={(e) => setModalUpdate({ ...modalUpdate, name: e.target.value })} className=" border rounded-lg mt-1 ps-1 h-10  w-60 outline-none focus:border-orange-400 focus:border-2 " />
                         </div>
                         <div className="flex flex-col ps-10 pt-3">
                             <p className=" font-bold">Email</p>
-                            <input type="text" value={modalUpdate.email} className=" border rounded-lg mt-1 p-2 w-60 outline-none focus:border-orange-400 focus:border-2 " />
+                            <input type="text" value={modalUpdate.email} onChange={(e) => setModalUpdate({ ...modalUpdate, email: e.target.value })} className=" border rounded-lg mt-1 p-2 w-60 outline-none focus:border-orange-400 focus:border-2 " />
                         </div>
                         <div className="flex flex-col ps-10 pt-3">
                             <p className=" font-bold">Vai trò</p>
@@ -126,7 +166,25 @@ const ListUser = () => {
                             </select>
                         </div>
                         <div className="pt-20 flex mx-[120px] w-full">
-                            <button className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
+                            <button type="submit" onClick={updateUser} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {modalDelete && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white w-[450px] h-[250px] rounded-lg p-7 mx-auto px-0">
+                        <div className="flex justify-center">
+                            <button onClick={() => setModalDelete()} className="fixed ms-[350px]  text-xl"><X /></button>
+                        </div>
+                        <div className="flex flex-col pt-10 ps-0">
+                            <p className="font-bold text- ps-10">Xác nhận xóa tài khoản <span className="text-red-600">{modalDelete.email}</span></p>
+                            <input type="text" value={verifyEmail} onChange={(e) => setVerifyEmail(e.target.value)} placeholder="Xác nhận lại email để xóa" className=" border rounded-lg ps-1 mt-5 ms-10 h-10  w-[370px] outline-none focus:border-orange-400 focus:border-2 " />
+                        </div>
+
+                        <div className="pt-6 flex mx-[180px] w-full">
+                            <button type="submit" onClick={() => deleteUser(modalDelete.id)} className='bg-red-700 rounded-lg h-9 w-20 text-white hover:bg-red-800'>Xóa</button>
                         </div>
                     </div>
                 </div>
