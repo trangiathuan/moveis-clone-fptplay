@@ -4,7 +4,7 @@ exports.isAdminController = async (req, res) => {
     return res.status(200).json({
         EC: 0,
         Status: 1,
-        Message: 'Chào mừng bạn đến với giao diện quản trị viên',
+        Message: 'CHÀO MỪNG BẠN ĐẾN VỚI GIAO DIỆN DÀNH CHO QUẢN TRỊ VIÊN'
     })
 
 }

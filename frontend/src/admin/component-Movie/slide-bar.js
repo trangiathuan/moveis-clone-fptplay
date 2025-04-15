@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Link } from "react-router-dom";
 const Slidebar = ({ isOpen }) => {
-    console.log(isOpen);
 
     return (
         <aside className={`absolute top-0 left-0 h-full w-64 bg-white text-black border-r shadow-md z-40 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>

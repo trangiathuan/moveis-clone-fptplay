@@ -18,9 +18,6 @@ const ListUser = () => {
     const [verifyEmail, setVerifyEmail] = useState('');
     const token = localStorage.getItem("token");
 
-    console.log(modalUpdate);
-
-
     const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(search.toLowerCase()) ||
         user.email.toLowerCase().includes(search.toLowerCase()) ||
@@ -116,12 +113,12 @@ const ListUser = () => {
                     <tbody>
                         {filteredUsers.map((user, index) => (
                             <tr key={index} className="hover:bg-gray-50 items-center">
-                                <tr className="border-b">
+                                <td className="border-b">
                                     <img
                                         src={user.avatarUrl || `https://images.ctfassets.net/j040bzbn054u/2HldvDjZU5qwkIuFzJnmjQ/bb328d0561dfd69d44d9284b037b2fee/u-next_square_profile_icon_grey.jpg?fm=jpg&fl=progressive&q=80&w=1000`}
                                         className="w-10 h-10 m-2 mx-20 rounded-full object-cover flex-shrink-0"
                                     />
-                                </tr>
+                                </td>
                                 <td className="py-2 px-4 border-b">{user.name}</td>
                                 <td className="py-2 px-4 border-b">{user.email}</td>
                                 <td className={`py-2 px-4 border-b ${user.role === 'admin' ? 'text-red-600 font-bold' : 'text-blue-600 font-bold'}`}>{user.role}</td>

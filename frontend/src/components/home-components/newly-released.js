@@ -67,8 +67,8 @@ const NewlyReleased = () => {
                         }}
                     >
                         {movies.map((item, index) => (
-                            <SwiperSlide>
-                                <div key={index} className='ps-0'>
+                            <SwiperSlide key={index} >
+                                <div className='ps-0'>
                                     <a href={`/detail/${item.SlugMovieName}`}>
                                         <img className='w-[353px] h-[199px] rounded-lg object-cover' src={item.MovieImagePath} />
                                         <p className='pt-3 text-lg text-left'>{item.MovieNameVietnamese}</p>
