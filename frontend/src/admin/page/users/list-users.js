@@ -158,7 +158,7 @@ const ListUser = () => {
                                     setModalUpdate({ ...modalUpdate, role: e.target.value })
                                 }
                             >
-                                <option className="hover:bg-orange-400" value="admin">admin</option>
+                                <option value="admin">admin</option>
                                 <option value="user">user</option>
                             </select>
                         </div>

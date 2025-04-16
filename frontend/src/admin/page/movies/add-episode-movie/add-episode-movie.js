@@ -27,15 +27,15 @@ const AddEpisodeMovie = () => {
     };
 
     return (
-        <div className="mx-auto my-10 border rounded-lg p-9 shadow-md w-[1000px]">
+        <div className="mx-auto my-10 border rounded-lg p-9 shadow-md w-[900px]">
             <div className="p-0">
                 <div className="mb-5">
-                    <p className="text-xl font-bold pb-0 ">Thêm tập phim</p>
+                    <p className="text-xl font-medium pb-0 mx-10">Thêm tập phim</p>
                 </div>
-                <div className="flex justify-between mx-20">
+                <div className="flex justify-between mx-10">
                     <div className="space-y-4">
                         <div className="space-y-2">
-                            <p className="font-bold">Tập phim</p>
+                            <p className="font-medium">Tập phim</p>
                             <input
                                 placeholder="Nhập tập phim VD: Tập 1"
                                 className="border border-gray-300 rounded-lg h-10 w-96 outline-none ps-2"
@@ -44,26 +44,27 @@ const AddEpisodeMovie = () => {
 
 
                         <div className="space-y-2">
-                            <p className="font-bold">Tóm tắt nội dung</p>
+                            <p className="font-medium">Tóm tắt nội dung</p>
                             <textarea placeholder="Tóm tắt nội dung tập phim" className="border rounded-lg h-48 w-96 outline-none p-2" />
                         </div>
                     </div>
                     <div className="space-y-4">
                         {/* Thêm ảnh */}
                         <div className="space-y-2">
-                            <p className="font-bold">Thêm ảnh</p>
+                            <p className="font-medium">Thêm ảnh</p>
                             {!imagePreview ? (
                                 <input
                                     type="file"
                                     accept="image/*"
                                     onChange={handleImageChange}
                                     className="block w-80 h-10 text-sm text-gray-500
-                             file:mr-4 file:py-2 file:px-4
-                             file:rounded-lg file:border-0
-                             file:text-sm file:font-semibold
-                             file:bg-blue-50 file:text-blue-700
-                             hover:file:bg-blue-100
-                             border rounded-lg"
+                                                file:mr-4 file:py-2 file:px-4
+                                                file:rounded-lg file:border-0
+                                                file:text-sm file:font-semibold
+                                                file:bg-blue-50 file:text-blue-700
+                                                file:h-10
+                                                hover:file:bg-blue-100
+                                                border rounded-lg"
                                 />
                             ) : (
                                 <div>
@@ -84,7 +85,7 @@ const AddEpisodeMovie = () => {
 
                         {/* Thêm video */}
                         <div className="space-y-2">
-                            <p className="font-bold">Thêm phim</p>
+                            <p className="font-medium">Thêm phim</p>
                             {!videoPreview ? (
                                 <input
                                     type="file"
@@ -116,7 +117,7 @@ const AddEpisodeMovie = () => {
                         </div>
                     </div>
                 </div>
-                <div className="text-right me-20">
+                <div className="text-right me-10">
                     <button className="bg-orange-500 text-white w-20 h-8 rounded-lg mt-5 ">Thêm</button>
                 </div>
             </div>

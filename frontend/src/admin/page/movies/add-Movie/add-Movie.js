@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Modal from 'react-modal';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +21,7 @@ const AddMovie = () => {
     const [formData, setFormData] = useState({
         MovieNameVietnamese: '',
         MovieNameEnglish: '',
-        MovieStatus: 'New',
+        MovieStatus: '',
         ReleaseYear: '',
         AgeRestriction: '',
         NumberOfEpisodes: '',
@@ -39,6 +39,7 @@ const AddMovie = () => {
     const [showGenreModal, setShowGenreModal] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [loading, setLoading] = useState(false);
+    const fileInputRef = useRef(null);
 
     const handleToggleGenre = (genre) => {
         setSelectedGenres(prev =>
@@ -53,11 +54,10 @@ const AddMovie = () => {
             console.log("🎭 [MovieGenre]:", genreString);
             return newState;
         });
-        alert("✅ Bạn đã chọn: " + genreString);
         setShowGenreModal(false);
     };
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const { name, value, files } = e.target;
         if (name === "file") {
             const file = files[0];
@@ -74,15 +74,15 @@ const AddMovie = () => {
 
     const validateForm = () => {
         if (!formData.MovieNameVietnamese.trim()) {
-            toast.error("Tên phim (TV) không được bỏ trống");
+            toast.error("Tên phim (Tiếng Việt) không được bỏ trống");
             return false;
         }
-        if (!formData.ReleaseYear || Number(formData.ReleaseYear) < 2018) {
-            toast.error("Năm phát hành phải từ 2018 trở đi");
+        if (!formData.ReleaseYear || Number(formData.ReleaseYear) < 1990) {
+            toast.error("Năm phát hành phải từ 1990 trở đi");
             return false;
         }
-        if (isNaN(formData.NumberOfEpisodes) || formData.NumberOfEpisodes.trim() === "") {
-            toast.error("Số tập phải là số");
+        if (!formData.NumberOfEpisodes.trim()) {
+            toast.error("Số tập không được bỏ trống");
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ const AddMovie = () => {
                 setFormData({
                     MovieNameVietnamese: '',
                     MovieNameEnglish: '',
-                    MovieStatus: 'New',
+                    MovieStatus: '',
                     ReleaseYear: '',
                     AgeRestriction: '',
                     NumberOfEpisodes: '',
@@ -128,6 +128,7 @@ const AddMovie = () => {
                     CategoryID: '',
                     file: null,
                 });
+                fileInputRef.current.value = null;
                 setSelectedGenres([]);
             } else {
                 toast.error(res.data.EM || "Lỗi không xác định");
@@ -141,108 +142,135 @@ const AddMovie = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-lg shadow-md relative">
+        <div className="p-5 mx-28 mt-10 bg-white rounded-lg-lg shadow-md relative">
             {loading && (
                 <div className="absolute inset-0 bg-white bg-opacity-70 flex justify-center items-center z-50">
                     <ClipLoader size={50} color="#f97316" loading={true} />
                 </div>
             )}
 
-            <h2 className="text-2xl font-bold mb-4">🎬 Thêm phim mới</h2>
+            <h2 className="text-2xl font-bold mb-4 mx-5">🎬 Thêm phim mới</h2>
 
             {/* --- FORM --- */}
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="col-span-1">
-                    <label className="block font-medium">Tên phim (TV)</label>
-                    <input type="text" name="MovieNameVietnamese" value={formData.MovieNameVietnamese} onChange={handleChange} className="border p-2 rounded w-full" required />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Tên tiếng Anh</label>
-                    <input type="text" name="MovieNameEnglish" value={formData.MovieNameEnglish} onChange={handleChange} className="border p-2 rounded w-full" />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Số tập</label>
-                    <input type="text" name="NumberOfEpisodes" value={formData.NumberOfEpisodes} onChange={handleChange} className="border p-2 rounded w-full" required />
-                </div>
-
-                <div className="col-span-1">
-                    <select name="ReleaseYear" value={formData.ReleaseYear} onChange={handleChange} className="border p-2 rounded w-full" required>
-                        <option value="">-- Chọn năm phát hành --</option>
-                        {Array.from({ length: 2025 - 1998 + 1 }, (_, i) => 1998 + i).map((year) => (
-                            <option key={year} value={year}>{year}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Trạng thái phim</label>
-                    <select name="MovieStatus" value={formData.MovieStatus} onChange={handleChange} className="border p-2 rounded w-full">
-                        <option value="New">Mới</option>
-                        <option value="Ongoing">Đang phát</option>
-                        <option value="Completed">Hoàn thành</option>
-                    </select>
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Giới hạn độ tuổi</label>
-                    <input type="text" name="AgeRestriction" value={formData.AgeRestriction} onChange={handleChange} className="border p-2 rounded w-full" placeholder="VD: 13+, 18+" />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Quốc gia</label>
-                    <input type="text" name="Country" value={formData.Country} onChange={handleChange} className="border p-2 rounded w-full" />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Đạo diễn</label>
-                    <input type="text" name="Director" value={formData.Director} onChange={handleChange} className="border p-2 rounded w-full" />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Diễn viên</label>
-                    <input type="text" name="Actor" value={formData.Actor} onChange={handleChange} className="border p-2 rounded w-full" />
-                </div>
-
-                <div className="col-span-1 md:col-span-2">
-                    <label className="block font-medium">Tiêu đề tóm tắt</label>
-                    <input type="text" name="SummaryTitle" value={formData.SummaryTitle} onChange={handleChange} className="border p-2 rounded w-full" />
-                </div>
-
-                <div className="col-span-1 md:col-span-2">
-                    <label className="block font-medium">Nội dung tóm tắt</label>
-                    <textarea name="SummaryContent" value={formData.SummaryContent} onChange={handleChange} className="border p-2 rounded w-full" rows={4} />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Mã danh mục (CategoryID)</label>
-                    <input type="text" name="CategoryID" value={formData.CategoryID} onChange={handleChange} className="border p-2 rounded w-full" />
-                </div>
-
-                <div className="col-span-1">
-                    <label className="block font-medium">Thể loại</label>
-                    <div className="flex gap-2 items-center">
-                        <input type="text" name="MovieGenre" value={formData.MovieGenre} readOnly className="border p-2 rounded w-full bg-gray-100 cursor-not-allowed" />
-                        <button type="button" onClick={() => setShowGenreModal(true)} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Chọn</button>
+            <div className="mx-5">
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Tên phim (Tiếng Việt)</label>
+                        <input type="text" name="MovieNameVietnamese" value={formData.MovieNameVietnamese} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" required />
                     </div>
-                </div>
 
-                <div className="col-span-1">
-                    <label className="block font-medium">Hình ảnh phim</label>
-                    <input type="file" name="file" onChange={handleChange} className="border p-2 rounded w-full" accept="image/jpeg,image/png" />
-                </div>
-            </form>
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Tên phim (Tiếng Anh)</label>
+                        <input type="text" name="MovieNameEnglish" value={formData.MovieNameEnglish} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" />
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Số tập</label>
+                        <input type="text" name="NumberOfEpisodes" value={formData.NumberOfEpisodes} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" required />
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Trạng thái phim</label>
+                        <select name="MovieStatus" value={formData.MovieStatus} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none">
+                            <option value="">Chọn trạng thái phim</option>
+                            <option value="New">Mới</option>
+                            <option value="Ongoing">Đang phát</option>
+                            <option value="Completed">Hoàn thành</option>
+                        </select>
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Giới hạn độ tuổi</label>
+                        <select type="text" name="AgeRestriction" value={formData.AgeRestriction} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none">
+                            <option value=''>Không giới hạn</option>
+                            <option value='T12'>12+</option>
+                            <option value='T14'>14+</option>
+                            <option value='T16'>16+</option>
+                            <option value='T18'>18+</option>
+                        </select>
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Quốc gia</label>
+                        <input type="text" name="Country" value={formData.Country} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" />
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Đạo diễn</label>
+                        <input type="text" name="Director" value={formData.Director} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" />
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Diễn viên</label>
+                        <input type="text" name="Actor" value={formData.Actor} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" />
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Danh mục</label>
+                        <select type="text" name="CategoryID" value={formData.CategoryID} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none">
+                            <option value=''>Chọn danh mục phim</option>
+                            <option value='1'>Anime</option>
+                            <option value='2'>Phim bộ</option>
+                            <option value='3'>Phim lẻ</option>
+                        </select>
+                    </div>
+
+                    <div className="col-span-1 space-y-1 pt-0">
+                        <label className="block font-medium">Năm phát hành</label>
+                        <select name="ReleaseYear" value={formData.ReleaseYear} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" required>
+                            <option value="">Chọn năm phát hành</option>
+                            {Array.from({ length: 2025 - 1998 + 1 }, (_, i) => 1998 + i).map((year) => (
+                                <option key={year} value={year}>{year}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Thể loại</label>
+                        <div className="flex gap-2 items-center">
+                            <input type="text" name="MovieGenre" value={formData.MovieGenre} readOnly className="border p-2 rounded-lg w-full bg-gray-100 cursor-not-allowed outline-none" />
+                            <button type="button" onClick={() => setShowGenreModal(true)} className="bg-blue-500 text-white px-3 py-1 h-10 rounded-lg hover:bg-blue-600">Chọn</button>
+                        </div>
+                    </div>
+
+                    <div className="col-span-1 space-y-1">
+                        <label className="block font-medium">Hình ảnh phim</label>
+                        <input type="file" name="file" onChange={handleChange} ref={fileInputRef} className="block w-full h-10 text-sm text-gray-500
+                             file:mr-4 file:py-2 file:px-4
+                             file:rounded-lg file:border-0
+                             file:text-sm file:font-semibold
+                             file:bg-blue-50 file:text-blue-700
+                             file:h-10
+                             hover:file:bg-blue-100
+                             border rounded-lg" accept="image/*" />
+                    </div>
+
+                    <div className="col-span-1 space-y-1 md:col-span-2">
+                        <label className="block font-medium">Tiêu đề tóm tắt</label>
+                        <input type="text" name="SummaryTitle" value={formData.SummaryTitle} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" />
+                    </div>
+
+                    <div className="col-span-1 space-y-1 md:col-span-2">
+                        <label className="block font-medium">Nội dung tóm tắt</label>
+                        <textarea name="SummaryContent" value={formData.SummaryContent} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none" rows={4} />
+                    </div>
+
+
+
+
+                </form>
+            </div >
+
 
             <div className="mt-6 flex justify-end">
-                <button type="submit" onClick={handleSubmit} className="px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">🚀 Thêm phim</button>
+                <button type="submit" onClick={handleSubmit} className="px-2 me-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">🚀 Thêm phim</button>
             </div>
 
             {/* --- GENRE MODAL --- */}
             <Modal
                 isOpen={showGenreModal}
                 onRequestClose={() => setShowGenreModal(false)}
-                className="bg-white p-6 rounded-md shadow-xl max-w-2xl mx-auto mt-20"
+                className="bg-white p-6 rounded-lg-md shadow-xl max-w-2xl mx-auto mt-20"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
                 ariaHideApp={false}
             >
@@ -260,13 +288,13 @@ const AddMovie = () => {
                     ))}
                 </div>
                 <div className="mt-4 flex justify-end gap-4">
-                    <button onClick={() => setShowGenreModal(false)} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">❌ Hủy</button>
-                    <button onClick={handleConfirmGenres} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">✅ Xác nhận</button>
+                    <button onClick={() => setShowGenreModal(false)} className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">❌ Hủy</button>
+                    <button onClick={handleConfirmGenres} className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">✅ Xác nhận</button>
                 </div>
             </Modal>
 
             <ToastContainer position="top-right" autoClose={3000} />
-        </div>
+        </div >
     )
 }
 
