@@ -225,12 +225,6 @@ exports.getCommentsController = async (req, res) => {
         })
     }
     else {
-        console.log({
-            EC: -1,
-            Status: 'Failed',
-            Message: 'Xử lý thất bại',
-            Data: null
-        });
         return res.status(200).json({
             EC: -1,
             Status: 'Failed',
@@ -369,3 +363,57 @@ exports.addEpisodeMoviesController = async (req, res) => {
     }
 
 }
+
+exports.updateMoviesController = async (req, res) => {
+    const MovieID = req.params.MovieID
+    const { MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear, AgeRestriction, NumberOfEpisodes, Country,
+        SummaryTitle, SummaryContent, Actor, Director, MovieGenre, CategoryID } = req.body
+
+    const SlugMovieName = toSlug(MovieNameVietnamese);
+    let imageURL
+    let MovieImagePath
+
+    if (req.file) {
+        imageURL = req.file.path
+        MovieImagePath = await cloudinaryService.uploadImage(imageURL)
+        fs.unlink(imageURL, () => { });
+    } else {
+        const res = await movieService.getMovieByMovieIDService(MovieID)
+        MovieImagePath = res[0].MovieImagePath
+        console.log(res[0].MovieImagePath);
+
+    }
+
+    console.log('Image Path:', imageURL);
+    console.log('Data sent to server:', req.body);
+
+    const result = await movieService.updateMoviesService(MovieID, MovieNameVietnamese, MovieNameEnglish, MovieStatus, ReleaseYear,
+        AgeRestriction, NumberOfEpisodes, Country, SummaryTitle, SummaryContent, Actor, Director,
+        MovieGenre, CategoryID, SlugMovieName, MovieImagePath)
+
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Cập nhật thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Cập nhật thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Cập nhật thất bại',
+            Data: null
+        })
+    }
+
+}
+
+

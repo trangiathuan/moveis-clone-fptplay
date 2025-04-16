@@ -12,6 +12,8 @@ const testRoute = require('./routes/testRoute')
 const OTPRoute = require('./routes/OTPRoute')
 const movieRoute = require('./routes/movieRoute')
 const userRoute = require('./routes/userRoute')
+const categoryRoute = require('./routes/categoryRoute')
+
 
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -33,6 +35,7 @@ app.use('/api', testRoute);
 app.use('/api', OTPRoute);
 app.use('/api', movieRoute);
 app.use('/api', userRoute);
+app.use('/api', categoryRoute);
 
 const conn = async () => {
     try {

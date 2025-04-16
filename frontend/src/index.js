@@ -21,6 +21,7 @@ import ListMovie from './admin/page/movies/list-movie/list-movie';
 import AddMovie from './admin/page/movies/add-Movie/add-Movie';
 import ListUser from './admin/page/users/list-users';
 import AddEpisodeMovie from './admin/page/movies/add-episode-movie/add-episode-movie';
+import Category from './admin/page/category/category';
 
 
 
@@ -64,11 +65,11 @@ root.render(
         <Route path='add-episode-movie' element={<AddEpisodeMovie />} />
 
         {/* ----------------------------------------------- */}
-        <Route path='list-users' element={<ListUser />} />
         {/*<Route path='list-users' element={<ListUser />} />
         <Route path='list-users' element={<ListUser />} />
         <Route path='list-users' element={<ListUser />} /> */}
 
+        <Route path='category' element={<Category />} />
 
         <Route path='list-users' element={<ListUser />} />
 

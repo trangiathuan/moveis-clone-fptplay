@@ -11,7 +11,7 @@ const ListUser = () => {
     const [modalUpdate, setModalUpdate] = useState(null)
     const [modalDelete, setModalDelete] = useState(null)
     const [modalAddUser, setModalAddUser] = useState(false)
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('user')
@@ -43,7 +43,6 @@ const ListUser = () => {
         })
         if (res.data.EC === 0) {
             console.log(res.data.Data);
-            setUsers(res.data.Data)
             await getAllUsers()
             setName('')
             setEmail('')

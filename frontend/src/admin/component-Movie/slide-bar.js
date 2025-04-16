@@ -65,6 +65,11 @@ const Slidebar = ({ isOpen }) => {
                                         Menu tạm
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink to="/dashboard/category" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        Danh mục
+                                    </NavLink>
+                                </li>
                             </ul>
                         </div>
 
