@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from 'react-modal';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,6 +40,11 @@ const AddMovie = () => {
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [loading, setLoading] = useState(false);
     const fileInputRef = useRef(null);
+    const [categorys, setCategory] = useState([])
+
+    useEffect(() => {
+        getCategory()
+    }, [])
 
     const handleToggleGenre = (genre) => {
         setSelectedGenres(prev =>
@@ -141,6 +146,13 @@ const AddMovie = () => {
         }
     };
 
+    const getCategory = async () => {
+        const res = await axios.get(`${API}/get-category`)
+        if (res.data.EC === 0) {
+            setCategory(res.data.Data)
+        }
+    }
+
     return (
         <div className="p-5 mx-28 mt-10 bg-white rounded-lg-lg shadow-md relative">
             {loading && (
@@ -209,9 +221,9 @@ const AddMovie = () => {
                         <label className="block font-medium">Danh mục</label>
                         <select type="text" name="CategoryID" value={formData.CategoryID} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none">
                             <option value=''>Chọn danh mục phim</option>
-                            <option value='1'>Anime</option>
-                            <option value='2'>Phim bộ</option>
-                            <option value='3'>Phim lẻ</option>
+                            {categorys.map((category, index) => (
+                                <option key={index} value={category.CategoryID}>{category.CategoryName}</option>
+                            ))}
                         </select>
                     </div>
 
