@@ -131,7 +131,7 @@ const AddMovie = () => {
                 fileInputRef.current.value = null;
                 setSelectedGenres([]);
             } else {
-                toast.error(res.data.EM || "Lỗi không xác định");
+                toast.warn(res.data.Message || "Lỗi không xác định");
             }
         } catch (error) {
             console.error("Lỗi gửi API thêm phim:", error);

@@ -299,13 +299,13 @@ exports.addNewMoviesController = async (req, res) => {
             console.log({
                 EC: -1,
                 Status: 'Failed',
-                Message: 'Xử lý thất bại',
+                Message: 'Phim đã tồn tại',
                 Data: null
             });
             return res.status(200).json({
                 EC: -1,
                 Status: 'Failed',
-                Message: 'Xử lý thất bại',
+                Message: 'Phim đã tồn tại',
                 Data: null
             })
         }
@@ -313,7 +313,7 @@ exports.addNewMoviesController = async (req, res) => {
         return res.status(200).json({
             EC: -1,
             Status: 'Failed',
-            Message: 'Xử lý thất bại',
+            Message: 'Không có hình ảnh',
             MovieImagePath: null
         })
     }
@@ -348,13 +348,13 @@ exports.addEpisodeMoviesController = async (req, res) => {
             console.log({
                 EC: -1,
                 Status: 'Failed',
-                Message: 'Xử lý thất bại',
+                Message: 'Tập phim đã tồn tại',
                 Data: null
             });
             return res.status(200).json({
                 EC: -1,
                 Status: 'Failed',
-                Message: 'Xử lý thất bại',
+                Message: 'Tập phim đã tồn tại',
                 Data: null
             })
         }
@@ -362,7 +362,7 @@ exports.addEpisodeMoviesController = async (req, res) => {
         return res.status(200).json({
             EC: -1,
             Status: 'Failed',
-            Message: 'Xử lý thất bại',
+            Message: 'Không có file ảnh và video',
             MovieImagePath: null,
             MovieFilePath: null,
         })
