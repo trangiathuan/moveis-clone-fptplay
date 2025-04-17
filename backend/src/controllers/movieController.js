@@ -415,5 +415,44 @@ exports.updateMoviesController = async (req, res) => {
     }
 
 }
+// này t mới thêm nè, ko biết dùng được k :V 
+exports.deleteMovieController = async (req, res) => {
+    try {
+        const { MovieID } = req.params;
 
+        if (!MovieID) {
+            return res.status(400).json({
+                EC: -1,
+                Status: 'Failed',
+                Message: 'Thiếu MovieID',
+                Data: null
+            });
+        }
 
+        const result = await movieService.deleteMovieByID(MovieID);
+
+        if (result && result.affectedRows > 0) {
+            return res.status(200).json({
+                EC: 0,
+                Status: 'Success',
+                Message: 'Xóa phim thành công',
+                Data: result
+            });
+        } else {
+            return res.status(200).json({
+                EC: -1,
+                Status: 'Failed',
+                Message: 'Không tìm thấy phim để xóa',
+                Data: null
+            });
+        }
+    } catch (error) {
+        console.error('Lỗi xóa phim:', error);
+        return res.status(500).json({
+            EC: -1,
+            Status: 'Error',
+            Message: 'Đã có lỗi xảy ra khi xóa phim',
+            Data: null
+        });
+    }
+};

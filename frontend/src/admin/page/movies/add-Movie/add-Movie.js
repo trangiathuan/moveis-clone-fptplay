@@ -35,16 +35,24 @@ const AddMovie = () => {
         file: null,
     });
 
+    const [imagePreview, setImagePreview] = useState(null);
     const [movies, setMovies] = useState([]);
     const [showGenreModal, setShowGenreModal] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [loading, setLoading] = useState(false);
     const fileInputRef = useRef(null);
-    const [categorys, setCategory] = useState([])
+    const [categorys, setCategory] = useState([]);
 
     useEffect(() => {
-        getCategory()
-    }, [])
+        getCategory();
+    }, []);
+
+    const getCategory = async () => {
+        const res = await axios.get(`${API}/get-category`);
+        if (res.data.EC === 0) {
+            setCategory(res.data.Data);
+        }
+    };
 
     const handleToggleGenre = (genre) => {
         setSelectedGenres(prev =>
@@ -54,43 +62,98 @@ const AddMovie = () => {
 
     const handleConfirmGenres = () => {
         const genreString = selectedGenres.join(', ');
-        setFormData(prev => {
-            const newState = { ...prev, MovieGenre: genreString };
-            console.log("🎭 [MovieGenre]:", genreString);
-            return newState;
-        });
+        setFormData(prev => ({ ...prev, MovieGenre: genreString }));
         setShowGenreModal(false);
     };
 
-    const handleChange = async (e) => {
+    const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "file") {
             const file = files[0];
-            setFormData(prev => ({ ...prev, file: file }));
-            console.log(`📁 [${name}]:`, file);
+            if (file) {
+                setFormData(prev => ({ ...prev, file }));
+                setImagePreview(URL.createObjectURL(file));
+            } else {
+                setFormData(prev => ({ ...prev, file: null }));
+                setImagePreview(null);
+            }
         } else {
-            setFormData(prev => {
-                const newState = { ...prev, [name]: value };
-                console.log(`✏️ [${name}]:`, value);
-                return newState;
-            });
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
+    };
+
+    const clearImage = () => {
+        setFormData(prev => ({ ...prev, file: null }));
+        setImagePreview(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = null;
         }
     };
 
     const validateForm = () => {
-        if (!formData.MovieNameVietnamese.trim()) {
-            toast.error("Tên phim (Tiếng Việt) không được bỏ trống");
+        const {
+            MovieNameVietnamese, MovieStatus, ReleaseYear,
+            NumberOfEpisodes, CategoryID, MovieGenre, file
+        } = formData;
+
+        if (!MovieNameVietnamese.trim()) {
+            toast.error("Vui lòng nhập tên phim (Tiếng Việt)");
             return false;
         }
-        if (!formData.ReleaseYear || Number(formData.ReleaseYear) < 1990) {
+
+        if (!MovieStatus) {
+            toast.error("Vui lòng chọn trạng thái phim");
+            return false;
+        }
+
+        if (!ReleaseYear || Number(ReleaseYear) < 1990) {
             toast.error("Năm phát hành phải từ 1990 trở đi");
             return false;
         }
-        if (!formData.NumberOfEpisodes.trim()) {
-            toast.error("Số tập không được bỏ trống");
+
+        if (!NumberOfEpisodes.trim()) {
+            toast.error("Vui lòng nhập số tập");
             return false;
         }
+
+        if (!CategoryID) {
+            toast.error("Vui lòng chọn danh mục phim");
+            return false;
+        }
+
+        if (!MovieGenre.trim()) {
+            toast.error("Vui lòng chọn thể loại phim");
+            return false;
+        }
+
+        if (!file) {
+            toast.error("Vui lòng chọn hình ảnh phim");
+            return false;
+        }
+
         return true;
+    };
+
+    const resetForm = () => {
+        setFormData({
+            MovieNameVietnamese: '',
+            MovieNameEnglish: '',
+            MovieStatus: '',
+            ReleaseYear: '',
+            AgeRestriction: '',
+            NumberOfEpisodes: '',
+            Country: '',
+            SummaryTitle: '',
+            SummaryContent: '',
+            Actor: '',
+            Director: '',
+            MovieGenre: '',
+            CategoryID: '',
+            file: null,
+        });
+        setImagePreview(null);
+        fileInputRef.current.value = null;
+        setSelectedGenres([]);
     };
 
     const handleSubmit = async (e) => {
@@ -101,7 +164,6 @@ const AddMovie = () => {
         for (let key in formData) {
             if (formData[key] !== null) {
                 payload.append(key, formData[key]);
-                console.log(`📦 append ${key}:`, formData[key]);
             }
         }
 
@@ -114,27 +176,11 @@ const AddMovie = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+
             if (res.data.EC === 0) {
-                setMovies(prev => [...prev, formData]);
                 toast.success("🎉 Thêm phim thành công!");
-                setFormData({
-                    MovieNameVietnamese: '',
-                    MovieNameEnglish: '',
-                    MovieStatus: '',
-                    ReleaseYear: '',
-                    AgeRestriction: '',
-                    NumberOfEpisodes: '',
-                    Country: '',
-                    SummaryTitle: '',
-                    SummaryContent: '',
-                    Actor: '',
-                    Director: '',
-                    MovieGenre: '',
-                    CategoryID: '',
-                    file: null,
-                });
-                fileInputRef.current.value = null;
-                setSelectedGenres([]);
+                setMovies(prev => [...prev, formData]);
+                resetForm();
             } else {
                 toast.warn(res.data.Message || "Lỗi không xác định");
             }
@@ -145,14 +191,6 @@ const AddMovie = () => {
             setLoading(false);
         }
     };
-
-    const getCategory = async () => {
-        const res = await axios.get(`${API}/get-category`)
-        if (res.data.EC === 0) {
-            setCategory(res.data.Data)
-        }
-    }
-
     return (
         <div className="p-5 mx-28 mt-10 bg-white rounded-lg-lg shadow-md relative">
             {loading && (
@@ -247,14 +285,38 @@ const AddMovie = () => {
 
                     <div className="col-span-1 space-y-1">
                         <label className="block font-medium">Hình ảnh phim</label>
-                        <input type="file" name="file" onChange={handleChange} ref={fileInputRef} className="block w-full h-10 text-sm text-gray-500
-                             file:mr-4 file:py-2 file:px-4
-                             file:rounded-lg file:border-0
-                             file:text-sm file:font-semibold
-                             file:bg-blue-50 file:text-blue-700
-                             file:h-10
-                             hover:file:bg-blue-100
-                             border rounded-lg" accept="image/*" />
+                        {!imagePreview ? (
+                            <input
+                                type="file"
+                                name="file"
+                                onChange={handleChange}
+                                ref={fileInputRef}
+                                className="block w-full h-10 text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-lg file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-blue-50 file:text-blue-700
+                                file:h-10
+                                hover:file:bg-blue-100
+                                border rounded-lg"
+                                accept="image/*"
+                            />
+                        ) : (
+                            <div>
+                                <img
+                                    src={imagePreview}
+                                    alt="Preview"
+                                    className="mt-2 rounded-lg w-full h-56 object-cover"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={clearImage}
+                                    className="mt-2 px-3 py-1 bg-red-100 text-red-600 text-sm rounded hover:bg-red-200"
+                                >
+                                    ❌ Xóa ảnh
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     <div className="col-span-1 space-y-1 md:col-span-2">
@@ -275,14 +337,16 @@ const AddMovie = () => {
 
 
             <div className="mt-6 flex justify-end">
-                <button type="submit" onClick={handleSubmit} className="px-2 me-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">🚀 Thêm phim</button>
+                <button type="submit" onClick={handleSubmit} className="px-4 py-2 me-5 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+                    🚀 Thêm phim
+                </button>
             </div>
 
-            {/* --- GENRE MODAL --- */}
+            {/* Modal chọn thể loại */}
             <Modal
                 isOpen={showGenreModal}
                 onRequestClose={() => setShowGenreModal(false)}
-                className="bg-white p-6 rounded-lg-md shadow-xl max-w-2xl mx-auto mt-20"
+                className="bg-white p-6 rounded-lg shadow-xl max-w-2xl mx-auto mt-20"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
                 ariaHideApp={false}
             >
@@ -306,7 +370,7 @@ const AddMovie = () => {
             </Modal>
 
             <ToastContainer position="top-right" autoClose={3000} />
-        </div >
+        </div>
     )
 }
 
