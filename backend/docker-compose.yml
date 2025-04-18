@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # Cổng cho ứng dụng kết nối
+      - "15672:15672"   # Cổng giao diện web để quản lý RabbitMQ
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    restart: always     # Tự động khởi động lại container khi máy tính khởi động

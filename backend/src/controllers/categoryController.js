@@ -41,13 +41,15 @@ exports.getCategoryController = async (req, res) => {
 exports.createCategoryController = async (req, res) => {
     const { categoryName } = req.body
     const slugCatrgoryName = toSlug(categoryName)
+    console.log('Data sent to server:', categoryName, slugCatrgoryName);
+
     const result = await categoryService.createCategoryService(categoryName, slugCatrgoryName);
 
     if (result && result.length > 0) {
         return res.status(200).json({
             EC: 0,
             Status: 'Success',
-            Message: 'Xử lý thành công',
+            Message: 'Thêm danh mục thành công',
             Data: result
         })
     }
@@ -78,7 +80,7 @@ exports.updateCategoryController = async (req, res) => {
         return res.status(200).json({
             EC: 0,
             Status: 'Success',
-            Message: 'Xử lý thành công',
+            Message: 'Cập nhật thành công',
             Data: result
         })
     }
@@ -86,13 +88,13 @@ exports.updateCategoryController = async (req, res) => {
         console.log({
             EC: -1,
             Status: 'Failed',
-            Message: 'Danh mục đã tồn tại',
+            Message: 'Cập nhật thất bại',
             Data: null
         });
         return res.status(200).json({
             EC: -1,
             Status: 'Failed',
-            Message: 'Danh mục đã tồn tại',
+            Message: 'Cập nhật thất bại',
             Data: null
         })
     }

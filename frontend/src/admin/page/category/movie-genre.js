@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Category = () => {
+const MovieGenre = () => {
     const [categorys, setCategory] = useState([])
     const [categoryName, setCategoryName] = useState('')
     const [modalUpdate, setModalUpdate] = useState(null)
@@ -189,4 +189,4 @@ const Category = () => {
         </div >
     )
 }
-export default Category;
+export default MovieGenre;

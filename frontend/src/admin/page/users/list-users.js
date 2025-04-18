@@ -55,7 +55,7 @@ const ListUser = () => {
     }
 
     const updateUser = async () => {
-        const res = await axios.put(`${API}/updateUser`, modalUpdate)
+        const res = await axios.put(`${API}/updateUser-admin`, modalUpdate)
         if (res.data.EC === 0) {
             console.log(res.data.Data);
             await getAllUsers()

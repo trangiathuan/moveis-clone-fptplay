@@ -9,6 +9,7 @@ const Navbar = () => {
     const isLogin = !!localStorage.getItem('token');
     const navigate = useNavigate();
     const [userAvatar, setUserAvatar] = useState(null);//test dùng avatar người dùng
+
     const handleLogout = async () => {
         localStorage.removeItem('token');
         navigate('/');
@@ -17,29 +18,16 @@ const Navbar = () => {
         const token = localStorage.getItem('token');
         if (token) {
             const decoded = jwtDecode(token);
-            console.log("🔍 decoded token:", decoded);
             setUserAvatar(decoded.avatarUrl); // 👈 chính xác
         }
     }, []);
-
-    const toggleMenuXemThem = () => {
-        setIsOpenXemThem(!isOpenXT);
-    };
-
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const toggleMobileMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
 
     return (
         <div>
             <nav className="flex bg-black w-full sm:w-full fixed z-30 items-center">
                 <div className="flex mx-auto ">
                     <div className="flex sm:flex lg:hidden pt-5 pb-4 ps-0 pe-5 ">
-                        <button onClick={toggleMobileMenu}>
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             <img className="w-7" src={require('../../asset/image-logo/menu.png')} />
                         </button>
                     </div>
@@ -58,7 +46,7 @@ const Navbar = () => {
 
                         <a
                             href="#"
-                            onClick={toggleMenuXemThem}
+                            onClick={() => setIsOpenXemThem(!isOpenXT)}
                             className="flex text-stone-400 text-base font-sans font-semibold focus:text-white hover:text-orange-600"
                         >
                             Xem thêm
@@ -96,7 +84,7 @@ const Navbar = () => {
                             <div className="flex relative inline-block text-left">
                                 {isLogin ? (
                                     <div>
-                                        <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={toggleMenu}>
+                                        <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={() => setIsOpen(!isOpen)}>
                                             <img
                                                 className="w-full h-full object-cover border border-white rounded-md"
                                                 src={userAvatar || require('../../asset/image-logo/emoji.png')}
@@ -125,7 +113,6 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
-
             </nav>
 
             {isMenuOpen && (

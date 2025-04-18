@@ -22,6 +22,7 @@ import AddMovie from './admin/page/movies/add-Movie/add-Movie';
 import ListUser from './admin/page/users/list-users';
 import AddEpisodeMovie from './admin/page/movies/add-episode-movie/add-episode-movie';
 import Category from './admin/page/category/category';
+import MovieGenre from './admin/page/category/movie-genre';
 
 
 
@@ -70,6 +71,8 @@ root.render(
         <Route path='list-users' element={<ListUser />} /> */}
 
         <Route path='category' element={<Category />} />
+
+        <Route path='movie-genre' element={<MovieGenre />} />
 
         <Route path='list-users' element={<ListUser />} />
 
