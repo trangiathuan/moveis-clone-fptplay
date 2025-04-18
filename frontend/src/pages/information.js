@@ -1,6 +1,8 @@
 
-import EditUser from "../components/public-component/edit_user";
-import Navbar from "../components/public-component/navbar";
+
+
+import EditUser from "../components/public-components/edit-user";
+import Navbar from "../components/public-components/navbar";
 const Information = () => {
     return (
         <div className="bg-black overflow-x-hidden">

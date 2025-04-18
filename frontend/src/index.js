@@ -22,6 +22,7 @@ import AddMovie from './admin/page/movies/add-Movie/add-Movie';
 import ListUser from './admin/page/users/list-users';
 import AddEpisodeMovie from './admin/page/movies/add-episode-movie/add-episode-movie';
 import Category from './admin/page/category/category';
+import Information from './pages/information';
 
 
 
@@ -47,6 +48,9 @@ root.render(
       <Route path='/streaming/:slugMovieName?/:slugEpisode?/:roomId?' element={<StreamingRoom />} />
 
       <Route path='/joim-room' element={<JoinRoom />} />
+
+      <Route path='/edituser' element={<Information />} />
+
 
       {/* admin router */}
 

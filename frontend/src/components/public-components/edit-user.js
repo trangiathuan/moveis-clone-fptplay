@@ -1,12 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import API from "../../configs/endpoint";
+import { jwtDecode } from "jwt-decode";
 
 const EditUser = () => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [previewURL, setPreviewURL] = useState(null);
     const [name, setName] = useState("");
+    const [id, setId] = useState();
+
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decoded = jwtDecode(token);
+            setName(decoded.name)
+            setId(decoded.id)
+            console.log(decoded.id);
+
+        }
+
+    }, [])
 
 
 
@@ -23,27 +38,30 @@ const EditUser = () => {
     // Gửi cập nhật thông tin lên server
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
+        console.log(avatarFile);
+        console.log(name);
 
         const formData = new FormData();
         if (avatarFile) {
             formData.append("avatar", avatarFile);
         }
-        formData.append("name", name);
 
+        formData.append("name", name);
+        formData.append("id", id);
         try {
             setLoading(true);
-            const token = localStorage.getItem("token");
-            const res = await axios.put(`${API}/updateUser`, formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            const res = await axios.put(`${API}/updateUser`, formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                }
+            );
 
             if (res.data.EC === 0) {
                 alert("Cập nhật thành công!");
             } else {
-                alert(res.data.EM || "Có lỗi xảy ra khi cập nhật.");
+                console.log(res.data);
             }
         } catch (err) {
             console.error("Lỗi cập nhật:", err);
