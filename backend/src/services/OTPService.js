@@ -26,6 +26,7 @@ const sendOtpEmail = async (recipientEmail, otp) => {
     try {
         await transporter.sendMail(mailOptions);
         console.log('Email sent successfully');
+
     } catch (error) {
         console.error('Error sending email:', error);
     }
@@ -73,12 +74,18 @@ exports.verifyOTPService = async (email, otp) => {
                 .input('action', sql.VarChar, 'InsertUser')
                 .input('email', sql.VarChar, email)
                 .execute('SP_Users');
-            const idUser = (result.recordset[0].id);
-            const emailUser = (result.recordset[0].email);
+            const idUser = result.recordset[0].id;
+            const emailUser = result.recordset[0].email;
+            const role = result.recordset[0].role;
+            const name = result.recordset[0].name
+            const avatarUrl = result.recordset[0].avatarUrl
 
             const token = jwt.sign({
                 id: idUser,
-                email: emailUser
+                email: emailUser,
+                role: role,
+                name: name,
+                avatarUrl: avatarUrl
             },
                 process.env.SecretKey, { expiresIn: '30d' }
             )

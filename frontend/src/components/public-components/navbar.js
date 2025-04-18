@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
     const [isOpenXT, setIsOpenXemThem] = useState(false);
@@ -8,11 +9,19 @@ const Navbar = () => {
     const isLogin = !!localStorage.getItem('token');
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
-
+    const [userAvatar, setUserAvatar] = useState(null);//test dùng avatar người dùng
     const handleLogout = async () => {
         localStorage.removeItem('token');
         navigate('/');
     };
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decoded = jwtDecode(token);
+            console.log("🔍 decoded token:", decoded);
+            setUserAvatar(decoded.avatarUrl); // 👈 chính xác
+        }
+    }, []);
 
     const toggleMenuXemThem = () => {
         setIsOpenXemThem(!isOpenXT);
@@ -158,15 +167,19 @@ const Navbar = () => {
                                 {isLogin ? (
                                     <div>
                                         <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={toggleMenu}>
-                                            <img className="w-7 m-2" src={require('../../asset/image-logo/emoji.png')} />
+                                            <img
+                                                className="w-full h-full object-cover border border-white rounded-md"
+                                                src={userAvatar || require('../../asset/image-logo/emoji.png')}
+                                                alt="User Avatar"
+                                            />
                                             <img className="ms-2 mt-3 w-4 h-4" src={require('../../asset/image-logo/down.png')} />
                                         </button>
                                         {isOpen && (
                                             <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
                                                 <ul className="py-2">
-                                                    <li><a href="/following-movies-list" className="block px-4 py-2 text-white">Phim đang theo dõi</a></li>
-                                                    <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
-                                                    <li><a onClick={handleLogout} className="block px-4 py-2 text-white ">
+                                                    <li><a href="/following-movies-list" className="block px-4 py-2 text-white hover:text-orange-600">Phim đang theo dõi</a></li>
+                                                    <li><a href="/joim-room" className="block px-4 py-2 text-white hover:text-orange-600">Phòng xem phim</a></li>
+                                                    <li><a onClick={handleLogout} className="block px-4 py-2 text-white hover:text-orange-600">
                                                         <button>Đăng xuất</button>
                                                     </a></li>
                                                 </ul>

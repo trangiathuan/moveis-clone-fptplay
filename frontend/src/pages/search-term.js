@@ -1,6 +1,6 @@
 
-import Footer from "../components/public-component/footer";
-import Navbar from "../components/public-component/navbar";
+import Footer from "../components/public-components/footer";
+import Navbar from "../components/public-components/navbar";
 import Search from "../components/search";
 
 

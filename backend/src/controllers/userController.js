@@ -1,4 +1,95 @@
 const userService = require('../services/userService')
+
+exports.isAdminController = async (req, res) => {
+    return res.status(200).json({
+        EC: 0,
+        Status: 1,
+        Message: 'CHÀO MỪNG BẠN ĐẾN VỚI GIAO DIỆN DÀNH CHO QUẢN TRỊ VIÊN'
+    })
+
+}
+
+exports.getAllUsersController = async (req, res) => {
+    const result = await userService.getAllUsersService()
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 1,
+            Message: 'Xử lý thành công',
+            Data: result
+        })
+    } else {
+        return res.status(200).json({
+            EC: -1,
+            Status: 0,
+            Message: 'Xử lý thất bại'
+        })
+    }
+}
+
+exports.createUserController = async (req, res) => {
+    const { email, name, role } = req.body
+    console.log(req.body);
+
+    const result = await userService.createUserService(email, name, role)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 1,
+            Message: 'Tạo tài khoản thành công',
+            Data: result
+        })
+    } else {
+        return res.status(200).json({
+            EC: -1,
+            Status: 0,
+            Message: 'Email đã tồn tại'
+        })
+    }
+}
+
+exports.updateUserController = async (req, res) => {
+    const { id, email, name, avatarUrl, role } = req.body
+    console.log(req.body);
+
+    const result = await userService.updateUserService(id, email, name, avatarUrl, role)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 1,
+            Message: 'Cập nhật tài khoản thành công',
+            Data: result
+        })
+    } else {
+        return res.status(200).json({
+            EC: -1,
+            Status: 0,
+            Message: 'Cập nhật tài khoản thất bại'
+        })
+    }
+}
+
+exports.deleteUserController = async (req, res) => {
+    const { id } = req.body
+    console.log(req.body);
+
+    const result = await userService.deleteUserService(id)
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 1,
+            Message: 'Xóa tài khoản thành công',
+            Data: result
+        })
+    } else {
+        return res.status(200).json({
+            EC: -1,
+            Status: 0,
+            Message: 'Xóa tài khoản thất bại'
+        })
+    }
+}
+
 exports.checkFollowMovieController = async (req, res) => {
     const slugMovieName = req.params.slugMovieName
     const userID = req.user.id
@@ -64,3 +155,4 @@ exports.getFollowingMoviesListController = async (req, res) => {
         })
     }
 }
+

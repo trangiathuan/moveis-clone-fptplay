@@ -69,7 +69,10 @@ exports.verifyOTPController = async (req, res) => {
             Data: null
         });
         return res.status(200).json({
-            Data
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
         })
     }
 }
