@@ -62,22 +62,6 @@ exports.updateUserService = async (id, email, name, avatarUrl, role) => {
     }
 }
 
-exports.updateUserClientService = async (id, name, avatarUrl) => {
-    try {
-        const pool = await connection();
-        const result = await pool.request()
-            .input('action', sql.VarChar, 'updateUser')
-            .input('id', sql.Int, id)
-            .input('name', sql.NVarChar, name)
-            .input('avatarUrl', sql.VarChar, avatarUrl)
-            .execute('SP_Users')
-        return result.recordset
-    } catch (error) {
-        console.log(error);
-
-    }
-}
-
 exports.deleteUserService = async (id) => {
     try {
         const pool = await connection();

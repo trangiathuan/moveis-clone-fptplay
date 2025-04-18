@@ -18,24 +18,16 @@ const Navbar = () => {
         navigate('/');
     };
     useEffect(() => {
+        getUserById()
+    }, [userAvatar]);
+
+    const getUserById = async () => {
         const token = localStorage.getItem('token');
-        if (token) {
-            const decoded = jwtDecode(token);
-            setUserAvatar(decoded.avatarUrl); // 👈 chính xác
-        }
-    }, []);
-
-    const toggleMenuXemThem = () => {
-        setIsOpenXemThem(!isOpenXT);
-    };
-
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const toggleMobileMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+        const decoded = jwtDecode(token);
+        const userId = decoded.id // 👈 chính xác
+        const res = await axios.post(`${API}/getUserById`, { userId })
+        setUserAvatar(res.data.Data[0].avatarUrl)
+    }
 
     return (
         <div>

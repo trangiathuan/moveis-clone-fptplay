@@ -2,27 +2,35 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import API from "../../configs/endpoint";
 import { jwtDecode } from "jwt-decode";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditUser = () => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [previewURL, setPreviewURL] = useState(null);
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("");
     const [id, setId] = useState();
 
     const [loading, setLoading] = useState(false);
 
+    const token = localStorage.getItem('token');
+    const decoded = jwtDecode(token) || null;
+    let userId = decoded.id
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const decoded = jwtDecode(token);
-            setName(decoded.name)
-            setId(decoded.id)
-            console.log(decoded.id);
-
-        }
-
+        getUserById()
     }, [])
 
+    const getUserById = async () => {
+        const res = await axios.post(`${API}/getUserById`, { userId })
+        setEmail(res.data.Data[0].email)
+        setName(res.data.Data[0].name)
+        setRole(res.data.Data[0].role)
+        setId(res.data.Data[0].id)
+        setPreviewURL(res.data.Data[0].avatarUrl)
+    }
 
 
     // Xử lý khi chọn ảnh mới
@@ -45,12 +53,14 @@ const EditUser = () => {
         if (avatarFile) {
             formData.append("avatar", avatarFile);
         }
-
-        formData.append("name", name);
         formData.append("id", id);
+        formData.append("email", email);
+        formData.append("name", name);
+        formData.append("role", role);
+
         try {
             setLoading(true);
-            const res = await axios.put(`${API}/updateUser`, formData,
+            const res = await axios.put(`${API}/updateUser-client`, formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -59,7 +69,9 @@ const EditUser = () => {
             );
 
             if (res.data.EC === 0) {
-                alert("Cập nhật thành công!");
+                toast.success(res.data.Message)
+                console.log(res.data);
+
             } else {
                 console.log(res.data);
             }
@@ -68,11 +80,13 @@ const EditUser = () => {
             alert("Cập nhật thất bại.");
         } finally {
             setLoading(false);
+            window.location.reload()
         }
     };
 
     return (
         <div className="bg-black">
+            <ToastContainer />
             <div className="min-h-screen text-white flex items-center justify-center px-9">
                 <div className="p-10 rounded-2xl shadow-lg w-full max-w-lg">
                     <h2 className="text-5xl font-bold mb-6 text-center">Chỉnh sửa hồ sơ</h2>
