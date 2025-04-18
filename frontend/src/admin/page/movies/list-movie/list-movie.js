@@ -93,7 +93,7 @@ const ListMovie = () => {
                             <tr key={movie.MovieID} className="hover:bg-gray-50">
                                 <td className="border px-4 py-2">{movie.MovieNameVietnamese}</td>
                                 <td className="border px-4 py-2">{getCategoryName(movie.CategoryID)}</td>
-                                <td className="border px-4 py-2">{movie.NumberOfEpisodes}</td>
+                                <td className="border px-4 py-2">{movie.NumberOfEpisodes}/{movie.NumberOfEpisodes} tập</td>
                                 <td className="border px-4 py-2">{movie.ReleaseYear}</td>
                                 <td className="border px-4 py-2 text-center">
                                     <button

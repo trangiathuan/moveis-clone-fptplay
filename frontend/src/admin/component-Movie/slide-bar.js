@@ -46,7 +46,7 @@ const Slidebar = ({ isOpen }) => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/dashboard/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🛠️ Sửa Phim
                                     </NavLink>
                                 </li>
@@ -56,10 +56,12 @@ const Slidebar = ({ isOpen }) => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/dashboard/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🔄 Thay đổi Phim
                                     </NavLink>
                                 </li>
+
+
                                 <li>
                                     <NavLink to="/dashboard/add-episode-movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         Menu tạm
