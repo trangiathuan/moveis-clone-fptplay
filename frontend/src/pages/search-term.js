@@ -1,7 +1,8 @@
 
 import Footer from "../components/public-component/footer";
 import Navbar from "../components/public-component/navbar";
-import Search from "../components/search";
+import Search from "../components/public-component/search";
+
 
 
 const SearchTerm = () => {

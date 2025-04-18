@@ -12,6 +12,8 @@ import FollowingMoviesList from './pages/following-movies-list ';
 
 import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
+import EditUser from './components/public-component/edit_user';
+import Information from './pages/information';
 
 
 
@@ -25,6 +27,8 @@ root.render(
         <Route path='/' element={<Home />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/edituser" element={<Information />} />
 
         <Route path="/search" element={<SearchTerm />} />
 

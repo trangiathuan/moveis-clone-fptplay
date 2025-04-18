@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../../configs/endpoint";
+import axios from "axios";
 
 const Navbar = () => {
     const [isOpenXT, setIsOpenXemThem] = useState(false);
@@ -7,6 +9,7 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const isLogin = !!localStorage.getItem('token');
     const [open, setOpen] = useState(false);
+    const [movies, setMovies] = useState([]); // danh sach phim
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -25,6 +28,28 @@ const Navbar = () => {
     const toggleMobileMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+
+
+
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const res = await axios.get(`${API}/get-all-movies-new`);
+                if (res.data.EC === 0) {
+                    // Lấy 5 phim mới nhất
+                    const latestMovies = res.data.Data.slice(0, 5);
+                    setMovies(latestMovies);
+                }
+            } catch (error) {
+                console.error("Lỗi khi gọi API phim mới:", error);
+            }
+        };
+
+        fetchMovies();
+    }, []);
+
 
     return (
         <div>
@@ -72,14 +97,13 @@ const Navbar = () => {
 
                     <div className="flex text-white xl:ps-36 sm:ps-0 sm:pe-0">
                         <a href="/search" className="group relative inline-block w-5 h-5 xl:flex hidden pt-8 me-5 mt-8">
-                            {/* Ảnh mặc định */}
+
                             <img
                                 src={require('../../asset/image-logo/search-hover.png')}
                                 className="absolute inset-0 transition-opacity duration-300 opacity-100 group-hover:opacity-0"
                                 alt="Search"
                             />
 
-                            {/* Ảnh khi hover */}
                             <img
                                 src={require('../../asset/image-logo/search-hover (1).png')}
                                 className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
@@ -92,14 +116,12 @@ const Navbar = () => {
                             className="group relative inline-block w-5 h-5 xl:flex hidden pt-8 me-5 mt-8"
                         >
 
-                            {/* Ảnh mặc định */}
                             <img
                                 src={require('../../asset/image-logo/icon-alarm-active-fill.png')}
                                 className="absolute inset-0 transition-opacity duration-300 opacity-100 group-hover:opacity-0"
                                 alt="Search"
                             />
 
-                            {/* Ảnh khi hover */}
                             <img
                                 src={require('../../asset/image-logo/icon-alarm-active-hover.png')}
                                 className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
@@ -114,28 +136,36 @@ const Navbar = () => {
                                         <p className="text-sm text-left ml-5" >Hôm nay</p>
                                     </div>
                                     <div className="max-h-[500px] overflow-hidden rounded-lg bg-zinc-800 m-4  divide-y divide-gray-700">
-                                        {/* Ví dụ một thông báo */}
-                                        <div className="flex items-start px-6 py-6 gap-5 hover:bg-gray-800 transition">
-                                            <img
-                                                src={require('../../asset/images-banner/narutoBanner.webp')}
-                                                className="w-30 h-20 rounded"
-                                                alt="Thumb"
-                                            />
-                                            <div className="text-sm text-white text-left">
-                                                {/* Sử dụng truncate và giới hạn chiều rộng */}
-                                                <p className="text-xl text-orange-400 truncate w-full max-w-[350px]">
-                                                    🔴 BẠN ĐANG CÓ SỰ KIỆN CON CU NHO NHỎ
-                                                </p>
-                                                <p className="text-gray-400 text-xs mt-1 truncate w-full max-w-[500px]">
-                                                    ⚽ HẸN BẠN VÀO 3H SÁNG MAI
-                                                </p>
-                                                <p className="text-gray-500 text-xs mt-1 truncate w-full max-w-[250px]">
-                                                    52 phút trước
-                                                </p>
-                                            </div>
+                                        <div className="max-h-[500px] overflow-y-auto rounded-lg bg-zinc-800 m-4 divide-y divide-gray-700">
+                                            {movies.length > 0 ? (
+                                                movies.map((movie) => (
+                                                    <a
+                                                        key={movie.MovieID}
+                                                        href={`/detail/${movie.SlugMovieName}`}
+                                                        className="flex items-start px-6 py-4 gap-5 hover:bg-gray-800 transition"
+                                                    >
+                                                        <img
+                                                            src={movie.MovieImagePath}
+                                                            alt={movie.MovieNameVietnamese}
+                                                            className="w-28 h-16 object-cover rounded"
+                                                        />
+                                                        <div className="text-sm text-white text-left">
+                                                            <p className="text-base font-semibold truncate max-w-[350px]">
+                                                                🎬 {movie.MovieNameVietnamese}
+                                                            </p>
+                                                            <p className="text-gray-400 text-xs mt-1 truncate max-w-[400px]">
+                                                                {movie.ReleaseYear} · {movie.NumberOfEpisodes} tập · {movie.Country}
+                                                            </p>
+                                                        </div>
+                                                    </a>
+                                                ))
+                                            ) : (
+                                                <div className="text-white text-sm p-4">Không có phim mới.</div>
+                                            )}
                                         </div>
 
-                                        {/* Lặp thêm nhiều thông báo tại đây */}
+
+
                                     </div>
                                 </div>
 
@@ -165,7 +195,7 @@ const Navbar = () => {
                                             <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
                                                 <ul className="py-2">
                                                     <li><a href="/following-movies-list" className="block px-4 py-2 text-white">Phim đang theo dõi</a></li>
-                                                    <li><a href="#" className="block px-4 py-2 text-white">Option 2</a></li>
+                                                    <li><a href="/edituser" className="block px-4 py-2 text-white">Thay đổi thông tin cá nhân</a></li>
                                                     <li><a onClick={handleLogout} className="block px-4 py-2 text-white ">
                                                         <button>Đăng xuất</button>
                                                     </a></li>
