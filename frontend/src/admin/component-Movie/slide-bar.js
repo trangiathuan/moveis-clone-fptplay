@@ -9,6 +9,8 @@ import {
     ChevronRight,
     Globe,
     User,
+    ClipboardList,
+    ClipboardMinus,
 } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +29,7 @@ const Slidebar = ({ isOpen }) => {
                     </div>
 
                     <nav className="space-y-6">
-                        <NavLink to="/dashboard" className="bg-orange-100 text-orange-600 rounded-md px-3 py-2 flex items-center gap-2 font-medium">
+                        <NavLink to="/dashboard" className=" rounded-md px-3 py-2 flex items-center gap-2 font-medium">
                             <LayoutDashboard className="w-4 h-4" />
                             Dashboard
                         </NavLink>
@@ -46,7 +48,7 @@ const Slidebar = ({ isOpen }) => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/change-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                    <NavLink to="/dashboard/repair-Movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         🛠️ Sửa Phim
                                     </NavLink>
                                 </li>
@@ -60,16 +62,20 @@ const Slidebar = ({ isOpen }) => {
                                         🔄 Thay đổi Phim
                                     </NavLink>
                                 </li>
-
-
                                 <li>
                                     <NavLink to="/dashboard/add-episode-movie" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
                                         Menu tạm
                                     </NavLink>
                                 </li>
+                                <h2 className="text-xs text-gray-400 uppercase px-1 mb-2">Quản lý danh mục - thể loại</h2>
                                 <li>
                                     <NavLink to="/dashboard/category" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
-                                        Danh mục
+                                        <div><ClipboardList className="w-4" /></div>Danh mục
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/movie-genre" className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md">
+                                        <ClipboardMinus className="w-4" />Thể loại
                                     </NavLink>
                                 </li>
                             </ul>
@@ -80,7 +86,7 @@ const Slidebar = ({ isOpen }) => {
                             <ul className="space-y-2 text-sm">
                                 <li className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
                                     <NavLink to='/dashboard/list-users' className='flex space-x-1 items-center'>
-                                        <User className="w-4 h-4" />
+                                        <User className="w-4" />
                                         <p>Tài khoản</p>
                                     </NavLink>
 

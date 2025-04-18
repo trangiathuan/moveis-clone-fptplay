@@ -4,6 +4,7 @@ const connection = require("../configs/configDatabase");
 const sql = require('mssql');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { sendOtpToQueue } = require('../queue/producers/sendOtp.producer');
 
 // Cấu hình Nodemailer với thông tin tài khoản Gmail
 const transporter = nodemailer.createTransport({
@@ -33,7 +34,7 @@ const sendOtpEmail = async (recipientEmail, otp) => {
 };
 let otpDatabase = {};
 
-exports.sendOtpEmailService = (email) => {
+exports.sendOtpEmailService = async (email) => {
     try {
 
         const OTP_EXPIRY_TIME = 5 * 60 * 1000;
@@ -47,7 +48,9 @@ exports.sendOtpEmailService = (email) => {
 
         console.log('email: ', email, 'OTP: ', otp);
 
-        sendOtpEmail(email, otp)
+        await sendOtpToQueue(email, otp);
+
+        //await sendOtpEmail(email, otp);
 
         return otpDatabase
 

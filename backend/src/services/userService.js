@@ -14,6 +14,20 @@ exports.getAllUsersService = async () => {
     }
 }
 
+exports.getUserByIdService = async (id) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'getUserById')
+            .input('id', sql.Int, id)
+            .execute('SP_Users')
+        return result.recordset
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
 exports.createUserService = async (email, name, role) => {
     try {
         const pool = await connection();
