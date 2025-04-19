@@ -114,10 +114,6 @@ const Change_Movie = () => {
         }
 
         try {
-            const form = new FormData();
-            // Object.entries(formData).forEach(([key, value]) => {
-            //     if (key !== 'file') form.append(key, value);
-            // });//sửa cái này ko dùng object
 
             const payload = new FormData();
             for (let key in formData) {
