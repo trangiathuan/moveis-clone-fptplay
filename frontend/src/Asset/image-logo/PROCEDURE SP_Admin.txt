@@ -1,0 +1,95 @@
+ALTER PROCEDURE SP_Admin
+    @action VARCHAR(50),
+    @MovieID INT = NULL,
+    @MovieNameVietnamese NVARCHAR(255) = NULL,
+    @MovieNameEnglish NVARCHAR(255) = NULL,
+    @MovieStatus NVARCHAR(50) = NULL,
+    @ReleaseYear INT = NULL,
+    @AgeRestriction VARCHAR(10) = NULL,
+    @NumberOfEpisodes NVARCHAR(10) = NULL,
+    @Country NVARCHAR(100) = NULL,
+    @SummaryTitle NVARCHAR(255) = NULL,
+    @SummaryContent NVARCHAR(MAX) = NULL,
+    @Actor NVARCHAR(MAX) = NULL,
+    @Director NVARCHAR(255) = NULL,
+    @MovieGenre NVARCHAR(MAX) = NULL,
+    @MovieImagePath NVARCHAR(255) = NULL,
+    @CategoryID INT = NULL,
+    @SlugMovieName VARCHAR(255) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- ================= DELETE MOVIE =================
+    IF @action = 'deleteMovie'
+    BEGIN
+         IF EXISTS (SELECT 1 FROM Movies WHERE MovieID = @MovieID)
+        BEGIN
+            BEGIN TRY
+                BEGIN TRANSACTION
+
+                -- Xoá dữ liệu liên quan nếu có (ví dụ như Episodes, Reviews, Comments...)
+                --DELETE FROM Episodes WHERE MovieID = @MovieID
+                --DELETE FROM Comments WHERE MovieID = @MovieID
+                --DELETE FROM Reviews WHERE MovieID = @MovieID
+
+                -- Xoá chính phim
+                DELETE FROM Movies WHERE MovieID = @MovieID
+
+                COMMIT
+
+                SELECT 
+                    0 AS EC, 
+                    'Success' AS Status, 
+                    'Xóa phim thành công' AS Message
+            END TRY
+            BEGIN CATCH
+                ROLLBACK
+                SELECT 
+                    -2 AS EC,
+                    'Error' AS Status,
+                    ERROR_MESSAGE() AS Message
+            END CATCH
+        END
+        ELSE
+        BEGIN
+            SELECT 
+                -1 AS EC, 
+                'Failed' AS Status, 
+                'Không tìm thấy phim để xóa' AS Message
+        END
+    END
+END
+go
+-- ====================== procedure delete
+CREATE PROCEDURE DeleteMovieByID
+    @MovieID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Movies WHERE MovieID = @MovieID)
+    BEGIN
+        SELECT -1 AS EC, 'Error' AS Status, 'Phim không tồn tại' AS Message;
+        RETURN;
+    END
+
+    BEGIN TRY
+        -- Xóa tập phim trước
+        DELETE FROM MovieEpisodes WHERE MovieID = @MovieID;
+
+        -- Rồi mới xóa phim
+        DELETE FROM Movies WHERE MovieID = @MovieID;
+
+        SELECT 0 AS EC, 'Success' AS Status, 'Xóa phim thành công' AS Message;
+    END TRY
+    BEGIN CATCH
+        SELECT -2 AS EC, 'Error' AS Status,
+            ERROR_MESSAGE() AS Message;
+    END CATCH
+END
+
+-- test
+EXEC DeleteMovieByID @MovieID = 24;
+-- test
+EXEC SP_Admin @action = 'deleteMovie', @MovieID = 21

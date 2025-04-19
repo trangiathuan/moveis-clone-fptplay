@@ -55,15 +55,21 @@ const AddMovie = () => {
     };
 
     const handleToggleGenre = (genre) => {
-        setSelectedGenres(prev =>
-            prev.includes(genre) ? prev.filter(g => g !== genre) : [...prev, genre]
-        );
+        setSelectedGenres(prev => {
+            const updatedGenres = prev.includes(genre)
+                ? prev.filter(g => g !== genre)
+                : [...prev, genre];
+
+            console.log("🟨 Đã chọn thể loại:", updatedGenres);
+            return updatedGenres;
+        });
     };
 
     const handleConfirmGenres = () => {
         const genreString = selectedGenres.join(', ');
         setFormData(prev => ({ ...prev, MovieGenre: genreString }));
         setShowGenreModal(false);
+        console.log("✅ Danh sách thể loại đã xác nhận:", genreString);
     };
 
     const handleChange = (e) => {
@@ -278,8 +284,23 @@ const AddMovie = () => {
                     <div className="col-span-1 space-y-1">
                         <label className="block font-medium">Thể loại</label>
                         <div className="flex gap-2 items-center">
-                            <input type="text" name="MovieGenre" value={formData.MovieGenre} readOnly className="border p-2 rounded-lg w-full bg-gray-100 cursor-not-allowed outline-none" />
-                            <button type="button" onClick={() => setShowGenreModal(true)} className="bg-blue-500 text-white px-3 py-1 h-10 rounded-lg hover:bg-blue-600">Chọn</button>
+                            <input
+                                type="text"
+                                name="MovieGenre"
+                                value={formData.MovieGenre}
+                                readOnly
+                                className="border p-2 rounded-lg w-full bg-gray-100 cursor-not-allowed outline-none"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    console.log("📝 Mở modal chọn thể loại...");
+                                    setShowGenreModal(true);
+                                }}
+                                className="bg-blue-500 text-white px-3 py-1 h-10 rounded-lg hover:bg-blue-600"
+                            >
+                                Chọn
+                            </button>
                         </div>
                     </div>
 

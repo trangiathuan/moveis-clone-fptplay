@@ -379,8 +379,10 @@ exports.updateMoviesController = async (req, res) => {
         fs.unlink(imageURL, () => { });
     } else {
         const res = await movieService.getMovieByMovieIDService(MovieID)
-        MovieImagePath = res[0].MovieImagePath
-        console.log(res[0].MovieImagePath);
+        console.log(res.MovieFilePath);
+
+        // MovieImagePath = res[0].MovieImagePath
+        // console.log(res[0].MovieImagePath);
 
     }
 
