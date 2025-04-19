@@ -78,11 +78,9 @@ const Change_Movie = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        console.log(file);
+
         if (file) {
-            // const img = new Image();
-            // // img.onload = () => setImageDimensions({ width: img.naturalWidth, height: img.naturalHeight });
-            // // img.src = URL.createObjectURL(file);
-            // setImagePreview(img.src);
             setFormData(prev => ({ ...prev, file }));
         }
     };
@@ -121,9 +119,6 @@ const Change_Movie = () => {
                     payload.append(key, formData[key]);
                 }
             }
-
-            // Thêm ảnh nếu có
-            if (formData.file) payload.append('file', formData.file);
 
             // Gửi yêu cầu PUT lên API
             const token = localStorage.getItem("token");
