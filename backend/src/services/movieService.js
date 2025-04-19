@@ -215,3 +215,17 @@ exports.updateMoviesService = async (MovieID, MovieNameVietnamese, MovieNameEngl
         console.log(error);
     }
 }
+// t thêm cái này nữa nè
+exports.deleteMovieService = async (MovieID) => {
+    try {
+        const pool = await connection();
+        const result = await pool.request()
+            .input('action', sql.VarChar, 'deleteMovie')
+            .input('MovieID', sql.Int, MovieID)
+            .execute('SP_Admin');
+        return result.rowsAffected;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
