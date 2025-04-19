@@ -74,7 +74,9 @@ exports.getListMoviesService = async (slugMovieName) => {
 
 exports.deleteRoomMovieService = async () => {
     const pool = await connection()
-    const result = await pool.request().input('action', sql.VarChar, 'deleteMovieRoom').execute('SP_Movies')
+    const result = await pool.request()
+        .input('action', sql.VarChar, 'deleteMovieRoom')
+        .execute('SP_Movies')
     return result.recordset
 }
 
