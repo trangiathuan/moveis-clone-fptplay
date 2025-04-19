@@ -32,12 +32,13 @@ exports.getBySlugMovieNameService = async (slugMovieName, slugEpisode) => {
 }
 
 exports.getMovieByMovieIDService = async (MovieID) => {
+    console.log(MovieID);
+
     try {
         const pool = await connection();
         const result = await pool.request()
             .input('action', sql.VarChar, 'getMovieByMovieID')
-            .input('MovieID', sql.NVarChar, MovieID)
-            .input('SlugEpisode', sql.NVarChar, 'tap-1')
+            .input('MovieID', sql.Int, MovieID)
             .execute('SP_Movies')
         return result.recordset;
 

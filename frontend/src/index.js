@@ -60,7 +60,7 @@ root.render(
 
         <Route path='add-movie' element={<AddMovie />} />
 
-        <Route path='change-movie' element={<Change_Movie />} />
+        <Route path='change-movie/:MovieID' element={<Change_Movie />} />
 
         <Route path='repair-movie' element={<Repair_Movie />} />
 

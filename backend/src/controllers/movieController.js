@@ -380,9 +380,8 @@ exports.updateMoviesController = async (req, res) => {
     } else {
         const res = await movieService.getMovieByMovieIDService(MovieID)
         console.log(res.MovieFilePath);
-
-        // MovieImagePath = res[0].MovieImagePath
-        // console.log(res[0].MovieImagePath);
+        MovieImagePath = res[0].MovieImagePath
+        console.log(res[0].MovieImagePath);
 
     }
 

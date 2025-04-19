@@ -119,13 +119,19 @@ const Change_Movie = () => {
             //     if (key !== 'file') form.append(key, value);
             // });//sửa cái này ko dùng object
 
+            const payload = new FormData();
+            for (let key in formData) {
+                if (formData[key] !== null) {
+                    payload.append(key, formData[key]);
+                }
+            }
+
             // Thêm ảnh nếu có
             if (formData.file) form.append('file', formData.file);
 
             // Gửi yêu cầu PUT lên API
             const token = localStorage.getItem("token");
-            const response = await axios.put(`${API}/change-Movie/${movieData.MovieID}`, form, {
-
+            const response = await axios.put(`${API}/change-Movie/${movieData.MovieID}`, payload, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
