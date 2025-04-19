@@ -123,7 +123,7 @@ const Change_Movie = () => {
             }
 
             // Thêm ảnh nếu có
-            if (formData.file) form.append('file', formData.file);
+            if (formData.file) payload.append('file', formData.file);
 
             // Gửi yêu cầu PUT lên API
             const token = localStorage.getItem("token");
