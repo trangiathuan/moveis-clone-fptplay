@@ -4,6 +4,7 @@ import API from "../../../configs/endpoint";
 import { CopyPlus, UserPlus, X } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 
 const Category = () => {
@@ -115,8 +116,10 @@ const Category = () => {
                                 <td className="py-2 px-4 border-b">{category.CategoryName}</td>
                                 <td className="py-2 px-4 border-b">
                                     <div className='flex space-x-2 justify-center'>
-                                        <button onClick={() => setModalUpdate(category)} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
-                                        <button onClick={() => setModalDelete(category)} className='bg-red-700 rounded-lg h-9 w-20 text-white'>Xóa</button>
+                                        <button onClick={() => setModalUpdate(category)} className="flex items-center gap-1 bg-yellow-400 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transform hover:scale-105 transition duration-200">
+                                            <FaEdit />Cập nhật</button>
+                                        <button onClick={() => setModalDelete(category)} className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transform hover:scale-105 transition duration-200">
+                                            <FaTrash />Xóa</button>
                                     </div>
                                 </td>
                             </tr>

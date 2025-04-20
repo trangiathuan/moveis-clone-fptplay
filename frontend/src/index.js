@@ -13,6 +13,8 @@ import FollowingMoviesList from './pages/following-movies-list ';
 import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
 import JoinRoom from './pages/join-room-movie';
+// Admin
+// Movies
 import Home_Admin from './admin/component-Movie/home';
 import Update_Movie from './admin/page/movies/update-Movie/update-Movie';
 import Repair_Movie from './admin/page/movies/repair-Movie/repair-Movie';

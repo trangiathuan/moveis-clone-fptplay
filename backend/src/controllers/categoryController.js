@@ -129,3 +129,124 @@ exports.deleteCategoryController = async (req, res) => {
         })
     }
 }
+
+// Gennre
+
+exports.getGenreController = async (req, res) => {
+    const result = await categoryService.getGenreService();
+
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xử lý thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xử lý thất bại',
+            Data: null
+        })
+    }
+}
+
+exports.createGenreController = async (req, res) => {
+    const { genre } = req.body
+    const slugGenre = toSlug(genre)
+    console.log('Data sent to server:', genre, slugGenre);
+
+    const result = await categoryService.createGenreController(genre, slugGenre);
+
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Thêm danh mục thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Thể loại đã tồn tại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Thể loại đã tồn tại',
+            Data: null
+        })
+    }
+}
+
+exports.updateGenreontroller = async (req, res) => {
+    const { Genre, id } = req.body
+    const slugGenre = toSlug(Genre)
+    console.log('data sent to server:', Genre, '-', id, '-', slugGenre);
+
+    const result = await categoryService.updateCategoryService(Genre, slugGenre, id);
+
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Cập nhật thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Cập nhật thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Cập nhật thất bại',
+            Data: null
+        })
+    }
+}
+
+exports.deleteGenreController = async (req, res) => {
+    const { id } = req.body
+    console.log('data sent to server:', id);
+
+    const result = await categoryService.deleteGenreService(id);
+
+    if (result && result.length > 0) {
+        return res.status(200).json({
+            EC: 0,
+            Status: 'Success',
+            Message: 'Xóa danh mục thành công',
+            Data: result
+        })
+    }
+    else {
+        console.log({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xóa danh mục thất bại',
+            Data: null
+        });
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Xóa danh mục thất bại',
+            Data: null
+        })
+    }
+}

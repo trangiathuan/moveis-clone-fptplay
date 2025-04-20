@@ -381,8 +381,6 @@ exports.updateMoviesController = async (req, res) => {
         const res = await movieService.getMovieByMovieIDService(MovieID)
         console.log(res.MovieFilePath);
         MovieImagePath = res[0].MovieImagePath
-        console.log(res[0].MovieImagePath);
-
     }
 
     console.log('Image Path:', imageURL);
