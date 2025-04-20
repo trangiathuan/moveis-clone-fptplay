@@ -12,8 +12,6 @@ const AddEpisodeMovie = () => {
     const [videoPreview, setVideoPreview] = useState(null);
     const MovieID = useParams(17);
     const token = localStorage.getItem("token");
-    const ImageInputRef = useRef(null);
-    const VideoInputRef = useRef(null);
     const [loading, setLoading] = useState(false);
 
 

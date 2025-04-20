@@ -97,7 +97,7 @@ const ListMovie = () => {
                                 <td className="border px-4 py-2">{movie.ReleaseYear}</td>
                                 <td className="border px-4 py-2 text-center">
                                     <button
-                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transform hover:scale-105 transition-all duration-200 flex items-center gap-1 mx-auto"
+                                        className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transform hover:scale-105 transition-all duration-200 flex items-center gap-1 mx-auto"
                                         onClick={() => setSelectedMovie(movie)}
                                     >
                                         <FaEye /> Xem
@@ -106,13 +106,13 @@ const ListMovie = () => {
                                 <td className="border px-4 py-2">
                                     <div className="flex justify-center gap-2">
                                         <button
-                                            className="flex items-center gap-1 bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 transform hover:scale-105 transition duration-200"
+                                            className="flex items-center gap-1 bg-yellow-400 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transform hover:scale-105 transition duration-200"
                                             onClick={() => handleEdit(movie)}
                                         >
                                             <FaEdit /> Cập Nhật
                                         </button>
                                         <button
-                                            className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transform hover:scale-105 transition duration-200"
+                                            className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transform hover:scale-105 transition duration-200"
                                             onClick={() => {
                                                 if (window.confirm("Bạn có chắc muốn xóa phim này không?")) {
                                                     handleDelete(movie.MovieID);

@@ -167,11 +167,11 @@ const Navbar = () => {
                                     <div>
                                         <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={() => setIsOpen(!isOpen)}>
                                             <img
-                                                className="w-full h-full object-cover border border-white rounded-md"
+                                                className="w-10 h-10 object-cover rounded-lg"
                                                 src={userAvatar || require('../../asset/image-logo/emoji.png')}
                                                 alt="User Avatar"
                                             />
-                                            <img className="ms-2 mt-3 w-4 h-4" src={require('../../asset/image-logo/down.png')} />
+                                            <img className="ms-7 mt-3 w-4 h-4" src={require('../../asset/image-logo/down.png')} />
                                         </button>
                                         {isOpen && (
                                             <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">

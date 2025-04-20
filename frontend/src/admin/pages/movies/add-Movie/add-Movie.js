@@ -6,17 +6,6 @@ import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import API from '../../../../configs/endpoint';
 const AddMovie = () => {
-    const GENRES = [
-        "Seinen", "Ác Quỷ", "Âm Nhạc", "Anime", "Bạo Lực", "Bí Ẩn", "Bí ẩn - Siêu nhiên", "Cars", "Cartoon", "CGDCT",
-        "Chiến Tranh", "CN Animation", "Cổ Trang", "Dementia", "Dị Giới", "Drama", "Du Hành Thời Gian", "Ecchi", "Game",
-        "Gây cấn", "Giả Tưởng", "Gia Đình", "Hài Hước", "Haiten", "Hành Động", "Harem", "Hình Sự", "Hoán Đổi Giới Tính",
-        "Hoạt Hình", "Học Đường", "Hồi hộp", "Huyền Ảo", "Huyền Huyễn", "Isekai", "Josei", "Khoa Học", "Kids", "Kiếm Hiệp",
-        "Kinh Dị", "Lãng mạn", "Lịch Sử", "Live Action", "Ma Cà Rồng", "Mecha", "Movie & OVA", "Mystery", "Ninja", "ONA",
-        "Parody", "Phép Thuật", "Phiêu Lưu", "Police", "Quân Đội", "Samurai", "Shoujo", "Shoujo Ai", "Shounen", "Shounen Ai",
-        "Siêu Năng Lực", "Siêu Nhiên", "Special", "Tài liệu", "Tâm Lý", "Thần Thoại", "Thế Giới Song Song", "Thể Thao",
-        "Thriller", "Tiên Hiệp", "Tiểu Thuyết", "Tình Cảm", "Tình Tay Ba", "Tình Yêu", "Tokusatsu", "Tragedy", "Trailer",
-        "Trinh Thám", "Truyền Hình", "TV Show", "Viễn Tây", "Viễn Tưởng", "Võ Thuật", "Vũ Trụ", "Yaoi", "Yuri", "Đời Thường"
-    ];
 
     const [formData, setFormData] = useState({
         MovieNameVietnamese: '',
@@ -42,9 +31,11 @@ const AddMovie = () => {
     const [loading, setLoading] = useState(false);
     const fileInputRef = useRef(null);
     const [categorys, setCategory] = useState([]);
+    const [genres, setGenres] = useState([])
 
     useEffect(() => {
         getCategory();
+        getGenre();
     }, []);
 
     const getCategory = async () => {
@@ -53,6 +44,13 @@ const AddMovie = () => {
             setCategory(res.data.Data);
         }
     };
+
+    const getGenre = async () => {
+        const res = await axios.get(`${API}/get-genre`)
+        if (res.data.EC === 0) {
+            setGenres(res.data.Data)
+        }
+    }
 
     const handleToggleGenre = (genre) => {
         setSelectedGenres(prev => {
@@ -373,14 +371,14 @@ const AddMovie = () => {
             >
                 <h2 className="text-xl font-bold mb-4">Chọn thể loại</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-[400px] overflow-y-auto">
-                    {GENRES.map((genre) => (
+                    {genres.map((genre) => (
                         <label key={genre} className="flex items-center gap-2">
                             <input
                                 type="checkbox"
-                                checked={selectedGenres.includes(genre)}
-                                onChange={() => handleToggleGenre(genre)}
+                                checked={selectedGenres.includes(genre.Genre)}
+                                onChange={() => handleToggleGenre(genre.Genre)}
                             />
-                            <span>{genre}</span>
+                            <span>{genre.Genre}</span>
                         </label>
                     ))}
                 </div>

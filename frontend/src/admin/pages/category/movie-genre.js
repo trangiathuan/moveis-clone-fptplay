@@ -4,62 +4,65 @@ import API from "../../../configs/endpoint";
 import { CopyPlus, UserPlus, X } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 
 const MovieGenre = () => {
-    const [categorys, setCategory] = useState([])
-    const [categoryName, setCategoryName] = useState('')
+    const [genres, setGenres] = useState([])
+    const [genre, setGenreName] = useState('')
     const [modalUpdate, setModalUpdate] = useState(null)
     const [modalDelete, setModalDelete] = useState(null)
-    const [modalAddCategory, setModalAddCategory] = useState(false)
+    const [modalAddGenre, setModalAddGenre] = useState(false)
     const [search, setSearch] = useState('')
-    const [verifyCategory, setVerifyCategory] = useState('');
+    const [verifyGenre, setVerifyGenre] = useState('');
+
+
 
 
     const token = localStorage.getItem("token");
 
-    const filteredCategory = categorys.filter(category =>
-        category.CategoryID.toString().includes(search) ||
-        category.CategoryName.toLowerCase().includes(search.toLowerCase())
+    const filteredGenres = genres.filter(genre =>
+        genre.id.toString().includes(search) ||
+        genre.Genre.toLowerCase().includes(search.toLowerCase())
     );
 
     useEffect(() => {
-        getCategory()
+        getGenre()
     }, [])
 
-    const getCategory = async () => {
-        const res = await axios.get(`${API}/get-category`)
+    const getGenre = async () => {
+        const res = await axios.get(`${API}/get-genre`)
         if (res.data.EC === 0) {
-            setCategory(res.data.Data)
+            setGenres(res.data.Data)
         }
     }
 
-    const createCategory = async () => {
-        const res = await axios.post(`${API}/create-category`, { categoryName }, {
+    const createGenre = async () => {
+        const res = await axios.post(`${API}/create-Genre`, { genre }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         if (res.data.EC === 0) {
             console.log(res.data.Data);
-            await getCategory()
-            setCategoryName('')
-            setModalAddCategory(false)
+            await getGenre()
+            setGenreName('')
+            setModalAddGenre(false)
             toast.success(res.data.Message)
         } else {
             toast.warn(res.data.Message)
         }
     }
 
-    const updateCategory = async () => {
-        const res = await axios.put(`${API}/update-category`, modalUpdate, {
+    const updateGenre = async () => {
+        const res = await axios.put(`${API}/update-Genre`, modalUpdate, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         if (res.data.EC === 0) {
             console.log(res.data.Data);
-            await getCategory()
+            await getGenre()
             setModalUpdate()
             toast.success(res.data.Message)
         } else {
@@ -67,10 +70,10 @@ const MovieGenre = () => {
         }
     }
 
-    const deleteUser = async (CategoryID) => {
-        if (verifyCategory === modalDelete.CategoryName) {
-            const res = await axios.delete(`${API}/delete-category`, {
-                data: { CategoryID },
+    const deleteUser = async (id) => {
+        if (verifyGenre === modalDelete.Genre) {
+            const res = await axios.delete(`${API}/delete-genre`, {
+                data: { id },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -78,9 +81,9 @@ const MovieGenre = () => {
 
             if (res.data.EC === 0) {
                 toast.success(res.data.Message)
-                await getCategory()
+                await getGenre()
                 setModalDelete()
-                setVerifyCategory('')
+                setVerifyGenre('')
 
             }
             else {
@@ -93,10 +96,10 @@ const MovieGenre = () => {
         <div className="p-4">
             <ToastContainer />
             <div className="flex justify-between pb-2">
-                <h2 className="text-2xl font-bold">Danh mục</h2>
+                <h2 className="text-2xl font-bold">Thể loại</h2>
                 <div className="space-x-5 flex items-center">
                     <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Tìm kiếm" className="p-2 ư h-10 border border-gray-200 rounded-lg outline-none focus:border-2 focus:border-gray-300" />
-                    <button onClick={() => setModalAddCategory(true)}><CopyPlus /></button>
+                    <button onClick={() => setModalAddGenre(true)}><CopyPlus /></button>
                 </div>
             </div>
             <div className="overflow-x-auto ">
@@ -109,14 +112,16 @@ const MovieGenre = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredCategory.map((category, index) => (
+                        {filteredGenres.map((genre, index) => (
                             <tr key={index} className="hover:bg-gray-50 items-center">
-                                <td className="py-2 px-4 border-b ps-20 h-14">{category.CategoryID}</td>
-                                <td className="py-2 px-4 border-b">{category.CategoryName}</td>
+                                <td className="py-2 px-4 border-b ps-20 h-14">{genre.id}</td>
+                                <td className="py-2 px-4 border-b">{genre.Genre}</td>
                                 <td className="py-2 px-4 border-b">
                                     <div className='flex space-x-2 justify-center'>
-                                        <button onClick={() => setModalUpdate(category)} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
-                                        <button onClick={() => setModalDelete(category)} className='bg-red-700 rounded-lg h-9 w-20 text-white'>Xóa</button>
+                                        <button onClick={() => setModalUpdate(genre)} className="flex items-center gap-1 bg-yellow-400 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transform hover:scale-105 transition duration-200">
+                                            <FaEdit />Cập nhật</button>
+                                        <button onClick={() => setModalDelete(genre)} className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transform hover:scale-105 transition duration-200">
+                                            <FaTrash />Xóa</button>
                                     </div>
                                 </td>
                             </tr>
@@ -124,21 +129,21 @@ const MovieGenre = () => {
                     </tbody>
                 </table>
             </div>
-            {modalAddCategory && (
+            {modalAddGenre && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white w-[380px] h-[180px] rounded-lg p-7 mx-auto px-0">
                         <div className="flex justify-center">
-                            <button onClick={() => setModalAddCategory(false)} className="fixed ms-[320px] -mt-3  text-xl"><X /></button>
+                            <button onClick={() => setModalAddGenre(false)} className="fixed ms-[320px] -mt-3  text-xl"><X /></button>
                         </div>
                         <div className="flex flex-col pt-5 ps-10">
-                            <p className=" font-bold">Tên danh mục</p>
+                            <p className=" font-bold">Tên thể loại</p>
                             <div className="space-x-3">
                                 <input
                                     type="text"
-                                    value={categoryName}
-                                    onChange={(e) => setCategoryName(e.target.value)}
+                                    value={genre}
+                                    onChange={(e) => setGenreName(e.target.value)}
                                     className=" border rounded-lg mt-1 ps-1 h-10  w-52 outline-none focus:border-orange-400 focus:border-2 " />
-                                <button type="submit" onClick={createCategory} className='bg-green-800 rounded-lg h-10 w-20 text-white hover:bg-green-900'>Thêm</button>
+                                <button type="submit" onClick={createGenre} className='bg-green-800 rounded-lg h-10 w-20 text-white hover:bg-green-900'>Thêm</button>
                             </div>
                         </div>
 
@@ -156,9 +161,9 @@ const MovieGenre = () => {
                         <div className="flex flex-col pt-5 ps-10">
                             <p className=" font-bold">Tên danh mục</p>
                             <div className="space-x-3">
-                                <input type="text" value={modalUpdate.CategoryName} onChange={(e) => setModalUpdate({ ...modalUpdate, CategoryName: e.target.value })}
+                                <input type="text" value={modalUpdate.Genre} onChange={(e) => setModalUpdate({ ...modalUpdate, Genre: e.target.value })}
                                     className=" border rounded-lg mt-1 ps-1 h-10  w-52 outline-none focus:border-orange-400 focus:border-2 " />
-                                <button type="submit" onClick={updateCategory} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
+                                <button type="submit" onClick={updateGenre} className='bg-blue-700 rounded-lg h-9 w-20 text-white hover:bg-blue-800'>Cập nhật</button>
                             </div>
                         </div>
 
@@ -174,10 +179,10 @@ const MovieGenre = () => {
                             <button onClick={() => setModalDelete(false)} className="fixed ms-[320px] -mt-3  text-xl"><X /></button>
                         </div>
                         <div className="flex flex-col pt-5 ps-0">
-                            <p className="font-bold text- ps-10">Xác nhận xóa danh mục: <span className="text-red-600">{modalDelete.CategoryName}</span></p>
+                            <p className="font-bold text- ps-10">Xác nhận xóa danh mục: <span className="text-red-600">{modalDelete.Genre}</span></p>
                             <div className="space-x-3">
-                                <input type="text" value={verifyCategory} onChange={(e) => setVerifyCategory(e.target.value)} placeholder="Xác nhận lại danh mục" className=" border rounded-lg ps-1 mt-5 ms-10 h-10  w-52 outline-none focus:border-orange-400 focus:border-2 " />
-                                <button type="submit" onClick={() => deleteUser(modalDelete.CategoryID)} className='bg-red-700 rounded-lg h-10 w-20 text-white hover:bg-red-800'>Xóa</button>
+                                <input type="text" value={verifyGenre} onChange={(e) => setVerifyGenre(e.target.value)} placeholder="Xác nhận lại danh mục" className=" border rounded-lg ps-1 mt-5 ms-10 h-10  w-52 outline-none focus:border-orange-400 focus:border-2 " />
+                                <button type="submit" onClick={() => deleteUser(modalDelete.id)} className='bg-red-700 rounded-lg h-10 w-20 text-white hover:bg-red-800'>Xóa</button>
                             </div>
                         </div>
 
