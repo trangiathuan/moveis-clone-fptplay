@@ -16,7 +16,7 @@ import JoinRoom from './pages/join-room-movie';
 // Admin
 // Movies
 import Home_Admin from './admin/component-Movie/home';
-import Update_Movie from './admin/pages/movies/update-Movie/update-Movie';
+import Update_Movie from './admin/pages/movies/update-Movie/update-movie';
 import Repair_Movie from './admin/pages/movies/repair-Movie/repair-Movie';
 import Delete_Movie from './admin/pages/movies/delete-Movie/delete-Movie';
 import ListMovie from './admin/pages/movies/list-movie/list-movie';
