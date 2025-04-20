@@ -15,10 +15,11 @@ const PaperAirplaneIcon = (props) => (
 const Comment_movies = ({ moviesData }) => {
     const MovieID = moviesData.MovieID
     const commentBgClass = "bg-neutral-900";
-    const loggedInUserAvatarUrl = "https://placehold.co/40x40/7f7f7f/FFFFFF.png?text=Me";
     const INITIAL_VISIBLE_COMMENTS = 5;
     const [allComments, setAllComments] = useState([])
     const [contents, setContents] = useState()
+    let loggedInUserAvatarUrl = '';
+    let name = '';
     let email = '';
 
 
@@ -26,7 +27,9 @@ const Comment_movies = ({ moviesData }) => {
     if (token) {
         try {
             const decoded = jwtDecode(token);
+            name = decoded.name;
             email = decoded.email;
+            loggedInUserAvatarUrl = decoded.avatarUrl;
         } catch (err) {
             console.error("Token không hợp lệ:", err);
         }
@@ -120,11 +123,11 @@ const Comment_movies = ({ moviesData }) => {
                 {visibleComments.map((comment) => (
                     <div key={comment.commentId} className={`${commentBgClass} p-3 rounded-lg flex items-start gap-2 sm:gap-3`}>
                         <img
-                            src='https://scontent.fsgn18-1.fna.fbcdn.net/v/t39.30808-6/479512658_1351962522704344_8795569477034108113_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHZ3GtCb8fAyfyxbYVX7ws9e4aEFlagktJ7hoQWVqCS0m5PPEugp9fl3txXdOHWO-E_nd0ucVcxCcEKPgW77XLW&_nc_ohc=rCy1mghqR8QQ7kNvwEglEj3&_nc_oc=AdkfFSOUzrKvEXptERPy3KNJyaD_kHNeFVrxYG108Dp1VzjmQB2ygcXxiaKzD_FxJ_weuF-LpCyKaM288JEOTxvu&_nc_zt=23&_nc_ht=scontent.fsgn18-1.fna&_nc_gid=7dJxf9tp7xLfoBtVo7AHLA&oh=00_AfH1lybbI-D4bL6oQObpzadxUNp0cEvq2wpMm3Ez_kHgmg&oe=67FE9047'
+                            src={comment.avatarUrl ? comment.avatarUrl : `https://images.ctfassets.net/j040bzbn054u/2HldvDjZU5qwkIuFzJnmjQ/bb328d0561dfd69d44d9284b037b2fee/u-next_square_profile_icon_grey.jpg?fm=jpg&fl=progressive&q=80&w=1000`}
                             className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover flex-shrink-0"
                         />
                         <div className="flex-1">
-                            <p className="text-xs sm:text-sm text-gray-400">{comment.email ? comment.email : 'unknown'} • {comment.createdAt}</p>
+                            <p className="text-xs sm:text-sm text-gray-400 font-bold">{comment.name ? comment.name : 'Ẩn danh'} • <span className="font-normal">{comment.createdAt}</span></p>
                             <p className="mt-1 text-sm sm:text-base text-white">{comment.contents}</p>
                         </div>
                     </div>

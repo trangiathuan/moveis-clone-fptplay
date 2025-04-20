@@ -85,7 +85,7 @@ const StreamingRoom = () => {
                     <InfMovie movideData={movideData} />
                 </div>
                 <div>
-                    <RoomMembers />
+                    {/* <RoomMembers /> */}
                 </div>
             </div>
             <div>
