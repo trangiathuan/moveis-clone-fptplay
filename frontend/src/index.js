@@ -16,7 +16,6 @@ import JoinRoom from './pages/join-room-movie';
 // Admin
 // Movies
 import Home_Admin from './admin/component-Movie/home';
-import Change_Movie from './admin/pages/movies/change-Movie/change-Movie';
 import Repair_Movie from './admin/pages/movies/repair-Movie/repair-Movie';
 import Delete_Movie from './admin/pages/movies/delete-Movie/delete-Movie';
 import ListMovie from './admin/pages/movies/list-movie/list-movie';
@@ -27,6 +26,7 @@ import AddEpisodeMovie from './admin/pages/movies/add-episode-movie/add-episode-
 import Category from './admin/pages/category/category';
 import MovieGenre from './admin/pages/category/movie-genre';
 import Information from './pages/information';
+import Update_Movie from './admin/pages/movies/update-Movie/update-movie';
 
 
 
@@ -63,7 +63,7 @@ root.render(
 
         <Route path='add-movie' element={<AddMovie />} />
 
-        <Route path='change-movie/:MovieID' element={<Change_Movie />} />
+        <Route path='change-movie/:MovieID' element={<Update_Movie />} />
 
         <Route path='repair-movie' element={<Repair_Movie />} />
 
