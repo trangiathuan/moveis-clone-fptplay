@@ -16,15 +16,15 @@ import JoinRoom from './pages/join-room-movie';
 // Admin
 // Movies
 import Home_Admin from './admin/component-Movie/home';
-import Update_Movie from './admin/page/movies/update-Movie/update-Movie';
-import Repair_Movie from './admin/page/movies/repair-Movie/repair-Movie';
-import Delete_Movie from './admin/page/movies/delete-Movie/delete-Movie';
-import ListMovie from './admin/page/movies/list-movie/list-movie';
-import AddMovie from './admin/page/movies/add-Movie/add-Movie';
-import ListUser from './admin/page/users/list-users';
-import AddEpisodeMovie from './admin/page/movies/add-episode-movie/add-episode-movie';
-import Category from './admin/page/category/category';
-import MovieGenre from './admin/page/category/movie-genre';
+import Update_Movie from './admin/pages/movies/update-Movie/update-Movie';
+import Repair_Movie from './admin/pages/movies/repair-Movie/repair-Movie';
+import Delete_Movie from './admin/pages/movies/delete-Movie/delete-Movie';
+import ListMovie from './admin/pages/movies/list-movie/list-movie';
+import AddMovie from './admin/pages/movies/add-Movie/add-Movie';
+import ListUser from './admin/pages/users/list-users';
+import AddEpisodeMovie from './admin/pages/movies/add-episode-movie/add-episode-movie';
+import Category from './admin/pages/category/category';
+import MovieGenre from './admin/pages/category/movie-genre';
 import Information from './pages/information';
 
 
