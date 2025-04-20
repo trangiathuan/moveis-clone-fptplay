@@ -5,7 +5,7 @@ import axios from "axios";
 import API from '../../../../configs/endpoint';
 import { FaEdit, FaUpload, FaCheckCircle, FaTags, FaArrowLeft, FaSave } from "react-icons/fa";
 
-const Change_Movie = () => {
+const Update_Movie = () => {
     const GENRES = ["Seinen", "Ác Quỷ", "Âm Nhạc", "Anime", "Bạo Lực", "Bí Ẩn", "Bí ẩn - Siêu nhiên", "Cars", "Cartoon", "CGDCT", "Chiến Tranh", "CN Animation", "Cổ Trang", "Dementia", "Dị Giới", "Drama", "Du Hành Thời Gian", "Ecchi", "Game", "Gây cấn", "Giả Tưởng", "Gia Đình", "Hài Hước", "Haiten", "Hành Động", "Harem", "Hình Sự", "Hoán Đổi Giới Tính", "Hoạt Hình", "Học Đường", "Hồi hộp", "Huyền Ảo", "Huyền Huyễn", "Isekai", "Josei", "Khoa Học", "Kids", "Kiếm Hiệp", "Kinh Dị", "Lãng mạn", "Lịch Sử", "Live Action", "Ma Cà Rồng", "Mecha", "Movie & OVA", "Mystery", "Ninja", "ONA", "Parody", "Phép Thuật", "Phiêu Lưu", "Police", "Quân Đội", "Samurai", "Shoujo", "Shoujo Ai", "Shounen", "Shounen Ai", "Siêu Năng Lực", "Siêu Nhiên", "Special", "Tài liệu", "Tâm Lý", "Thần Thoại", "Thế Giới Song Song", "Thể Thao", "Thriller", "Tiên Hiệp", "Tiểu Thuyết", "Tình Cảm", "Tình Tay Ba", "Tình Yêu", "Tokusatsu", "Tragedy", "Trailer", "Trinh Thám", "Truyền Hình", "TV Show", "Viễn Tây", "Viễn Tưởng", "Võ Thuật", "Vũ Trụ", "Yaoi", "Yuri", "Đời Thường"];
 
     const [imageDimensions, setImageDimensions] = useState({ width: 128, height: 192 });
@@ -127,7 +127,7 @@ const Change_Movie = () => {
 
             // Gửi yêu cầu PUT lên API
             const token = localStorage.getItem("token");
-            const response = await axios.put(`${API}/change-Movie/${movieData.MovieID}`, payload, {
+            const response = await axios.put(`${API}/update-Movie/${movieData.MovieID}`, payload, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
@@ -367,4 +367,4 @@ const Change_Movie = () => {
     )
 }
 
-export default Change_Movie;
+export default Update_Movie;

@@ -44,7 +44,7 @@ const ListMovie = () => {
 
     const handleEdit = (movie) => {
         console.log("🔧 ID phim cần sửa:", movie.MovieID);
-        navigate(`/dashboard/change-Movie/${movie.MovieID}`, { state: { movie } });
+        navigate(`/dashboard/update-Movie/${movie.MovieID}`, { state: { movie } });
     };
 
     const handleDelete = (movieID) => {

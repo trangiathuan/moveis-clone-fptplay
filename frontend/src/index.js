@@ -14,7 +14,7 @@ import SearchTerm from './pages/search-term';
 import StreamingRoom from './pages/streaming-room';
 import JoinRoom from './pages/join-room-movie';
 import Home_Admin from './admin/component-Movie/home';
-import Change_Movie from './admin/page/movies/change-Movie/change-Movie';
+import Update_Movie from './admin/page/movies/update-Movie/update-Movie';
 import Repair_Movie from './admin/page/movies/repair-Movie/repair-Movie';
 import Delete_Movie from './admin/page/movies/delete-Movie/delete-Movie';
 import ListMovie from './admin/page/movies/list-movie/list-movie';
@@ -60,7 +60,7 @@ root.render(
 
         <Route path='add-movie' element={<AddMovie />} />
 
-        <Route path='change-movie/:MovieID' element={<Change_Movie />} />
+        <Route path='update-movie/:MovieID' element={<Update_Movie />} />
 
         <Route path='repair-movie' element={<Repair_Movie />} />
 
