@@ -164,17 +164,16 @@ const Navbar = () => {
                         <div className="pt-5">
                             <div className="flex relative inline-block text-left">
                                 {isLogin ? (
-                                    <div>
-                                        <button className="flex me-5 bg-gray-700 rounded-lg h-10 w-10" onClick={() => setIsOpen(!isOpen)}>
-                                            <img
-                                                className="w-10 h-10 object-cover rounded-lg"
-                                                src={userAvatar || require('../../asset/image-logo/emoji.png')}
-                                                alt="User Avatar"
-                                            />
-                                            <img className="ms-7 mt-3 w-4 h-4" src={require('../../asset/image-logo/down.png')} />
-                                        </button>
+                                    <div onClick={() => setIsOpen(!isOpen)} className="flex">
+                                        <img
+                                            className="w-10 h-10 object-cover rounded-full"
+                                            src={userAvatar || require('../../asset/image-logo/emoji.png')}
+                                            alt="User Avatar"
+                                        />
+                                        <img className="ms-2 mt-3 w-4 h-4" src={require('../../asset/image-logo/down.png')} />
+
                                         {isOpen && (
-                                            <div className="absolute bg-neutral-800 shadow-md rounded-md mt-2 w-48 -ms-32">
+                                            <div className="absolute bg-neutral-800 shadow-md rounded-md mt-14 w-48 -ms-24">
                                                 <ul className="py-2">
                                                     <li><a href="/following-movies-list" className="block px-4 py-2 text-white hover:text-orange-600">Phim đang theo dõi</a></li>
                                                     <li><a href="/joim-room" className="block px-4 py-2 text-white hover:text-orange-600">Phòng xem phim</a></li>

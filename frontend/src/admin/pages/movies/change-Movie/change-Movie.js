@@ -190,9 +190,8 @@ const Change_Movie = () => {
                         className="border p-2 rounded-lg w-full outline-none"
                     >
                         <option value="">Chọn trạng thái phim</option>
-                        <option value="New">Mới</option>
-                        <option value="Ongoing">Đang phát</option>
-                        <option value="Completed">Hoàn thành</option>
+                        <option value="New">Vừa ra mắt</option>
+                        <option value="Old">Đã phát hành</option>
                     </select>
                 </div>
                 <div className="col-span-1 space-y-1">

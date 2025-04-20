@@ -131,7 +131,7 @@ const AddMovie = () => {
         }
 
         if (!file) {
-            toast.error("Vui lòng chọn hình ảnh phim");
+            toast.error("Vui lòng thêm hình ảnh");
             return false;
         }
 
@@ -227,9 +227,8 @@ const AddMovie = () => {
                         <label className="block font-medium">Trạng thái phim</label>
                         <select name="MovieStatus" value={formData.MovieStatus} onChange={handleChange} className="border p-2 rounded-lg w-full outline-none">
                             <option value="">Chọn trạng thái phim</option>
-                            <option value="New">Mới</option>
-                            <option value="Ongoing">Đang phát</option>
-                            <option value="Completed">Hoàn thành</option>
+                            <option value="New">Vừa ra mắt</option>
+                            <option value="Old">Đã phát hành</option>
                         </select>
                     </div>
 
