@@ -430,9 +430,9 @@ exports.deleteMovieController = async (req, res) => {
             });
         }
 
-        const result = await movieService.deleteMovieByID(MovieID);
+        const result = await movieService.deleteMovieService(MovieID);
 
-        if (result && result.affectedRows > 0) {
+        if (result && result.length > 0) {
             return res.status(200).json({
                 EC: 0,
                 Status: 'Success',

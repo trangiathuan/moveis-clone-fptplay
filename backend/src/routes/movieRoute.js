@@ -30,7 +30,7 @@ router.post('/createComment', movieController.createCommentsController);
 router.post('/add-new-movies', authAdmin, upload.single('file'), movieController.addNewMoviesController)
 router.post('/add-episode-movies/:MovieID', authAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), movieController.addEpisodeMoviesController)
 router.put('/update-Movie/:MovieID', authAdmin, upload.single('file'), movieController.updateMoviesController)
-
+router.delete('/delete-Movie/:MovieID', authAdmin, movieController.deleteMovieController)
 
 
 
