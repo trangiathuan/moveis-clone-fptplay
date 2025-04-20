@@ -224,7 +224,9 @@ exports.deleteMovieService = async (MovieID) => {
             .input('action', sql.VarChar, 'deleteMovie')
             .input('MovieID', sql.Int, MovieID)
             .execute('SP_Admin');
+        console.log(result.recordset);
         return result.recordset;
+
     } catch (error) {
         console.log(error);
         return null;

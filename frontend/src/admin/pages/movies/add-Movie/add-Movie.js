@@ -25,7 +25,6 @@ const AddMovie = () => {
     });
 
     const [imagePreview, setImagePreview] = useState(null);
-    const [movies, setMovies] = useState([]);
     const [showGenreModal, setShowGenreModal] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -138,28 +137,6 @@ const AddMovie = () => {
         return true;
     };
 
-    const resetForm = () => {
-        setFormData({
-            MovieNameVietnamese: '',
-            MovieNameEnglish: '',
-            MovieStatus: '',
-            ReleaseYear: '',
-            AgeRestriction: '',
-            NumberOfEpisodes: '',
-            Country: '',
-            SummaryTitle: '',
-            SummaryContent: '',
-            Actor: '',
-            Director: '',
-            MovieGenre: '',
-            CategoryID: '',
-            file: null,
-        });
-        setImagePreview(null);
-        fileInputRef.current.value = null;
-        setSelectedGenres([]);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
@@ -183,8 +160,24 @@ const AddMovie = () => {
 
             if (res.data.EC === 0) {
                 toast.success("🎉 Thêm phim thành công!");
-                setMovies(prev => [...prev, formData]);
-                resetForm();
+                setFormData({
+                    MovieNameVietnamese: '',
+                    MovieNameEnglish: '',
+                    MovieStatus: '',
+                    ReleaseYear: '',
+                    AgeRestriction: '',
+                    NumberOfEpisodes: '',
+                    Country: '',
+                    SummaryTitle: '',
+                    SummaryContent: '',
+                    Actor: '',
+                    Director: '',
+                    MovieGenre: '',
+                    CategoryID: '',
+                    file: null,
+                })
+                setImagePreview(null);
+                setSelectedGenres([]);
             } else {
                 toast.warn(res.data.Message || "Lỗi không xác định");
             }
@@ -308,7 +301,6 @@ const AddMovie = () => {
                                 type="file"
                                 name="file"
                                 onChange={handleChange}
-                                ref={fileInputRef}
                                 className="block w-full h-10 text-sm text-gray-500
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-lg file:border-0
@@ -323,6 +315,7 @@ const AddMovie = () => {
                             <div>
                                 <img
                                     src={imagePreview}
+                                    ref={fileInputRef}
                                     alt="Preview"
                                     className="mt-2 rounded-lg w-full h-56 object-cover"
                                 />

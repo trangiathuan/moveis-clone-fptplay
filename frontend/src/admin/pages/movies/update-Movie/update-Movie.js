@@ -122,7 +122,7 @@ const Update_Movie = () => {
 
             // Gửi yêu cầu PUT lên API
             const token = localStorage.getItem("token");
-            const response = await axios.put(`${API}/change-Movie/${movieData.MovieID}`, payload, {
+            const response = await axios.put(`${API}/update-Movie/${movieData.MovieID}`, payload, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
