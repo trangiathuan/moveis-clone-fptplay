@@ -16,8 +16,8 @@ import JoinRoom from './pages/join-room-movie';
 // Admin
 // Movies
 import Home_Admin from './admin/component-Movie/home';
-import Update_Movie from './admin/pages/movies/update-Movie/update-Movie';
-import Repair_Movie from './admin/pages/movies/repair-Movie/repair-Movie';
+import Update_Movie from './admin/pages/movies/update-Movie/update-movie';
+import DetailX_Movie from './admin/pages/movies/DetailX-Movie/DetailX-Movie';
 import Delete_Movie from './admin/pages/movies/delete-Movie/delete-Movie';
 import ListMovie from './admin/pages/movies/list-movie/list-movie';
 import AddMovie from './admin/pages/movies/add-Movie/add-Movie';
@@ -64,11 +64,11 @@ root.render(
 
         <Route path='update-movie/:MovieID' element={<Update_Movie />} />
 
-        <Route path='repair-movie' element={<Repair_Movie />} />
+        <Route path='DetailX-movie/:slugMovieName' element={<DetailX_Movie />} />
 
         <Route path='delete-movie' element={<Delete_Movie />} />
 
-        <Route path='add-episode-movie' element={<AddEpisodeMovie />} />
+        <Route path='add-episode-movie/' element={<AddEpisodeMovie />} />
 
         {/* ----------------------------------------------- */}
         {/*<Route path='list-users' element={<ListUser />} />

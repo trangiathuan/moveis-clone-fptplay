@@ -129,7 +129,7 @@ const ListMovie = () => {
                                 <td className="border px-4 py-2 text-center">
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transform hover:scale-105 transition-all duration-200 flex items-center gap-1 mx-auto"
-                                        onClick={() => setSelectedMovie(movie)}
+                                        onClick={() => navigate(`/dashboard/DetailX-movie/${movie.SlugMovieName}`)}
                                     >
                                         <FaEye /> Xem
                                     </button>
