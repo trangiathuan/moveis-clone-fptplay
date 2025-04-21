@@ -3,105 +3,112 @@ import {
     Menu, Mail, LogOut, Settings, User, CreditCard, Eye, Users, Search,
     HelpCircle, ShieldCheck, MessageSquare, History
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import API from "../../configs/endpoint";
 
 const Header = ({ onToggleSidebar }) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
     const [activeTab, setActiveTab] = useState('Profile');
+    const dropdownRef = useRef(null);
+
+    const [userInfo, setUserInfo] = useState({
+        fullName: '',
+        role: '',
+        avatarUrl: '',
+    });
+
+    const navigate = useNavigate();
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
-        // Reset tab về Profile khi mở lại dropdown (tùy chọn)
-        if (!isDropdownOpen) {
-            setActiveTab('Profile');
+        if (!isDropdownOpen) setActiveTab('Profile');
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+        setDropdownOpen(false);
+    };
+
+    const getUserById = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            const decoded = jwtDecode(token);
+            const res = await axios.post(`${API}/getUserById`, { userId: decoded.id });
+            const user = res.data.Data[0];
+            setUserInfo({
+                fullName: user.name || 'Người dùng',
+                role: user.role || 'User',
+                avatarUrl: user.avatarUrl || require('../../asset/image-logo/emoji.png'),
+            });
+        } catch (err) {
+            console.error('Error getting user:', err);
         }
     };
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        getUserById();
+
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
                 setDropdownOpen(false);
             }
         };
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
-
-    const handleLogout = () => {
-        console.log("Logging out...");
-        setDropdownOpen(false);
-        // Thêm logic logout
-    };
     return (
-        // Header chính: sticky, shadow, background trắng, flex layout
         <header className="flex items-center justify-between px-4 py-3 shadow bg-white sticky top-0 z-30">
-
-            {/* Phần bên trái: Nút Menu và ô Search */}
+            {/* Sidebar toggle & search */}
             <div className="flex items-center gap-3 flex-grow min-w-0 mr-4">
-                {/* Nút bấm để toggle Sidebar */}
-                <button
-                    onClick={onToggleSidebar} // Prop function từ component cha
-                    className="text-gray-700 hover:text-black flex-shrink-0 p-1 rounded hover:bg-neutral-100 focus:outline-none focus:ring-1 focus:ring-gray-300"
-                    aria-label="Toggle sidebar" // Thêm aria-label cho accessibility
-                >
+                <button onClick={onToggleSidebar} className="text-gray-700 hover:text-black p-1 rounded hover:bg-neutral-100 focus:ring-1 focus:ring-gray-300">
                     <Menu className="w-6 h-6" />
                 </button>
-                {/* Ô Search */}
-                <div className="relative flex-grow max-w-xs sm:max-w-sm md:max-w-md">
-                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"> {/* pointer-events-none để không chặn click vào input */}
+                <div className="relative flex-grow max-w-md">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
                         <Search className="w-4 h-4" />
                     </span>
                     <input
                         type="text"
                         placeholder="Search here…"
-                        className="pl-8 pr-2 py-1 border rounded-md text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400"
-                        aria-label="Search" // Thêm aria-label
+                        className="pl-8 pr-2 py-1 border rounded-md text-sm w-full focus:ring-blue-400 focus:border-blue-400"
                     />
                 </div>
             </div>
 
-            {/* Phần bên phải: Dropdown User */}
-            <div className="relative flex-shrink-0 " ref={dropdownRef}>
-                {/* Nút bấm để mở/đóng Dropdown */}
-                <div className='flex gap-4 items-center'> {/* code tới đoạn này */}
-                    <Mail className="w-6 h-6 text-gray-700 items-center" aria-hidden="true" /> {/* aria-hidden vì icon chỉ mang tính trang trí */}
-                    <button // Thay div bằng button để dễ focus và tốt cho accessibility
+            {/* User Dropdown */}
+            <div className="relative flex-shrink-0" ref={dropdownRef}>
+                <div className="flex gap-4 items-center">
+                    <Mail className="w-6 h-6 text-gray-700" />
+                    <button
                         onClick={toggleDropdown}
-                        className="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-300"
-                        aria-haspopup="true" // Chỉ ra rằng nút này mở một popup (dropdown)
-                        aria-expanded={isDropdownOpen} // Chỉ ra trạng thái mở/đóng của dropdown
+                        className="flex items-center gap-2 p-1 rounded hover:bg-gray-100 focus:ring-1 focus:ring-gray-300"
                     >
                         <img
-                            src="https://i.pravatar.cc/30?img=1" // Nên thay bằng nguồn ảnh thật
-                            alt="User Avatar" // Alt text quan trọng
-                            className="w-6 h-6 rounded-full"
+                            src={userInfo.avatarUrl}
+                            alt="User Avatar"
+                            className="w-6 h-6 rounded-full object-cover"
                         />
-                        {/* Tên user, ẩn trên màn hình siêu nhỏ */}
-                        <span className="hidden sm:inline text-sm font-medium text-gray-800">Stebin Ben</span>
+                        <span className="hidden sm:inline text-sm font-medium text-gray-800">
+                            {userInfo.fullName}
+                        </span>
                     </button>
                 </div>
-                {/* Dropdown Menu Content */}
+
                 {isDropdownOpen && (
-                    // Container chính của dropdown: vị trí absolute, căn phải, style
                     <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-40 flex flex-col">
-                        {/* Phần thông tin user ở đầu dropdown */}
-                        <div className="p-4 border-b border-gray-200 flex-shrink-0">
+                        <div className="p-4 border-b border-gray-200">
                             <div className="flex items-center gap-3">
-                                <img
-                                    src="https://i.pravatar.cc/50?img=1" // Ảnh lớn hơn
-                                    alt="User Avatar"
-                                    className="w-10 h-10 rounded-full flex-shrink-0"
-                                />
+                                <img src={userInfo.avatarUrl} alt="Avatar" className="w-10 h-10 rounded-full object-cover" />
                                 <div className="flex-grow min-w-0">
-                                    <h4 className="text-sm font-semibold text-gray-900 truncate">Stebin Ben</h4>
-                                    <p className="text-xs text-gray-500 truncate">UI/UX Designer</p>
+                                    <h4 className="text-sm font-semibold text-gray-900 truncate">{userInfo.fullName}</h4>
+                                    <p className="text-xs text-gray-500 truncate">{userInfo.role}</p>
                                 </div>
-                                {/* Nút Logout ở góc trên (giống hình) */}
-                                <button
-                                    onClick={handleLogout}
-                                    className="ml-auto text-gray-400 hover:text-red-600 p-1.5 rounded hover:bg-gray-100 flex-shrink-0 border border-gray-200 focus:outline-none focus:ring-1 focus:ring-red-300"
-                                    aria-label="Logout"
-                                >
+                                <button onClick={handleLogout} className="ml-auto text-gray-400 hover:text-red-600 p-1.5 rounded hover:bg-gray-100 border border-gray-200">
                                     <LogOut className="w-4 h-4" />
                                 </button>
                             </div>
