@@ -46,8 +46,6 @@ const EditUser = () => {
     // Gửi cập nhật thông tin lên server
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-        console.log(avatarFile);
-        console.log(name);
 
         const formData = new FormData();
         if (avatarFile) {
@@ -60,29 +58,32 @@ const EditUser = () => {
 
         try {
             setLoading(true);
-            const res = await axios.put(`${API}/updateUser-client`, formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
+            const res = await axios.put(`${API}/updateUser-client`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
                 }
-            );
+            });
 
             if (res.data.EC === 0) {
-                toast.success(res.data.Message)
-                console.log(res.data);
+                toast.success(res.data.Message);
 
+                // ✅ Cập nhật lại state bằng dữ liệu mới trả về từ BE
+                const updatedUser = res.data.Data[0];
+                setName(updatedUser.name);
+                setEmail(updatedUser.email);
+                setRole(updatedUser.role);
+                setPreviewURL(updatedUser.avatarUrl); // avatar mới (nếu có)
             } else {
-                console.log(res.data);
+                toast.error(res.data.Message || "Cập nhật thất bại");
             }
         } catch (err) {
             console.error("Lỗi cập nhật:", err);
-            alert("Cập nhật thất bại.");
+            toast.error("Cập nhật thất bại. Vui lòng thử lại.");
         } finally {
             setLoading(false);
-            window.location.reload()
         }
     };
+
 
     return (
         <div className="bg-black">
