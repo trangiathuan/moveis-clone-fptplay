@@ -68,7 +68,7 @@ root.render(
 
         <Route path='delete-movie' element={<Delete_Movie />} />
 
-        <Route path='add-episode-movie/' element={<AddEpisodeMovie />} />
+        <Route path='add-episode-movie/:MovieID' element={<AddEpisodeMovie />} />
 
         {/* ----------------------------------------------- */}
         {/*<Route path='list-users' element={<ListUser />} />

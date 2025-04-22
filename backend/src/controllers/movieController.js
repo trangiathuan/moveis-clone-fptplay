@@ -46,6 +46,7 @@ exports.getBySlugMovieNameController = async (req, res) => {
     console.log('Data sent to server: params slugMovieName =', slugMovieName, '- params slugEpisode =', slugEpisode);
 
     const result = await movieService.getBySlugMovieNameService(slugMovieName, slugEpisode);
+    console.log("concac nè", result);
 
     if (result && result.length > 0) {
         return res.status(200).json({
@@ -315,12 +316,14 @@ exports.addNewMoviesController = async (req, res) => {
 }
 
 exports.addEpisodeMoviesController = async (req, res) => {
-    const MovieID = req.params.MovieID
+    const { MovieID } = req.params.MovieID
     const { EpisodeNumber, EpisodeDescription } = req.body
     const SlugEpisode = toSlug(EpisodeNumber)
     const imageFile = req.files['image']?.[0].path;
     const videoFile = req.files['video']?.[0].path;
     console.log('Data sent to server:', req.body);
+    console.log(req.params.MovieID);
+
 
     if (imageFile && videoFile) {
         const MovieFilePath = await cloudinaryService.uploadVideo(videoFile)

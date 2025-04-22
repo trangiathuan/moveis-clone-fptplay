@@ -24,7 +24,9 @@ exports.getBySlugMovieNameService = async (slugMovieName, slugEpisode) => {
             .input('SlugMovieName', sql.NVarChar, slugMovieName)
             .input('SlugEpisode', sql.NVarChar, slugEpisode)
             .execute('SP_Movies')
+        console.log(result.recordset);
         return result.recordset;
+
 
     } catch (error) {
         console.log(error);

@@ -9,7 +9,7 @@ import { Trash2, Plus } from 'lucide-react';
 import API from "../../../../configs/endpoint";
 
 const DetailX_Movie = () => {
-    const { slugMovieName } = useParams();
+    const { slugMovieName, slugEpisode } = useParams(); // Lấy slug từ URL
     const [movieData, setMovieData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [episodes, setEpisodes] = useState([]);
@@ -26,7 +26,8 @@ const DetailX_Movie = () => {
 
     const fetchMovieDetails = async () => {
         try {
-            const res = await axios.get(`${API}/get-by-slugMovieName/${slugMovieName}`);
+            const episode = slugEpisode || "tap-1";
+            const res = await axios.get(`${API}/get-by-slugMovieName/${slugMovieName}/${episode}`);
             if (res.data.EC === 0) {
                 const data = res.data.Data[0];
                 setMovieData(data);
@@ -138,7 +139,7 @@ const DetailX_Movie = () => {
                 <div className="flex justify-between items-center mb-3">
                     <h2 className="text-xl font-bold">Danh sách tập phim</h2>
                     <Link
-                        to={`/dashboard/add-episode-movie/`}
+                        to={`/dashboard/add-episode-movie/${movieData.MovieID}`}
                         className="flex items-center gap-1 text-blue-600 font-semibold hover:underline"
                     >
                         <Plus size={20} /> Thêm tập phim

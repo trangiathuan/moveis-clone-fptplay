@@ -10,9 +10,10 @@ import { ClipLoader } from "react-spinners";
 const AddEpisodeMovie = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [videoPreview, setVideoPreview] = useState(null);
-    const MovieID = useParams(17);
+    const MovieID = useParams(0);
     const token = localStorage.getItem("token");
     const [loading, setLoading] = useState(false);
+    console.log(MovieID);
 
 
     const [formData, setFormData] = useState({
@@ -73,8 +74,11 @@ const AddEpisodeMovie = () => {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
+
+
             }
         })
+
         if (res.data.EC === 0) {
             toast.success("Thêm tập phim thành công!");
             setFormData({
