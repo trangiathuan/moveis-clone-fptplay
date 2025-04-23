@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import API from "../../configs/endpoint";
+
 import { jwtDecode } from "jwt-decode";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import API from "../../../configs/endpoint";
 
-const EditUser = () => {
+const EditUserAdmin = () => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [previewURL, setPreviewURL] = useState(null);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
     const [id, setId] = useState();
-
     const [loading, setLoading] = useState(false);
 
     const token = localStorage.getItem('token');
@@ -67,12 +67,12 @@ const EditUser = () => {
             if (res.data.EC === 0) {
                 toast.success(res.data.Message);
 
-                
+
                 const updatedUser = res.data.Data[0];
                 setName(updatedUser.name);
                 setEmail(updatedUser.email);
                 setRole(updatedUser.role);
-                setPreviewURL(updatedUser.avatarUrl); 
+                setPreviewURL(updatedUser.avatarUrl);
             } else {
                 toast.error(res.data.Message || "Cập nhật thất bại");
             }
@@ -86,11 +86,11 @@ const EditUser = () => {
 
 
     return (
-        <div className="bg-black">
+        <div className="">
             <ToastContainer />
             <div className="min-h-screen text-white flex items-center justify-center px-9">
                 <div className="p-10 rounded-2xl shadow-lg w-full max-w-lg">
-                    <h2 className="text-5xl font-bold mb-6 text-center">Chỉnh sửa hồ sơ</h2>
+                    <h2 className="text-3xl font-bold mb-6 text-center text-black">Chỉnh sửa hồ sơ</h2>
                     <form onSubmit={handleUpdateProfile} className="space-y-6">
                         <div className="flex flex-col items-center space-y-4">
                             <label htmlFor="avatar" className="relative inline-block">
@@ -98,7 +98,8 @@ const EditUser = () => {
                                     src={
                                         previewURL
                                             ? previewURL
-                                            : require("../../asset/image-logo/default-1.png")
+
+                                            : require("../../pages/asset/default-1.png")
                                     }
                                     alt="Avatar"
                                     className="w-36 h-32 rounded-2xl object-cover cursor-pointer m-4"
@@ -109,7 +110,7 @@ const EditUser = () => {
                                     onClick={() => document.getElementById("avatar").click()}
                                 >
                                     <img
-                                        src={require("../../asset/image-logo/edit_black.png")}
+                                        src={require("../../pages/asset/edit_black.png")}
                                         alt="Edit"
                                         className="w-6 h-6"
                                     />
@@ -124,12 +125,26 @@ const EditUser = () => {
                                 className="hidden"
                             />
                         </div>
+                        <div className="">
+                            <p className=" text-sm text-gray-400" >Vai trò</p>
+                            <select
+                                id="role"
+                                className="w-full p-3 rounded-lg border  text-black "
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                            >
+                                <option value="admin">admin</option>
+                                <option value="user">user</option>
+                            </select>
 
+
+
+                        </div>
                         <div>
                             <p className="text-sm text-gray-400">Nhập tên của bạn</p>
                             <input
                                 type="text"
-                                className="w-full p-3 rounded-lg bg-neutral-700 text-white"
+                                className="w-full p-3 rounded-lg border text-black"
                                 placeholder="Tên người dùng"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
@@ -161,4 +176,4 @@ const EditUser = () => {
     );
 };
 
-export default EditUser;
+export default EditUserAdmin;

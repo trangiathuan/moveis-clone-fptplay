@@ -150,8 +150,8 @@ const Header = ({ onToggleSidebar }) => {
                                 <div className="w-full flex-shrink-0 overflow-y-auto">
                                     {/* Danh sách các mục Profile */}
                                     <ul className="text-sm text-gray-700 p-1 space-y-0.5"> {/* Thêm space-y */}
-                                        <li><a href="#" className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none rounded flex items-center gap-2.5"><User className="w-4 h-4 text-gray-500" aria-hidden="true" /> Edit Profile</a></li>
-                                        <li><a href="#" className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none rounded flex items-center gap-2.5"><Eye className="w-4 h-4 text-gray-500" aria-hidden="true" /> View Profile</a></li>
+                                        <li><a href="edit-users" className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none rounded flex items-center gap-2.5"><User className="w-4 h-4 text-gray-500" aria-hidden="true" /> Edit Profile</a></li>
+                                        <li><a href="profile" className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none rounded flex items-center gap-2.5"><Eye className="w-4 h-4 text-gray-500" aria-hidden="true" /> View Profile</a></li>
                                         <li><a href="#" className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none rounded flex items-center gap-2.5"><Users className="w-4 h-4 text-gray-500" aria-hidden="true" /> Social Profile</a></li>
                                         <li><a href="#" className="px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none rounded flex items-center gap-2.5"><CreditCard className="w-4 h-4 text-gray-500" aria-hidden="true" /> Billing</a></li>
                                         {/* Đường kẻ ngang phân cách */}

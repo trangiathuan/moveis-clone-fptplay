@@ -26,6 +26,8 @@ import AddEpisodeMovie from './admin/pages/movies/add-episode-movie/add-episode-
 import Category from './admin/pages/category/category';
 import MovieGenre from './admin/pages/category/movie-genre';
 import Information from './pages/information';
+import EditUserAdmin from './admin/pages/users/edit-user';
+import Profile from './admin/pages/users/profile';
 
 
 
@@ -80,6 +82,10 @@ root.render(
         <Route path='movie-genre' element={<MovieGenre />} />
 
         <Route path='list-users' element={<ListUser />} />
+
+        <Route path='edit-users' element={<EditUserAdmin />} />
+
+        <Route path='profile' element={<Profile />} />
 
       </Route>
 
