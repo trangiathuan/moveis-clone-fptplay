@@ -46,8 +46,6 @@ exports.getBySlugMovieNameController = async (req, res) => {
     console.log('Data sent to server: params slugMovieName =', slugMovieName, '- params slugEpisode =', slugEpisode);
 
     const result = await movieService.getBySlugMovieNameService(slugMovieName, slugEpisode);
-    console.log("concac nè", result);
-
     if (result && result.length > 0) {
         return res.status(200).json({
             EC: 0,
@@ -317,14 +315,30 @@ exports.addNewMoviesController = async (req, res) => {
 
 exports.addEpisodeMoviesController = async (req, res) => {
     const { MovieID } = req.params
-    console.log('helloa', MovieID);
     const { EpisodeNumber, EpisodeDescription } = req.body
     const SlugEpisode = toSlug(EpisodeNumber)
     const imageFile = req.files['image']?.[0].path;
     const videoFile = req.files['video']?.[0].path;
     console.log('Data sent to server:', req.body);
 
-
+    if (!imageFile) {
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Chưa thêm hình ảnh',
+            MovieImagePath: null,
+            MovieFilePath: null,
+        })
+    }
+    if (!videoFile) {
+        return res.status(200).json({
+            EC: -1,
+            Status: 'Failed',
+            Message: 'Chưa thêm phim',
+            MovieImagePath: null,
+            MovieFilePath: null,
+        })
+    }
     if (imageFile && videoFile) {
         const MovieFilePath = await cloudinaryService.uploadVideo(videoFile)
         const MovieImagePath = await cloudinaryService.uploadImage(imageFile)
@@ -355,14 +369,6 @@ exports.addEpisodeMoviesController = async (req, res) => {
                 Data: null
             })
         }
-    } else {
-        return res.status(200).json({
-            EC: -1,
-            Status: 'Failed',
-            Message: 'Không có file ảnh và video',
-            MovieImagePath: null,
-            MovieFilePath: null,
-        })
     }
 
 }
