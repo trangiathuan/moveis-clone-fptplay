@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Modal from 'react-modal';
 import axios from "axios";
 import API from '../../../../configs/endpoint';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaEdit, FaUpload, FaCheckCircle, FaTags, FaArrowLeft, FaSave } from "react-icons/fa";
 
 const Update_Movie = () => {
@@ -96,7 +98,7 @@ const Update_Movie = () => {
 
         // Kiểm tra năm phát hành và trường nhập liệu
         if (parseInt(formData.ReleaseYear) < 1998) {
-            alert("❌ Năm phát hành phải từ 1998 trở đi!");
+            toast.error("❌ Năm phát hành phải từ 1998 trở đi!");
             return;
         }
         const requiredFields = [
@@ -106,7 +108,7 @@ const Update_Movie = () => {
 
         for (const field of requiredFields) {
             if (!formData[field]) {
-                alert(`❌ ${field} không được để trống!`);
+                toast.warning(`⚠️ ${field} không được để trống!`);
                 return;
             }
         }
@@ -130,14 +132,14 @@ const Update_Movie = () => {
             });
 
             if (response.data.EC === 0) {
-                alert("✅ Cập nhật thành công!");
+                toast.success("Cập nhật thành công!");
                 navigate('/dashboard/list-Movie');
             } else {
-                alert("❌ Cập nhật thất bại!");
+                toast.error(" Cập nhật thất bại!");
             }
         } catch (err) {
-            console.error("❌ Lỗi khi cập nhật phim:", err);
-            alert("Đã có lỗi xảy ra khi cập nhật.");
+            console.error(" Lỗi khi cập nhật phim:", err);
+            toast.error("Đã có lỗi xảy ra khi cập nhật.");
         }
     };
 

@@ -142,7 +142,7 @@ const Slidebar = ({ isOpen }) => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/repair-Movie" className={navLinkStyle}>
+                                    <NavLink to="/dashboard/DetailX-Movie" className={navLinkStyle}>
                                         <RefreshCcw className="w-5 h-5 text-indigo-500" />
                                         Thay đổi phim
                                     </NavLink>
