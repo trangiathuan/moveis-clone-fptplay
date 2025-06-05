@@ -23,10 +23,13 @@ const Navbar = () => {
 
     const getUserById = async () => {
         const token = localStorage.getItem('token');
-        const decoded = jwtDecode(token);
-        const userId = decoded.id // 👈 chính xác
-        const res = await axios.post(`${API}/getUserById`, { userId })
-        setUserAvatar(res.data.Data[0].avatarUrl)
+        if (token) {
+            const decoded = jwtDecode(token);
+            const userId = decoded.id // 👈 chính xác
+            const res = await axios.post(`${API}/getUserById`, { userId })
+            setUserAvatar(res.data.Data[0].avatarUrl)
+        }
+
     }
 
     return (

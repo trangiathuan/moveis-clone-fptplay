@@ -1,9 +1,9 @@
 const amqp = require('amqplib');
 
-let connection;
-let channel;
+let connection = null;
+let channel = null;
 
-const RABBITMQ_URL = 'amqp://localhost:5672'; // Hoặc từ .env nếu bạn dùng Docker
+const RABBITMQ_URL = `amqp://${process.env.RABBITMQ_HOST || 'localhost'}:5672`;
 
 const connectRabbitMQ = async () => {
     const maxRetries = 5;
@@ -11,19 +11,42 @@ const connectRabbitMQ = async () => {
     while (attempt < maxRetries) {
         try {
             connection = await amqp.connect(RABBITMQ_URL);
+
+            connection.on('error', (err) => {
+                console.error('RabbitMQ connection error:', err);
+                connection = null;
+                channel = null;
+            });
+
+            connection.on('close', () => {
+                console.warn('RabbitMQ connection closed');
+                connection = null;
+                channel = null;
+            });
+
             channel = await connection.createChannel();
-            console.log('✅ Đã kết nối RabbitMQ');
-            break;
+
+            channel.on('error', (err) => {
+                console.error('RabbitMQ channel error:', err);
+                channel = null;
+            });
+
+            channel.on('close', () => {
+                console.warn('RabbitMQ channel closed');
+                channel = null;
+            });
+
+            console.log('✅ Đã kết nối RabbitMQ và tạo channel');
+            return;
         } catch (error) {
             attempt++;
-            console.error(`❌ Kết nối RabbitMQ thất bại (lần ${attempt})`);
-            await new Promise((res) => setTimeout(res, 5000)); // đợi 5s rồi thử lại
+            console.error(`❌ Kết nối RabbitMQ thất bại (lần ${attempt}):`, error.message);
+            await new Promise((res) => setTimeout(res, 5000));
         }
     }
+    throw new Error('🚨 Không thể kết nối RabbitMQ sau nhiều lần thử.');
 };
 
-
-// Hàm này cho phép các file khác dùng `await getChannel()` để truy cập
 const getChannel = async () => {
     if (!channel) {
         await connectRabbitMQ();

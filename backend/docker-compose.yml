@@ -1,13 +1,24 @@
-version: '3'
 
 services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"     # Cổng cho ứng dụng kết nối
-      - "15672:15672"   # Cổng giao diện web để quản lý RabbitMQ
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    restart: always     # Tự động khởi động lại container khi máy tính khởi động
+    restart: always
+
+  otp-consumer:
+    image: node:18
+    container_name: otp-consumer
+    working_dir: /app
+    volumes:
+      - ./:/app   # Mount toàn bộ project
+    command: sh -c "npm install && node src/queue/consumers/sendOtp.consumer.js"
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
